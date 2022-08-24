@@ -1,0 +1,148 @@
+<resources>
+    <string name="app_name">School 2.0</string>
+    <string name="about_text">Приложение "School 2.0" является програмным обеспечением с открытым исходным кодом,
+    предназначено для личного некоммерческого использования. \nКопирование запрещено
+    </string>
+
+    <!--    Звонки  -->
+    <string name="rasp_z1_default">1. 08.00-08.40</string>
+    <string name="rasp_z2_default">2. 08.50-09.30</string>
+    <string name="rasp_z3_default">3. 09.40-10.20</string>
+    <string name="rasp_z4_default">4. 10.30-11.10</string>
+    <string name="rasp_z5_default">5. 11.20-12.00</string>
+    <string name="rasp_z6_default">6. 12.10-12.50</string>
+    <string name="rasp_z7_default">7. 13.00-13.40</string>
+    <string name="rasp_z8_default">8. 13.50-14.30</string>
+
+    <string name="rasp_z1_s">1. 08.00-08.30</string>
+    <string name="rasp_z2_s">2. 08.35-09.05</string>
+    <string name="rasp_z3_s">3. 09.10-09.40</string>
+    <string name="rasp_z4_s">4. 09.45-10.15</string>
+    <string name="rasp_z5_s">5. 10.20-10.50</string>
+    <string name="rasp_z6_s">6. 10.55-11.25</string>
+    <string name="rasp_z7_s">7. 11.30-12.00</string>
+    <string name="rasp_z8_s">8. 12.05-12.35</string>
+
+    <string name="rasp_z1_sb">1. 08.00-08.40</string>
+    <string name="rasp_z2_sb">2. 08.00-08.40</string>
+    <string name="rasp_z3_sb">3. 08.00-08.40</string>
+    <string name="rasp_z4_sb">4. 08.00-08.40</string>
+    <string name="rasp_z5_sb">5. 08.00-08.40</string>
+    <string name="rasp_z6_sb">6. 08.00-08.40</string>
+    <string name="rasp_z7_sb">7. 08.00-08.40</string>
+    <string name="rasp_z8_sb">8. 08.00-08.40</string>
+
+
+
+    <!--    11а класс   -->
+    <!--    Технологический    -->
+    <string name="pn_one_11at">пн_первый_тех</string>
+    <string name="pn_two_11at">пн_второй_тех</string>
+    <string name="pn_three_11at">пн_третий_тех</string>
+    <string name="pn_four_11at">пн_четвёртый_тех</string>
+    <string name="pn_five_11at">пн_пятый_тех</string>
+    <string name="pn_six_11at">пн_шестой_тех</string>
+    <string name="pn_seven_11at">пн_седьмой_тех</string>
+    <string name="pn_eight_11at">пн_восьмой_тех</string>
+
+    <string name="vt_one_11at">вт_первый_тех</string>
+    <string name="vt_two_11at">вт_второй_тех</string>
+    <string name="vt_three_11at">вт_третий_тех</string>
+    <string name="vt_four_11at">вт_четвёртый_тех</string>
+    <string name="vt_five_11at">вт_пятый_тех</string>
+    <string name="vt_six_11at">вт_шестой_тех</string>
+    <string name="vt_seven_11at">вт_седьмой_тех</string>
+    <string name="vt_eight_11at">вт_восьмой_тех</string>
+
+    <string name="sr_one_11at">ср_первый_тех</string>
+    <string name="sr_two_11at">ср_второй_тех</string>
+    <string name="sr_three_11at">ср_третий_тех</string>
+    <string name="sr_four_11at">ср_четвёртый_тех</string>
+    <string name="sr_five_11at">ср_пятый_тех</string>
+    <string name="sr_six_11at">ср_шестой_тех</string>
+    <string name="sr_seven_11at">ср_седьмой_тех</string>
+    <string name="sr_eight_11at">ср_восьмой_тех</string>
+
+    <string name="ch_one_11at">чт_первый_тех</string>
+    <string name="ch_two_11at">чт_второй_тех</string>
+    <string name="ch_three_11at">чт_третий_тех</string>
+    <string name="ch_four_11at">чт_четвёртый_тех</string>
+    <string name="ch_five_11at">чт_пятый_тех</string>
+    <string name="ch_six_11at">чт_шестой_тех</string>
+    <string name="ch_seven_11at">чт_седьмой_тех</string>
+    <string name="ch_eight_11at">чт_восьмой_тех</string>
+
+    <string name="pt_one_11at">пт_первый_тех</string>
+    <string name="pt_two_11at">пт_второй_тех</string>
+    <string name="pt_three_11at">пт_третий_тех</string>
+    <string name="pt_four_11at">пт_четвёртый_тех</string>
+    <string name="pt_five_11at">пт_пятый_тех</string>
+    <string name="pt_six_11at">пт_шестой_тех</string>
+    <string name="pt_seven_11at">пт_седьмой_тех</string>
+    <string name="pt_eight_11at">пт_восьмой_тех</string>
+
+    <string name="sb_one_11at">сб_первый_тех</string>
+    <string name="sb_two_11at">сб_второй_тех</string>
+    <string name="sb_three_11at">сб_третий_тех</string>
+    <string name="sb_four_11at">сб_четвёртый_тех</string>
+    <string name="sb_five_11at">сб_пятый_тех</string>
+    <string name="sb_six_11at">сб_шестой_тех</string>
+    <string name="sb_seven_11at">сб_седьмой_тех</string>
+    <string name="sb_eight_11at">сб_восьмой_тех</string>
+
+
+    <!--    СоцЭконом   -->
+    <string name="pn_one_11as">пн_первый_соц</string>
+    <string name="pn_two_11as">пн_второй_соц</string>
+    <string name="pn_three_11as">пн_третий_соц</string>
+    <string name="pn_four_11as">пн_четвёртый_соц</string>
+    <string name="pn_five_11as">пн_пятый_соц</string>
+    <string name="pn_six_11as">пн_шестой_соц</string>
+    <string name="pn_seven_11as">пн_седьмой_соц</string>
+    <string name="pn_eight_11as">пн_восьмой_соц</string>
+
+    <string name="vt_one_11as">вт_первый_соц</string>
+    <string name="vt_two_11as">вт_второй_соц</string>
+    <string name="vt_three_11as">вт_третий_соц</string>
+    <string name="vt_four_11as">вт_четвёртый_соц</string>
+    <string name="vt_five_11as">вт_пятый_соц</string>
+    <string name="vt_six_11as">вт_шестой_соц</string>
+    <string name="vt_seven_11as">вт_седьмой_соц</string>
+    <string name="vt_eight_11as">вт_восьмой_соц</string>
+
+    <string name="sr_one_11as">ср_первый_соц</string>
+    <string name="sr_two_11as">ср_второй_соц</string>
+    <string name="sr_three_11as">ср_третий_соц</string>
+    <string name="sr_four_11as">ср_четвёртый_соц</string>
+    <string name="sr_five_11as">ср_пятый_соц</string>
+    <string name="sr_six_11as">ср_шестой_соц</string>
+    <string name="sr_seven_11as">ср_седьмой_соц</string>
+    <string name="sr_eight_11as">ср_восьмой_соц</string>
+
+    <string name="ch_one_11as">чт_первый_соц</string>
+    <string name="ch_two_11as">чт_второй_соц</string>
+    <string name="ch_three_11as">чт_третий_соц</string>
+    <string name="ch_four_11as">чт_четвёртый_соц</string>
+    <string name="ch_five_11as">чт_пятый_соц</string>
+    <string name="ch_six_11as">чт_шестой_соц</string>
+    <string name="ch_seven_11as">чт_седьмой_соц</string>
+    <string name="ch_eight_11as">чт_восьмой_соц</string>
+
+    <string name="pt_one_11as">пт_первый_соц</string>
+    <string name="pt_two_11as">пт_второй_соц</string>
+    <string name="pt_three_11as">пт_третий_соц</string>
+    <string name="pt_four_11as">пт_четвёртый_соц</string>
+    <string name="pt_five_11as">пт_пятый_соц</string>
+    <string name="pt_six_11as">пт_шестой_соц</string>
+    <string name="pt_seven_11as">пт_седьмой_соц</string>
+    <string name="pt_eight_11as">пт_восьмой_соц</string>
+
+    <string name="sb_one_11as">сб_первый_соц</string>
+    <string name="sb_two_11as">сб_второй_соц</string>
+    <string name="sb_three_11as">сб_третий_соц</string>
+    <string name="sb_four_11as">сб_четвёртый_соц</string>
+    <string name="sb_five_11as">сб_пятый_соц</string>
+    <string name="sb_six_11as">сб_шестой_соц</string>
+    <string name="sb_seven_11as">сб_седьмой_соц</string>
+    <string name="sb_eight_11as">сб_восьмой_соц</string>
+</resources>
