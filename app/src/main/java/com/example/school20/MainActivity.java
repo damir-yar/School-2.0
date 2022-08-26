@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
     private String symbol_pol;
     private String prof_pol;
 
+    private Button easter;
+    private int east = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
         s = findViewById(R.id.switch_s);
         back = findViewById(R.id.back);
         next = findViewById(R.id.next);
+
+        easter = findViewById(R.id.easter);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -234,11 +240,9 @@ public class MainActivity extends AppCompatActivity {
                     z7.setText(R.string.rasp_z7_s);
                     z8.setText(R.string.rasp_z8_s);
                 } else {
-                    Calendar calendar = Calendar.getInstance();
-                    int day = calendar.get(Calendar.DAY_OF_WEEK);
 
-                    switch (day) {
-                        case Calendar.SATURDAY:
+                    switch (day_week) {
+                        case "Суббота":
                             z1.setText(R.string.rasp_z1_sb);
                             z2.setText(R.string.rasp_z2_sb);
                             z3.setText(R.string.rasp_z3_sb);
@@ -261,6 +265,24 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }});
+
+        easter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (east < 5) {
+                    east += 1;
+                    int a = 5-east;
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Осталось " + a + " шага", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                if (east == 5) {
+                    Intent intent = new Intent(MainActivity.this, EasterActivity.class);
+                    startActivity(intent);
+                    east = 0;
+                }
+            }
+        });
     }
 
     @Override
@@ -369,7 +391,7 @@ public class MainActivity extends AppCompatActivity {
             case "Пятница":
                 u1.setText(R.string.pt_one_11at);
                 u2.setText(R.string.pt_two_11at);
-                u3.setText(R.string.pn_three_11at);
+                u3.setText(R.string.pt_three_11at);
                 u4.setText(R.string.pt_four_11at);
                 u5.setText(R.string.pt_five_11at);
                 u6.setText(R.string.pt_six_11at);
@@ -444,7 +466,7 @@ public class MainActivity extends AppCompatActivity {
             case "Пятница":
                 u1.setText(R.string.pt_one_11as);
                 u2.setText(R.string.pt_two_11as);
-                u3.setText(R.string.pn_three_11as);
+                u3.setText(R.string.pt_three_11as);
                 u4.setText(R.string.pt_four_11as);
                 u5.setText(R.string.pt_five_11as);
                 u6.setText(R.string.pt_six_11as);

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.School20">
         <activity
+            android:name=".EasterActivity"
+            android:exported="true" />
+        <activity
             android:name=".RegistrActivity"
             android:exported="true" />
         <activity

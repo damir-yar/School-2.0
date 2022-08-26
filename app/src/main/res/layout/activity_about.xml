@@ -16,21 +16,21 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:text="Скачать обновление: \nhttps://vk.com/public211938083"
+            android:text="Скачать обновление: \nhttps://vk.com/school_2_0"
             android:autoLink="all"
             android:textSize="23dp"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:text="Донаты: \nhttps://vk.com/ecolife_official?w=app6471849_-201119408\nразработчик тоже хочет кушать :)"
+            android:layout_height="90dp"
+            android:text="Донаты: \nhttps://vk.com/donut/school_2_0\nразработчик тоже хочет кушать :)"
             android:autoLink="all"
             android:textSize="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:text="Техподдержка: \nhttps://vk.com/public211938083"
+            android:text="Техподдержка: \nhttps://vk.com/school_2_0"
             android:autoLink="all"
             android:textSize="20dp"/>
 
