@@ -77,8 +77,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="right"
                 android:layout_marginTop="3dp"
-                android:textSize="21dp"
-                android:textColor="@color/black"/>
+                android:textSize="21dp" />
 
             <TextView
                 android:id="@+id/time_two"
@@ -86,8 +85,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="6dp"
                 android:layout_gravity="right"
-                android:textSize="21dp"
-                android:textColor="@color/black"/>
+                android:textSize="21dp" />
 
             <TextView
                 android:id="@+id/time_three"
@@ -95,8 +93,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="6dp"
                 android:layout_gravity="right"
-                android:textSize="21dp"
-                android:textColor="@color/black"/>
+                android:textSize="21dp" />
 
             <TextView
                 android:id="@+id/time_four"
@@ -104,8 +101,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="6dp"
                 android:layout_gravity="right"
-                android:textSize="21dp"
-                android:textColor="@color/black"/>
+                android:textSize="21dp" />
 
             <TextView
                 android:id="@+id/time_five"
@@ -113,8 +109,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="6dp"
                 android:layout_gravity="right"
-                android:textSize="21dp"
-                android:textColor="@color/black"/>
+                android:textSize="21dp" />
 
             <TextView
                 android:id="@+id/time_six"
@@ -122,8 +117,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="6dp"
                 android:layout_gravity="right"
-                android:textSize="21dp"
-                android:textColor="@color/black"/>
+                android:textSize="21dp" />
 
             <TextView
                 android:id="@+id/time_seven"
@@ -131,8 +125,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="6dp"
                 android:layout_gravity="right"
-                android:textSize="21dp"
-                android:textColor="@color/black"/>
+                android:textSize="21dp" />
 
             <TextView
                 android:id="@+id/time_eight"
@@ -140,8 +133,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="6dp"
                 android:layout_gravity="right"
-                android:textSize="21dp"
-                android:textColor="@color/black"/>
+                android:textSize="21dp" />
 
         </LinearLayout>
 

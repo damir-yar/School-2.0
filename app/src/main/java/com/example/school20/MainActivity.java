@@ -340,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
         switch (day_week) {
             case "Воскресенье":
                 u1.setText("Выходной");
-                u2.setText("");
+                u2.setText("☺☺☺");
                 u3.setText("");
                 u4.setText("");
                 u5.setText("");
@@ -415,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
         switch (day_week) {
             case "Воскресенье":
                 u1.setText("Выходной");
-                u2.setText("");
+                u2.setText("☺☺☺");
                 u3.setText("");
                 u4.setText("");
                 u5.setText("");
