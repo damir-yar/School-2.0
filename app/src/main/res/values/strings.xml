@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">School 2.0</string>
     <string name="about_text">Приложение "School 2.0" является программным обеспечением с открытым исходным кодом,
-    предназначено для личного некоммерческого использования, для ОС Android 5.0 и выше. \n©Ярославцев Дамир, 2022
+    предназначено для личного некоммерческого использования. \n©Ярославцев Дамир, 2022
     </string>
     <string name="default_notification_channel_id">Channel ID</string>
 

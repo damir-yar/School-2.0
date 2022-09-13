@@ -178,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
                         date.setText(day_week);
                         break;
                 }
+                raspZ();
             }
         });
 
@@ -221,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                         date.setText(day_week);
                         break;
                 }
-            }
+                raspZ();            }
         });
 
         raspZ();
@@ -309,14 +310,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void raspZ() {
-        z1.setText(R.string.rasp_z1_default);
-        z2.setText(R.string.rasp_z2_default);
-        z3.setText(R.string.rasp_z3_default);
-        z4.setText(R.string.rasp_z4_default);
-        z5.setText(R.string.rasp_z5_default);
-        z6.setText(R.string.rasp_z6_default);
-        z7.setText(R.string.rasp_z7_default);
-        z8.setText(R.string.rasp_z8_default);
+        switch (day_week) {
+            case "Суббота":
+                z1.setText(R.string.rasp_z1_sb);
+                z2.setText(R.string.rasp_z2_sb);
+                z3.setText(R.string.rasp_z3_sb);
+                z4.setText(R.string.rasp_z4_sb);
+                z5.setText(R.string.rasp_z5_sb);
+                z6.setText(R.string.rasp_z6_sb);
+                z7.setText(R.string.rasp_z7_sb);
+                z8.setText(R.string.rasp_z8_sb);
+                break;
+            default:
+                z1.setText(R.string.rasp_z1_default);
+                z2.setText(R.string.rasp_z2_default);
+                z3.setText(R.string.rasp_z3_default);
+                z4.setText(R.string.rasp_z4_default);
+                z5.setText(R.string.rasp_z5_default);
+                z6.setText(R.string.rasp_z6_default);
+                z7.setText(R.string.rasp_z7_default);
+                z8.setText(R.string.rasp_z8_default);
+                break;
+        }
     }
 
     void rasp() {

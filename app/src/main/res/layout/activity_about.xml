@@ -22,8 +22,8 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:text="Донаты: \nhttps://vk.com/donut/school_2_0\nразработчик тоже хочет кушать :)"
+            android:layout_height="70dp"
+            android:text="Донаты: \nhttps://vk.com/donut/school_2_0"
             android:autoLink="all"
             android:textSize="20dp"/>
 
@@ -36,28 +36,15 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:text="Связь с разработчиком: \nhttps://vk.com/damir_ya"
+            android:layout_height="110dp"
+            android:text="Связь с разработчиком: \nВК: https://vk.com/damir_ya\nGmail: yar.damir23@gmail.com\nGitHub: https://github.com/damir-yar"
             android:autoLink="all"
             android:textSize="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Версия 2.0"
-            android:textSize="20dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Разработчик - Ярославцев Дамир"
-            android:textSize="20dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:text="GitHub: \nhttps://github.com/damir-yar"
-            android:autoLink="all"
+            android:layout_height="100dp"
+            android:text="Версия 2.0\nРазработчик - Ярославцев Дамир"
             android:textSize="20dp"/>
 
         <TextView
