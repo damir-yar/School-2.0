@@ -23,6 +23,7 @@
             android:textAllCaps="false"
             android:text="Изменить имя или класс"/>
 
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

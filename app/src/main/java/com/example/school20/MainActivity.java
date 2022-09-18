@@ -304,6 +304,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(MainActivity.this, AboutActivity.class);
                 startActivity(intent1);
                 return true;
+            case R.id.action_rasp:
+                Intent intent2 = new Intent(MainActivity.this, RaspActivity.class);
+                startActivity(intent2);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
