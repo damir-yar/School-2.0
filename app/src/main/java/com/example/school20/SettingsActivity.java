@@ -1,9 +1,13 @@
 package com.example.school20;
 
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.WHITE;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -21,6 +25,16 @@ public class SettingsActivity extends AppCompatActivity {
         setTitle("Настройки");
 
         rename = findViewById(R.id.rename);
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (currentNightMode) {
+            case Configuration.UI_MODE_NIGHT_NO:
+                break;
+            case Configuration.UI_MODE_NIGHT_YES:
+                rename.setBackgroundColor(BLACK);
+                rename.setTextColor(WHITE);
+                break;
+        }
 
         rename.setOnClickListener(new View.OnClickListener() {
             @Override

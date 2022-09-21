@@ -1,8 +1,12 @@
 package com.example.school20;
 
+import static android.graphics.Color.WHITE;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.TextView;
@@ -69,6 +73,13 @@ public class RaspActivity extends AppCompatActivity {
     private String symbol_pol;
     private String prof_pol;
 
+    private TextView pn;
+    private TextView vt;
+    private TextView sr;
+    private TextView ch;
+    private TextView pt;
+    private TextView sb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,12 +140,87 @@ public class RaspActivity extends AppCompatActivity {
         u7_sb = findViewById(R.id.u7_sb);
         u8_sb = findViewById(R.id.u8_sb);
 
+        pn = findViewById(R.id.pn);
+        vt = findViewById(R.id.vt);
+        sr = findViewById(R.id.sr);
+        ch = findViewById(R.id.ch);
+        pt = findViewById(R.id.pt);
+        sb = findViewById(R.id.sb);
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RaspActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         name_pol = sharedPreferences.getString("name", "unknown");
         class_pol = sharedPreferences.getString("class", "unknown");
         symbol_pol = sharedPreferences.getString("symbol", "unknown");
         prof_pol = sharedPreferences.getString("prof", "unknown");
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (currentNightMode) {
+            case Configuration.UI_MODE_NIGHT_NO:
+                break;
+            case Configuration.UI_MODE_NIGHT_YES:
+                u1_pn.setTextColor(WHITE);
+                u2_pn.setTextColor(WHITE);
+                u3_pn.setTextColor(WHITE);
+                u4_pn.setTextColor(WHITE);
+                u5_pn.setTextColor(WHITE);
+                u6_pn.setTextColor(WHITE);
+                u7_pn.setTextColor(WHITE);
+                u8_pn.setTextColor(WHITE);
+
+                u1_vt.setTextColor(WHITE);
+                u2_vt.setTextColor(WHITE);
+                u3_vt.setTextColor(WHITE);
+                u4_vt.setTextColor(WHITE);
+                u5_vt.setTextColor(WHITE);
+                u6_vt.setTextColor(WHITE);
+                u7_vt.setTextColor(WHITE);
+                u8_vt.setTextColor(WHITE);
+
+                u1_sr.setTextColor(WHITE);
+                u2_sr.setTextColor(WHITE);
+                u3_sr.setTextColor(WHITE);
+                u4_sr.setTextColor(WHITE);
+                u5_sr.setTextColor(WHITE);
+                u6_sr.setTextColor(WHITE);
+                u7_sr.setTextColor(WHITE);
+                u8_sr.setTextColor(WHITE);
+
+                u1_ch.setTextColor(WHITE);
+                u2_ch.setTextColor(WHITE);
+                u3_ch.setTextColor(WHITE);
+                u4_ch.setTextColor(WHITE);
+                u5_ch.setTextColor(WHITE);
+                u6_ch.setTextColor(WHITE);
+                u7_ch.setTextColor(WHITE);
+                u8_ch.setTextColor(WHITE);
+
+                u1_pt.setTextColor(WHITE);
+                u2_pt.setTextColor(WHITE);
+                u3_pt.setTextColor(WHITE);
+                u4_pt.setTextColor(WHITE);
+                u5_pt.setTextColor(WHITE);
+                u6_pt.setTextColor(WHITE);
+                u7_pt.setTextColor(WHITE);
+                u8_pt.setTextColor(WHITE);
+
+                u1_sb.setTextColor(WHITE);
+                u2_sb.setTextColor(WHITE);
+                u3_sb.setTextColor(WHITE);
+                u4_sb.setTextColor(WHITE);
+                u5_sb.setTextColor(WHITE);
+                u6_sb.setTextColor(WHITE);
+                u7_sb.setTextColor(WHITE);
+                u8_sb.setTextColor(WHITE);
+
+                pn.setTextColor(WHITE);
+                vt.setTextColor(WHITE);
+                sr.setTextColor(WHITE);
+                ch.setTextColor(WHITE);
+                pt.setTextColor(WHITE);
+                sb.setTextColor(WHITE);
+                break;
+        }
 
         if (class_pol.equals("11") && (symbol_pol.equals("а") || symbol_pol.equals("А")) && prof_pol.equals("tech"))
             rasp11at();

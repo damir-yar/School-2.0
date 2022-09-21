@@ -1,14 +1,24 @@
 package com.example.school20;
 
+import static android.graphics.Color.*;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
     private Button easter;
     private int east = 0;
 
+    private LinearLayout layout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
         easter = findViewById(R.id.easter);
 
+        layout = findViewById(R.id.a);
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         name_pol = sharedPreferences.getString("name", "unknown");
@@ -106,6 +120,34 @@ public class MainActivity extends AppCompatActivity {
         person_name.setText(name_pol);
         person_class.setText(class_pol);
         person_symbol.setText(symbol_pol);
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (currentNightMode) {
+            case Configuration.UI_MODE_NIGHT_NO:
+                break;
+            case Configuration.UI_MODE_NIGHT_YES:
+                z1.setTextColor(WHITE);
+                z2.setTextColor(WHITE);
+                z3.setTextColor(WHITE);
+                z4.setTextColor(WHITE);
+                z5.setTextColor(WHITE);
+                z6.setTextColor(WHITE);
+                z7.setTextColor(WHITE);
+                z8.setTextColor(WHITE);
+
+                u1.setTextColor(WHITE);
+                u2.setTextColor(WHITE);
+                u3.setTextColor(WHITE);
+                u4.setTextColor(WHITE);
+                u5.setTextColor(WHITE);
+                u6.setTextColor(WHITE);
+                u7.setTextColor(WHITE);
+                u8.setTextColor(WHITE);
+
+                layout.setBackgroundResource(R.drawable.background_main);
+                layout.setBackgroundColor(getResources().getColor(R.color.white));
+                break;
+        }
 
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);

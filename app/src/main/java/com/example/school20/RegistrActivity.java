@@ -1,9 +1,13 @@
 package com.example.school20;
 
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.WHITE;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -38,6 +42,22 @@ public class RegistrActivity extends AppCompatActivity {
         prof_social = findViewById(R.id.reg_prof_social);
 
         but = findViewById(R.id.button);
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (currentNightMode) {
+            case Configuration.UI_MODE_NIGHT_NO:
+                break;
+            case Configuration.UI_MODE_NIGHT_YES:
+                reg_name.setTextColor(WHITE);
+                reg_class.setTextColor(WHITE);
+                reg_symbol.setTextColor(WHITE);
+                prof_social.setTextColor(WHITE);
+                prof_tech.setTextColor(WHITE);
+                prof_not.setTextColor(WHITE);
+                but.setBackgroundColor(WHITE);
+                but.setTextColor(BLACK);
+                break;
+        }
 
         prof_not.setOnClickListener(new View.OnClickListener() {
             @Override

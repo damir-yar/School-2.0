@@ -22,6 +22,7 @@
                 android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/pn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Понедельник"
@@ -98,6 +99,7 @@
 
 
                 <TextView
+                    android:id="@+id/vt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Вторник"
@@ -174,6 +176,7 @@
 
 
                 <TextView
+                    android:id="@+id/sr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Среда"
@@ -250,6 +253,7 @@
 
 
                 <TextView
+                    android:id="@+id/ch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Четверг"
@@ -326,6 +330,7 @@
 
 
                 <TextView
+                    android:id="@+id/pt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Пятница"
@@ -401,6 +406,7 @@
 
 
                 <TextView
+                    android:id="@+id/sb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Суббота"
