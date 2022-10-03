@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -53,6 +54,58 @@ public class EasterActivity extends AppCompatActivity {
 
         reset = findViewById(R.id.reset);
 
+
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (currentNightMode) {
+            case Configuration.UI_MODE_NIGHT_NO:
+                one.setTextColor(getResources().getColor(R.color.white));
+                one.setBackgroundColor(getResources().getColor(R.color.black));
+                two.setTextColor(getResources().getColor(R.color.white));
+                two.setBackgroundColor(getResources().getColor(R.color.black));
+                three.setTextColor(getResources().getColor(R.color.white));
+                three.setBackgroundColor(getResources().getColor(R.color.black));
+                four.setTextColor(getResources().getColor(R.color.white));
+                four.setBackgroundColor(getResources().getColor(R.color.black));
+                five.setTextColor(getResources().getColor(R.color.white));
+                five.setBackgroundColor(getResources().getColor(R.color.black));
+                six.setTextColor(getResources().getColor(R.color.white));
+                six.setBackgroundColor(getResources().getColor(R.color.black));
+                seven.setTextColor(getResources().getColor(R.color.white));
+                seven.setBackgroundColor(getResources().getColor(R.color.black));
+                eight.setTextColor(getResources().getColor(R.color.white));
+                eight.setBackgroundColor(getResources().getColor(R.color.black));
+                nine.setTextColor(getResources().getColor(R.color.white));
+                nine.setBackgroundColor(getResources().getColor(R.color.black));
+                reset.setTextColor(getResources().getColor(R.color.white));
+                reset.setBackgroundColor(getResources().getColor(R.color.black));
+                break;
+            case Configuration.UI_MODE_NIGHT_YES:
+                one.setTextColor(getResources().getColor(R.color.black));
+                one.setBackgroundColor(getResources().getColor(R.color.white));
+                two.setTextColor(getResources().getColor(R.color.black));
+                two.setBackgroundColor(getResources().getColor(R.color.white));
+                three.setTextColor(getResources().getColor(R.color.black));
+                three.setBackgroundColor(getResources().getColor(R.color.white));
+                four.setTextColor(getResources().getColor(R.color.black));
+                four.setBackgroundColor(getResources().getColor(R.color.white));
+                five.setTextColor(getResources().getColor(R.color.black));
+                five.setBackgroundColor(getResources().getColor(R.color.white));
+                six.setTextColor(getResources().getColor(R.color.black));
+                six.setBackgroundColor(getResources().getColor(R.color.white));
+                seven.setTextColor(getResources().getColor(R.color.black));
+                seven.setBackgroundColor(getResources().getColor(R.color.white));
+                eight.setTextColor(getResources().getColor(R.color.black));
+                eight.setBackgroundColor(getResources().getColor(R.color.white));
+                nine.setTextColor(getResources().getColor(R.color.black));
+                nine.setBackgroundColor(getResources().getColor(R.color.white));
+                reset.setTextColor(getResources().getColor(R.color.black));
+                reset.setBackgroundColor(getResources().getColor(R.color.white));
+                break;
+        }
+
+
+
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +127,7 @@ public class EasterActivity extends AppCompatActivity {
                             oneB = true;
                         }
                     }
+                    chek();
                 }
             });
         two.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +144,7 @@ public class EasterActivity extends AppCompatActivity {
                         twoB = true;
                     }
                 }
+                chek();
             }
         });
         three.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +161,7 @@ public class EasterActivity extends AppCompatActivity {
                         threeB = true;
                     }
                 }
+                chek();
             }
         });
         four.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +178,7 @@ public class EasterActivity extends AppCompatActivity {
                         fourB = true;
                     }
                 }
+                chek();
             }
         });
         five.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +195,7 @@ public class EasterActivity extends AppCompatActivity {
                         fiveB = true;
                     }
                 }
+                chek();
             }
         });
         six.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +212,7 @@ public class EasterActivity extends AppCompatActivity {
                         sixB = true;
                     }
                 }
+                chek();
             }
         });
         seven.setOnClickListener(new View.OnClickListener() {
@@ -170,6 +229,7 @@ public class EasterActivity extends AppCompatActivity {
                         sevenB = true;
                     }
                 }
+                chek();
             }
         });
         eight.setOnClickListener(new View.OnClickListener() {
@@ -186,6 +246,7 @@ public class EasterActivity extends AppCompatActivity {
                         eightB = true;
                     }
                 }
+                chek();
             }
         });
         nine.setOnClickListener(new View.OnClickListener() {
@@ -202,6 +263,7 @@ public class EasterActivity extends AppCompatActivity {
                         nineB = true;
                     }
                 }
+                chek();
             }
         });
     }
@@ -226,5 +288,34 @@ public class EasterActivity extends AppCompatActivity {
         sevenB = false;
         eightB = false;
         nineB = false;
+    }
+
+    void chek() {
+        if (one.getText() == "X" && two.getText() == "X" && three.getText() == "X" ||
+        four.getText() == "X" && five.getText() == "X" && six.getText() == "X" ||
+        seven.getText() == "X" && eight.getText() == "X" && nine.getText() == "X" ||
+        one.getText() == "X" && four.getText() == "X" && seven.getText() == "X" ||
+        two.getText() == "X" && five.getText() == "X" && eight.getText() == "X" ||
+        three.getText() == "X" && six.getText() == "X" && nine.getText() == "X" ||
+        one.getText() == "X" && five.getText() == "X" && nine.getText() == "X" ||
+        three.getText() == "X" && five.getText() == "X" && seven.getText() == "X") {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Крестики победили!", Toast.LENGTH_SHORT);
+            toast.show();
+            reset();
+        }
+        else if (one.getText() == "O" && two.getText() == "O" && three.getText() == "O" ||
+                four.getText() == "O" && five.getText() == "O" && six.getText() == "O" ||
+                seven.getText() == "O" && eight.getText() == "O" && nine.getText() == "O" ||
+                one.getText() == "O" && four.getText() == "O" && seven.getText() == "O" ||
+                two.getText() == "O" && five.getText() == "O" && eight.getText() == "O" ||
+                three.getText() == "O" && six.getText() == "O" && nine.getText() == "O" ||
+                one.getText() == "O" && five.getText() == "O" && nine.getText() == "O" ||
+                three.getText() == "O" && five.getText() == "O" && seven.getText() == "O") {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Нолики победили!", Toast.LENGTH_SHORT);
+            toast.show();
+            reset();
+        }
     }
 }

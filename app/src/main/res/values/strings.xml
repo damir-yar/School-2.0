@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">School 2.0</string>
     <string name="about_text">Приложение "School 2.0" является программным обеспечением с открытым исходным кодом,
-    предназначено для личного некоммерческого использования. \n©Ярославцев Дамир, 2022
+        предназначено для личного некоммерческого использования.
+        Разработчик не несёт ответственности за возможные неточности в расписании. \n©Ярославцев Дамир, 2022\n\n
+        Идейные вдохновители:\n
+        Щинов И.\n
+        Шарипов С.\n
+        Кирдянов В.\n
+        Репин А.\n
     </string>
     <string name="default_notification_channel_id">Channel ID</string>
 
@@ -24,15 +30,6 @@
     <string name="rasp_z7_s">7. 12.25-12.55</string>
     <string name="rasp_z8_s">8. 13.10-13.40</string>
 
-    <string name="rasp_z1_sb">1. 08.00-08.40</string>
-    <string name="rasp_z2_sb">2. 08.50-09.30</string>
-    <string name="rasp_z3_sb">3. 09.40-10.20</string>
-    <string name="rasp_z4_sb">4. 10.35-11.15</string>
-    <string name="rasp_z5_sb">5. 11.35-12.15</string>
-    <string name="rasp_z6_sb">6. 12.20-13.00</string>
-    <string name="rasp_z7_sb">7. 13.05-13.45</string>
-    <string name="rasp_z8_sb">8. 13.50-14.30</string>
-
 
     <!--    11а класс   -->
     <!--    Технологический    -->
@@ -49,8 +46,8 @@
     <string name="vt_two_11at">Алгебра</string>
     <string name="vt_three_11at">Обществознание</string>
     <string name="vt_four_11at">Обществознание</string>
-    <string name="vt_five_11at">Физика ♥</string>
-    <string name="vt_six_11at">Физика ♥</string>
+    <string name="vt_five_11at">Физика</string>
+    <string name="vt_six_11at">Физика</string>
     <string name="vt_seven_11at"></string>
     <string name="vt_eight_11at"></string>
 
@@ -67,8 +64,8 @@
     <string name="ch_two_11at">Информатика</string>
     <string name="ch_three_11at">Литература</string>
     <string name="ch_four_11at">Русское пр</string>
-    <string name="ch_five_11at">Физика ♥</string>
-    <string name="ch_six_11at">Физика ♥</string>
+    <string name="ch_five_11at">Физика</string>
+    <string name="ch_six_11at">Физика</string>
     <string name="ch_seven_11at">Физкультура</string>
     <string name="ch_eight_11at"></string>
 
@@ -83,10 +80,10 @@
 
     <string name="sb_one_11at">Алгебра</string>
     <string name="sb_two_11at">Алгебра</string>
-    <string name="sb_three_11at">История</string>
-    <string name="sb_four_11at">Физика ♥</string>
-    <string name="sb_five_11at">☺</string>
-    <string name="sb_six_11at"></string>
+    <string name="sb_three_11at">Физкультура</string>
+    <string name="sb_four_11at">Культура речи</string>
+    <string name="sb_five_11at">Физика</string>
+    <string name="sb_six_11at">Физика</string>
     <string name="sb_seven_11at"></string>
     <string name="sb_eight_11at"></string>
 
@@ -124,7 +121,7 @@
     <string name="ch_three_11as">Литература</string>
     <string name="ch_four_11as">Русское пр</string>
     <string name="ch_five_11as">Право</string>
-    <string name="ch_six_11as">Лево</string>
+    <string name="ch_six_11as">Право</string>
     <string name="ch_seven_11as">Физкультура</string>
     <string name="ch_eight_11as"></string>
 
@@ -139,9 +136,9 @@
 
     <string name="sb_one_11as">Алгебра</string>
     <string name="sb_two_11as">Алгебра</string>
-    <string name="sb_three_11as">История</string>
-    <string name="sb_four_11as">☺</string>
-    <string name="sb_five_11as"></string>
+    <string name="sb_three_11as">Физкультура</string>
+    <string name="sb_four_11as">Культура речи</string>
+    <string name="sb_five_11as">История права</string>
     <string name="sb_six_11as"></string>
     <string name="sb_seven_11as"></string>
     <string name="sb_eight_11as"></string>

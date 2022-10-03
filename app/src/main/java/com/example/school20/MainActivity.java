@@ -1,21 +1,18 @@
 package com.example.school20;
 
-import static android.graphics.Color.*;
-
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -72,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("School 2.0");
 
         person_name = findViewById(R.id.person_name);
         person_class = findViewById(R.id.person_class);
@@ -121,31 +119,78 @@ public class MainActivity extends AppCompatActivity {
         person_class.setText(class_pol);
         person_symbol.setText(symbol_pol);
 
+
+
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         switch (currentNightMode) {
             case Configuration.UI_MODE_NIGHT_NO:
-                break;
-            case Configuration.UI_MODE_NIGHT_YES:
-                z1.setTextColor(WHITE);
-                z2.setTextColor(WHITE);
-                z3.setTextColor(WHITE);
-                z4.setTextColor(WHITE);
-                z5.setTextColor(WHITE);
-                z6.setTextColor(WHITE);
-                z7.setTextColor(WHITE);
-                z8.setTextColor(WHITE);
+                z1.setTextColor(getResources().getColor(R.color.black));
+                z2.setTextColor(getResources().getColor(R.color.black));
+                z3.setTextColor(getResources().getColor(R.color.black));
+                z4.setTextColor(getResources().getColor(R.color.black));
+                z5.setTextColor(getResources().getColor(R.color.black));
+                z6.setTextColor(getResources().getColor(R.color.black));
+                z7.setTextColor(getResources().getColor(R.color.black));
+                z8.setTextColor(getResources().getColor(R.color.black));
 
-                u1.setTextColor(WHITE);
-                u2.setTextColor(WHITE);
-                u3.setTextColor(WHITE);
-                u4.setTextColor(WHITE);
-                u5.setTextColor(WHITE);
-                u6.setTextColor(WHITE);
-                u7.setTextColor(WHITE);
-                u8.setTextColor(WHITE);
+                u1.setTextColor(getResources().getColor(R.color.black));
+                u2.setTextColor(getResources().getColor(R.color.black));
+                u3.setTextColor(getResources().getColor(R.color.black));
+                u4.setTextColor(getResources().getColor(R.color.black));
+                u5.setTextColor(getResources().getColor(R.color.black));
+                u6.setTextColor(getResources().getColor(R.color.black));
+                u7.setTextColor(getResources().getColor(R.color.black));
+                u8.setTextColor(getResources().getColor(R.color.black));
+
+                person_name.setTextColor(getResources().getColor(R.color.black));
+                person_class.setTextColor(getResources().getColor(R.color.black));
+                person_symbol.setTextColor(getResources().getColor(R.color.black));
+
+                date.setTextColor(getResources().getColor(R.color.black));
+
+                next.setTextColor(getResources().getColor(R.color.black));
+                back.setTextColor(getResources().getColor(R.color.black));
+                back.setBackgroundColor(getResources().getColor(R.color.white));
+                next.setBackgroundColor(getResources().getColor(R.color.white));
+
+                s.setTextColor(getResources().getColor(R.color.black));
 
                 layout.setBackgroundResource(R.drawable.background_main);
-                layout.setBackgroundColor(getResources().getColor(R.color.white));
+                break;
+            case Configuration.UI_MODE_NIGHT_YES:
+                z1.setTextColor(getResources().getColor(R.color.black));
+                z2.setTextColor(getResources().getColor(R.color.black));
+                z3.setTextColor(getResources().getColor(R.color.black));
+                z4.setTextColor(getResources().getColor(R.color.black));
+                z5.setTextColor(getResources().getColor(R.color.black));
+                z6.setTextColor(getResources().getColor(R.color.black));
+                z7.setTextColor(getResources().getColor(R.color.black));
+                z8.setTextColor(getResources().getColor(R.color.black));
+
+                u1.setTextColor(getResources().getColor(R.color.black));
+                u2.setTextColor(getResources().getColor(R.color.black));
+                u3.setTextColor(getResources().getColor(R.color.black));
+                u4.setTextColor(getResources().getColor(R.color.black));
+                u5.setTextColor(getResources().getColor(R.color.black));
+                u6.setTextColor(getResources().getColor(R.color.black));
+                u7.setTextColor(getResources().getColor(R.color.black));
+                u8.setTextColor(getResources().getColor(R.color.black));
+
+                person_name.setTextColor(getResources().getColor(R.color.black));
+                person_class.setTextColor(getResources().getColor(R.color.black));
+                person_symbol.setTextColor(getResources().getColor(R.color.black));
+
+                date.setTextColor(getResources().getColor(R.color.white));
+
+                next.setTextColor(getResources().getColor(R.color.white));
+                next.setBackgroundColor(getResources().getColor(R.color.black));
+                back.setTextColor(getResources().getColor(R.color.white));
+                back.setBackgroundColor(getResources().getColor(R.color.black));
+
+                s.setTextColor(getResources().getColor(R.color.white));
+
+                layout.setBackgroundColor(getResources().getColor(R.color.black));
+
                 break;
         }
 
@@ -179,6 +224,99 @@ public class MainActivity extends AppCompatActivity {
         date.setText(day_week);
 
         rasp();
+
+        layout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
+            public boolean onSwipeTop() {
+                Intent intent2 = new Intent(MainActivity.this, RaspActivity.class);
+                startActivity(intent2);
+                return true;
+            }
+            public boolean onSwipeRight() {
+                switch (day_week) {
+                    case "Понедельник":
+                        day_week = "Воскресенье";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Вторник":
+                        day_week = "Понедельник";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Среда":
+                        day_week = "Вторник";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Четверг":
+                        day_week = "Среда";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Пятница":
+                        day_week = "Четверг";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Суббота":
+                        day_week = "Пятница";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Воскресенье":
+                        day_week = "Суббота";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                }
+                sOnClick();
+                return true;
+            }
+            public boolean onSwipeLeft() {
+                switch (day_week) {
+                    case "Понедельник":
+                        day_week = "Вторник";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Вторник":
+                        day_week = "Среда";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Среда":
+                        day_week = "Четверг";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Четверг":
+                        day_week = "Пятница";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Пятница":
+                        day_week = "Суббота";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Суббота":
+                        day_week = "Воскресенье";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Воскресенье":
+                        day_week = "Понедельник";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                }
+                sOnClick();
+                return true;
+            }
+            public boolean onSwipeBottom() {
+                return true;
+            }
+        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
                         date.setText(day_week);
                         break;
                 }
-                raspZ();
+                sOnClick();
             }
         });
 
@@ -264,50 +402,11 @@ public class MainActivity extends AppCompatActivity {
                         date.setText(day_week);
                         break;
                 }
-                raspZ();            }
+                sOnClick();
+            }
         });
 
         raspZ();
-
-        s.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean checked = ((Switch) v).isChecked();
-                if (checked) {
-                    z1.setText(R.string.rasp_z1_s);
-                    z2.setText(R.string.rasp_z2_s);
-                    z3.setText(R.string.rasp_z3_s);
-                    z4.setText(R.string.rasp_z4_s);
-                    z5.setText(R.string.rasp_z5_s);
-                    z6.setText(R.string.rasp_z6_s);
-                    z7.setText(R.string.rasp_z7_s);
-                    z8.setText(R.string.rasp_z8_s);
-                } else {
-
-                    switch (day_week) {
-                        case "Суббота":
-                            z1.setText(R.string.rasp_z1_sb);
-                            z2.setText(R.string.rasp_z2_sb);
-                            z3.setText(R.string.rasp_z3_sb);
-                            z4.setText(R.string.rasp_z4_sb);
-                            z5.setText(R.string.rasp_z5_sb);
-                            z6.setText(R.string.rasp_z6_sb);
-                            z7.setText(R.string.rasp_z7_sb);
-                            z8.setText(R.string.rasp_z8_sb);
-                            break;
-                        default:
-                            z1.setText(R.string.rasp_z1_default);
-                            z2.setText(R.string.rasp_z2_default);
-                            z3.setText(R.string.rasp_z3_default);
-                            z4.setText(R.string.rasp_z4_default);
-                            z5.setText(R.string.rasp_z5_default);
-                            z6.setText(R.string.rasp_z6_default);
-                            z7.setText(R.string.rasp_z7_default);
-                            z8.setText(R.string.rasp_z8_default);
-                            break;
-                    }
-                }
-            }});
 
         easter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -355,29 +454,115 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void raspZ() {
-        switch (day_week) {
-            case "Суббота":
-                z1.setText(R.string.rasp_z1_sb);
-                z2.setText(R.string.rasp_z2_sb);
-                z3.setText(R.string.rasp_z3_sb);
-                z4.setText(R.string.rasp_z4_sb);
-                z5.setText(R.string.rasp_z5_sb);
-                z6.setText(R.string.rasp_z6_sb);
-                z7.setText(R.string.rasp_z7_sb);
-                z8.setText(R.string.rasp_z8_sb);
-                break;
-            default:
-                z1.setText(R.string.rasp_z1_default);
-                z2.setText(R.string.rasp_z2_default);
-                z3.setText(R.string.rasp_z3_default);
-                z4.setText(R.string.rasp_z4_default);
-                z5.setText(R.string.rasp_z5_default);
-                z6.setText(R.string.rasp_z6_default);
-                z7.setText(R.string.rasp_z7_default);
-                z8.setText(R.string.rasp_z8_default);
-                break;
+    public class OnSwipeTouchListener implements View.OnTouchListener {
+
+        private final GestureDetector gestureDetector;
+
+        public OnSwipeTouchListener (Context ctx){
+            gestureDetector = new GestureDetector(ctx, new GestureListener());
         }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return gestureDetector.onTouchEvent(event);
+        }
+
+        private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+            private static final int SWIPE_THRESHOLD = 100;
+            private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                boolean result = false;
+                try {
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                            if (diffX > 0) {
+                                onSwipeRight();
+                            } else {
+                                onSwipeLeft();
+                            }
+                            result = true;
+                        }
+                    }
+                    else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffY > 0) {
+                            onSwipeBottom();
+                        } else {
+                            onSwipeTop();
+                        }
+                        result = true;
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+                return result;
+            }
+        }
+
+        public boolean onSwipeRight() {
+            return false;
+        }
+
+        public boolean onSwipeLeft() {
+            return false;
+        }
+
+        public boolean onSwipeTop() {
+            return false;
+        }
+
+        public boolean onSwipeBottom() {
+            return false;
+        }
+    }
+
+    void raspZ() {
+        z1.setText(R.string.rasp_z1_default);
+        z2.setText(R.string.rasp_z2_default);
+        z3.setText(R.string.rasp_z3_default);
+        z4.setText(R.string.rasp_z4_default);
+        z5.setText(R.string.rasp_z5_default);
+        z6.setText(R.string.rasp_z6_default);
+        z7.setText(R.string.rasp_z7_default);
+        z8.setText(R.string.rasp_z8_default);
+        sOnClick();
+        }
+
+    void sOnClick() {
+        s.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((Switch) v).isChecked();
+                if (checked) {
+                    z1.setText(R.string.rasp_z1_s);
+                    z2.setText(R.string.rasp_z2_s);
+                    z3.setText(R.string.rasp_z3_s);
+                    z4.setText(R.string.rasp_z4_s);
+                    z5.setText(R.string.rasp_z5_s);
+                    z6.setText(R.string.rasp_z6_s);
+                    z7.setText(R.string.rasp_z7_s);
+                    z8.setText(R.string.rasp_z8_s);
+                }
+                else {
+                    z1.setText(R.string.rasp_z1_default);
+                    z2.setText(R.string.rasp_z2_default);
+                    z3.setText(R.string.rasp_z3_default);
+                    z4.setText(R.string.rasp_z4_default);
+                    z5.setText(R.string.rasp_z5_default);
+                    z6.setText(R.string.rasp_z6_default);
+                    z7.setText(R.string.rasp_z7_default);
+                    z8.setText(R.string.rasp_z8_default);
+                }
+            }});
     }
 
     void rasp() {
@@ -400,8 +585,8 @@ public class MainActivity extends AppCompatActivity {
     void rasp11at() {
         switch (day_week) {
             case "Воскресенье":
-                u1.setText("Выходной");
-                u2.setText("☺☺☺");
+                u1.setText("☺☺☺");
+                u2.setText("");
                 u3.setText("");
                 u4.setText("");
                 u5.setText("");
@@ -475,8 +660,8 @@ public class MainActivity extends AppCompatActivity {
     void rasp11as(){
         switch (day_week) {
             case "Воскресенье":
-                u1.setText("Выходной");
-                u2.setText("☺☺☺");
+                u1.setText("☺☺☺");
+                u2.setText("");
                 u3.setText("");
                 u4.setText("");
                 u5.setText("");

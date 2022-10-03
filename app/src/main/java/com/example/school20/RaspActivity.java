@@ -2,6 +2,7 @@ package com.example.school20;
 
 import static android.graphics.Color.WHITE;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class RaspActivity extends AppCompatActivity {
@@ -80,6 +82,15 @@ public class RaspActivity extends AppCompatActivity {
     private TextView pt;
     private TextView sb;
 
+    private LinearLayout r;
+    private LinearLayout l1;
+    private LinearLayout l2;
+    private LinearLayout l3;
+    private LinearLayout l4;
+    private LinearLayout l5;
+    private LinearLayout l6;
+    private LinearLayout l7;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,6 +158,15 @@ public class RaspActivity extends AppCompatActivity {
         pt = findViewById(R.id.pt);
         sb = findViewById(R.id.sb);
 
+        r = findViewById(R.id.rrr);
+        l1 = findViewById(R.id.l1);
+        l2 = findViewById(R.id.l2);
+        l3 = findViewById(R.id.l3);
+        l4 = findViewById(R.id.l4);
+        l5 = findViewById(R.id.l5);
+        l6 = findViewById(R.id.l6);
+        l7 = findViewById(R.id.l7);
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RaspActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         name_pol = sharedPreferences.getString("name", "unknown");
@@ -157,68 +177,133 @@ public class RaspActivity extends AppCompatActivity {
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         switch (currentNightMode) {
             case Configuration.UI_MODE_NIGHT_NO:
+                u1_pn.setTextColor(getResources().getColor(R.color.black));
+                u2_pn.setTextColor(getResources().getColor(R.color.black));
+                u3_pn.setTextColor(getResources().getColor(R.color.black));
+                u4_pn.setTextColor(getResources().getColor(R.color.black));
+                u5_pn.setTextColor(getResources().getColor(R.color.black));
+                u6_pn.setTextColor(getResources().getColor(R.color.black));
+                u7_pn.setTextColor(getResources().getColor(R.color.black));
+                u8_pn.setTextColor(getResources().getColor(R.color.black));
+
+                u1_vt.setTextColor(getResources().getColor(R.color.black));
+                u2_vt.setTextColor(getResources().getColor(R.color.black));
+                u3_vt.setTextColor(getResources().getColor(R.color.black));
+                u4_vt.setTextColor(getResources().getColor(R.color.black));
+                u5_vt.setTextColor(getResources().getColor(R.color.black));
+                u6_vt.setTextColor(getResources().getColor(R.color.black));
+                u7_vt.setTextColor(getResources().getColor(R.color.black));
+                u8_vt.setTextColor(getResources().getColor(R.color.black));
+
+                u1_sr.setTextColor(getResources().getColor(R.color.black));
+                u2_sr.setTextColor(getResources().getColor(R.color.black));
+                u3_sr.setTextColor(getResources().getColor(R.color.black));
+                u4_sr.setTextColor(getResources().getColor(R.color.black));
+                u5_sr.setTextColor(getResources().getColor(R.color.black));
+                u6_sr.setTextColor(getResources().getColor(R.color.black));
+                u7_sr.setTextColor(getResources().getColor(R.color.black));
+                u8_sr.setTextColor(getResources().getColor(R.color.black));
+
+                u1_ch.setTextColor(getResources().getColor(R.color.black));
+                u2_ch.setTextColor(getResources().getColor(R.color.black));
+                u3_ch.setTextColor(getResources().getColor(R.color.black));
+                u4_ch.setTextColor(getResources().getColor(R.color.black));
+                u5_ch.setTextColor(getResources().getColor(R.color.black));
+                u6_ch.setTextColor(getResources().getColor(R.color.black));
+                u7_ch.setTextColor(getResources().getColor(R.color.black));
+                u8_ch.setTextColor(getResources().getColor(R.color.black));
+
+                u1_pt.setTextColor(getResources().getColor(R.color.black));
+                u2_pt.setTextColor(getResources().getColor(R.color.black));
+                u3_pt.setTextColor(getResources().getColor(R.color.black));
+                u4_pt.setTextColor(getResources().getColor(R.color.black));
+                u5_pt.setTextColor(getResources().getColor(R.color.black));
+                u6_pt.setTextColor(getResources().getColor(R.color.black));
+                u7_pt.setTextColor(getResources().getColor(R.color.black));
+                u8_pt.setTextColor(getResources().getColor(R.color.black));
+
+                u1_sb.setTextColor(getResources().getColor(R.color.black));
+                u2_sb.setTextColor(getResources().getColor(R.color.black));
+                u3_sb.setTextColor(getResources().getColor(R.color.black));
+                u4_sb.setTextColor(getResources().getColor(R.color.black));
+                u5_sb.setTextColor(getResources().getColor(R.color.black));
+                u6_sb.setTextColor(getResources().getColor(R.color.black));
+                u7_sb.setTextColor(getResources().getColor(R.color.black));
+                u8_sb.setTextColor(getResources().getColor(R.color.black));
+
+                pn.setTextColor(getResources().getColor(R.color.black));
+                vt.setTextColor(getResources().getColor(R.color.black));
+                sr.setTextColor(getResources().getColor(R.color.black));
+                ch.setTextColor(getResources().getColor(R.color.black));
+                pt.setTextColor(getResources().getColor(R.color.black));
+                sb.setTextColor(getResources().getColor(R.color.black));
+
+                r.setBackgroundColor(getResources().getColor(R.color.white));
                 break;
             case Configuration.UI_MODE_NIGHT_YES:
-                u1_pn.setTextColor(WHITE);
-                u2_pn.setTextColor(WHITE);
-                u3_pn.setTextColor(WHITE);
-                u4_pn.setTextColor(WHITE);
-                u5_pn.setTextColor(WHITE);
-                u6_pn.setTextColor(WHITE);
-                u7_pn.setTextColor(WHITE);
-                u8_pn.setTextColor(WHITE);
+                u1_pn.setTextColor(getResources().getColor(R.color.black));
+                u2_pn.setTextColor(getResources().getColor(R.color.black));
+                u3_pn.setTextColor(getResources().getColor(R.color.black));
+                u4_pn.setTextColor(getResources().getColor(R.color.black));
+                u5_pn.setTextColor(getResources().getColor(R.color.black));
+                u6_pn.setTextColor(getResources().getColor(R.color.black));
+                u7_pn.setTextColor(getResources().getColor(R.color.black));
+                u8_pn.setTextColor(getResources().getColor(R.color.black));
 
-                u1_vt.setTextColor(WHITE);
-                u2_vt.setTextColor(WHITE);
-                u3_vt.setTextColor(WHITE);
-                u4_vt.setTextColor(WHITE);
-                u5_vt.setTextColor(WHITE);
-                u6_vt.setTextColor(WHITE);
-                u7_vt.setTextColor(WHITE);
-                u8_vt.setTextColor(WHITE);
+                u1_vt.setTextColor(getResources().getColor(R.color.black));
+                u2_vt.setTextColor(getResources().getColor(R.color.black));
+                u3_vt.setTextColor(getResources().getColor(R.color.black));
+                u4_vt.setTextColor(getResources().getColor(R.color.black));
+                u5_vt.setTextColor(getResources().getColor(R.color.black));
+                u6_vt.setTextColor(getResources().getColor(R.color.black));
+                u7_vt.setTextColor(getResources().getColor(R.color.black));
+                u8_vt.setTextColor(getResources().getColor(R.color.black));
 
-                u1_sr.setTextColor(WHITE);
-                u2_sr.setTextColor(WHITE);
-                u3_sr.setTextColor(WHITE);
-                u4_sr.setTextColor(WHITE);
-                u5_sr.setTextColor(WHITE);
-                u6_sr.setTextColor(WHITE);
-                u7_sr.setTextColor(WHITE);
-                u8_sr.setTextColor(WHITE);
+                u1_sr.setTextColor(getResources().getColor(R.color.black));
+                u2_sr.setTextColor(getResources().getColor(R.color.black));
+                u3_sr.setTextColor(getResources().getColor(R.color.black));
+                u4_sr.setTextColor(getResources().getColor(R.color.black));
+                u5_sr.setTextColor(getResources().getColor(R.color.black));
+                u6_sr.setTextColor(getResources().getColor(R.color.black));
+                u7_sr.setTextColor(getResources().getColor(R.color.black));
+                u8_sr.setTextColor(getResources().getColor(R.color.black));
 
-                u1_ch.setTextColor(WHITE);
-                u2_ch.setTextColor(WHITE);
-                u3_ch.setTextColor(WHITE);
-                u4_ch.setTextColor(WHITE);
-                u5_ch.setTextColor(WHITE);
-                u6_ch.setTextColor(WHITE);
-                u7_ch.setTextColor(WHITE);
-                u8_ch.setTextColor(WHITE);
+                u1_ch.setTextColor(getResources().getColor(R.color.black));
+                u2_ch.setTextColor(getResources().getColor(R.color.black));
+                u3_ch.setTextColor(getResources().getColor(R.color.black));
+                u4_ch.setTextColor(getResources().getColor(R.color.black));
+                u5_ch.setTextColor(getResources().getColor(R.color.black));
+                u6_ch.setTextColor(getResources().getColor(R.color.black));
+                u7_ch.setTextColor(getResources().getColor(R.color.black));
+                u8_ch.setTextColor(getResources().getColor(R.color.black));
 
-                u1_pt.setTextColor(WHITE);
-                u2_pt.setTextColor(WHITE);
-                u3_pt.setTextColor(WHITE);
-                u4_pt.setTextColor(WHITE);
-                u5_pt.setTextColor(WHITE);
-                u6_pt.setTextColor(WHITE);
-                u7_pt.setTextColor(WHITE);
-                u8_pt.setTextColor(WHITE);
+                u1_pt.setTextColor(getResources().getColor(R.color.black));
+                u2_pt.setTextColor(getResources().getColor(R.color.black));
+                u3_pt.setTextColor(getResources().getColor(R.color.black));
+                u4_pt.setTextColor(getResources().getColor(R.color.black));
+                u5_pt.setTextColor(getResources().getColor(R.color.black));
+                u6_pt.setTextColor(getResources().getColor(R.color.black));
+                u7_pt.setTextColor(getResources().getColor(R.color.black));
+                u8_pt.setTextColor(getResources().getColor(R.color.black));
 
-                u1_sb.setTextColor(WHITE);
-                u2_sb.setTextColor(WHITE);
-                u3_sb.setTextColor(WHITE);
-                u4_sb.setTextColor(WHITE);
-                u5_sb.setTextColor(WHITE);
-                u6_sb.setTextColor(WHITE);
-                u7_sb.setTextColor(WHITE);
-                u8_sb.setTextColor(WHITE);
+                u1_sb.setTextColor(getResources().getColor(R.color.black));
+                u2_sb.setTextColor(getResources().getColor(R.color.black));
+                u3_sb.setTextColor(getResources().getColor(R.color.black));
+                u4_sb.setTextColor(getResources().getColor(R.color.black));
+                u5_sb.setTextColor(getResources().getColor(R.color.black));
+                u6_sb.setTextColor(getResources().getColor(R.color.black));
+                u7_sb.setTextColor(getResources().getColor(R.color.black));
+                u8_sb.setTextColor(getResources().getColor(R.color.black));
 
-                pn.setTextColor(WHITE);
-                vt.setTextColor(WHITE);
-                sr.setTextColor(WHITE);
-                ch.setTextColor(WHITE);
-                pt.setTextColor(WHITE);
-                sb.setTextColor(WHITE);
+
+                pn.setTextColor(getResources().getColor(R.color.white));
+                vt.setTextColor(getResources().getColor(R.color.white));
+                sr.setTextColor(getResources().getColor(R.color.white));
+                ch.setTextColor(getResources().getColor(R.color.white));
+                pt.setTextColor(getResources().getColor(R.color.white));
+                sb.setTextColor(getResources().getColor(R.color.white));
+
+                r.setBackgroundColor(getResources().getColor(R.color.black));
                 break;
         }
 

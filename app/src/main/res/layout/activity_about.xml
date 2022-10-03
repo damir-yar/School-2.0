@@ -43,15 +43,28 @@
 
         <TextView
             android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:autoLink="all"
+            android:textSize="20dp"
+            android:text="Страница проекта на GitHub:\nhttps://github.com/damir-yar/School-2.0"/>
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="100dp"
             android:text="Версия 2.0\nРазработчик - Ярославцев Дамир"
             android:textSize="20dp"/>
 
-        <TextView
-            android:id="@+id/about"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"/>
+
+        </ScrollView>
 
 
     </LinearLayout>
