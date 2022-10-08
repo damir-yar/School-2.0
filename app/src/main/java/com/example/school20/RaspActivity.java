@@ -311,118 +311,238 @@ public class RaspActivity extends AppCompatActivity {
             rasp11at();
         else if (class_pol.equals("11") && (symbol_pol.equals("а") || symbol_pol.equals("А")) && prof_pol.equals("social"))
             rasp11as();
+        else if (class_pol.equals("10") && (symbol_pol.equals("т") || symbol_pol.equals("Т")))
+            rasp10t();
+        else if (class_pol.equals("10") && (symbol_pol.equals("с") || symbol_pol.equals("С")))
+            rasp10s();
 
     }
 
     void rasp11at() {
-        u1_pn.setText(R.string.pn_one_11at);
-        u2_pn.setText(R.string.pn_two_11at);
-        u3_pn.setText(R.string.pn_three_11at);
-        u4_pn.setText(R.string.pn_four_11at);
-        u5_pn.setText(R.string.pn_five_11at);
-        u6_pn.setText(R.string.pn_six_11at);
-        u7_pn.setText(R.string.pn_seven_11at);
-        u8_pn.setText(R.string.pn_eight_11at);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RaspActivity.this);
+        u1_pn.setText(sharedPreferences.getString("pn1_11at", ""));
+        u2_pn.setText(sharedPreferences.getString("pn2_11at", ""));
+        u3_pn.setText(sharedPreferences.getString("pn3_11at", ""));
+        u4_pn.setText(sharedPreferences.getString("pn4_11at", ""));
+        u5_pn.setText(sharedPreferences.getString("pn5_11at", ""));
+        u6_pn.setText(sharedPreferences.getString("pn6_11at", ""));
+        u7_pn.setText(sharedPreferences.getString("pn7_11at", ""));
+        u8_pn.setText(sharedPreferences.getString("pn8_11at", ""));
 
-        u1_vt.setText(R.string.vt_one_11at);
-        u2_vt.setText(R.string.vt_two_11at);
-        u3_vt.setText(R.string.vt_three_11at);
-        u4_vt.setText(R.string.vt_four_11at);
-        u5_vt.setText(R.string.vt_five_11at);
-        u6_vt.setText(R.string.vt_six_11at);
-        u7_vt.setText(R.string.vt_seven_11at);
-        u8_vt.setText(R.string.vt_eight_11at);
+        u1_vt.setText(sharedPreferences.getString("vt1_11at", ""));
+        u2_vt.setText(sharedPreferences.getString("vt2_11at", ""));
+        u3_vt.setText(sharedPreferences.getString("vt3_11at", ""));
+        u4_vt.setText(sharedPreferences.getString("vt4_11at", ""));
+        u5_vt.setText(sharedPreferences.getString("vt5_11at", ""));
+        u6_vt.setText(sharedPreferences.getString("vt6_11at", ""));
+        u7_vt.setText(sharedPreferences.getString("vt7_11at", ""));
+        u8_vt.setText(sharedPreferences.getString("vt8_11at", ""));
 
-        u1_sr.setText(R.string.sr_one_11at);
-        u2_sr.setText(R.string.sr_two_11at);
-        u3_sr.setText(R.string.sr_three_11at);
-        u4_sr.setText(R.string.sr_four_11at);
-        u5_sr.setText(R.string.sr_five_11at);
-        u6_sr.setText(R.string.sr_six_11at);
-        u7_sr.setText(R.string.sr_seven_11at);
-        u8_sr.setText(R.string.sr_eight_11at);
+        u1_sr.setText(sharedPreferences.getString("sr1_11at", ""));
+        u2_sr.setText(sharedPreferences.getString("sr2_11at", ""));
+        u3_sr.setText(sharedPreferences.getString("sr3_11at", ""));
+        u4_sr.setText(sharedPreferences.getString("sr4_11at", ""));
+        u5_sr.setText(sharedPreferences.getString("sr5_11at", ""));
+        u6_sr.setText(sharedPreferences.getString("sr6_11at", ""));
+        u7_sr.setText(sharedPreferences.getString("sr7_11at", ""));
+        u8_sr.setText(sharedPreferences.getString("sr8_11at", ""));
 
-        u1_ch.setText(R.string.ch_one_11at);
-        u2_ch.setText(R.string.ch_two_11at);
-        u3_ch.setText(R.string.ch_three_11at);
-        u4_ch.setText(R.string.ch_four_11at);
-        u5_ch.setText(R.string.ch_five_11at);
-        u6_ch.setText(R.string.ch_six_11at);
-        u7_ch.setText(R.string.ch_seven_11at);
-        u8_ch.setText(R.string.ch_eight_11at);
+        u1_ch.setText(sharedPreferences.getString("ch1_11at", ""));
+        u2_ch.setText(sharedPreferences.getString("ch2_11at", ""));
+        u3_ch.setText(sharedPreferences.getString("ch3_11at", ""));
+        u4_ch.setText(sharedPreferences.getString("ch4_11at", ""));
+        u5_ch.setText(sharedPreferences.getString("ch5_11at", ""));
+        u6_ch.setText(sharedPreferences.getString("ch6_11at", ""));
+        u7_ch.setText(sharedPreferences.getString("ch7_11at", ""));
+        u8_ch.setText(sharedPreferences.getString("ch8_11at", ""));
 
-        u1_pt.setText(R.string.pt_one_11at);
-        u2_pt.setText(R.string.pt_two_11at);
-        u3_pt.setText(R.string.pt_three_11at);
-        u4_pt.setText(R.string.pt_four_11at);
-        u5_pt.setText(R.string.pt_five_11at);
-        u6_pt.setText(R.string.pt_six_11at);
-        u7_pt.setText(R.string.pt_seven_11at);
-        u8_pt.setText(R.string.pt_eight_11at);
+        u1_pt.setText(sharedPreferences.getString("pt1_11at", ""));
+        u2_pt.setText(sharedPreferences.getString("pt2_11at", ""));
+        u3_pt.setText(sharedPreferences.getString("pt3_11at", ""));
+        u4_pt.setText(sharedPreferences.getString("pt4_11at", ""));
+        u5_pt.setText(sharedPreferences.getString("pt5_11at", ""));
+        u6_pt.setText(sharedPreferences.getString("pt6_11at", ""));
+        u7_pt.setText(sharedPreferences.getString("pt7_11at", ""));
+        u8_pt.setText(sharedPreferences.getString("pt8_11at", ""));
 
-        u1_sb.setText(R.string.sb_one_11at);
-        u2_sb.setText(R.string.sb_two_11at);
-        u3_sb.setText(R.string.sb_three_11at);
-        u4_sb.setText(R.string.sb_four_11at);
-        u5_sb.setText(R.string.sb_five_11at);
-        u6_sb.setText(R.string.sb_six_11at);
-        u7_sb.setText(R.string.sb_seven_11at);
-        u8_sb.setText(R.string.sb_eight_11at);
+        u1_sb.setText(sharedPreferences.getString("sb1_11at", ""));
+        u2_sb.setText(sharedPreferences.getString("sb2_11at", ""));
+        u3_sb.setText(sharedPreferences.getString("sb3_11at", ""));
+        u4_sb.setText(sharedPreferences.getString("sb4_11at", ""));
+        u5_sb.setText(sharedPreferences.getString("sb5_11at", ""));
+        u6_sb.setText(sharedPreferences.getString("sb6_11at", ""));
+        u7_sb.setText(sharedPreferences.getString("sb7_11at", ""));
+        u8_sb.setText(sharedPreferences.getString("sb8_11at", ""));
     }
 
     void rasp11as() {
-        u1_pn.setText(R.string.pn_one_11as);
-        u2_pn.setText(R.string.pn_two_11as);
-        u3_pn.setText(R.string.pn_three_11as);
-        u4_pn.setText(R.string.pn_four_11as);
-        u5_pn.setText(R.string.pn_five_11as);
-        u6_pn.setText(R.string.pn_six_11as);
-        u7_pn.setText(R.string.pn_seven_11as);
-        u8_pn.setText(R.string.pn_eight_11as);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RaspActivity.this);
+        u1_pn.setText(sharedPreferences.getString("pn1_11as", ""));
+        u2_pn.setText(sharedPreferences.getString("pn2_11as", ""));
+        u3_pn.setText(sharedPreferences.getString("pn3_11as", ""));
+        u4_pn.setText(sharedPreferences.getString("pn4_11as", ""));
+        u5_pn.setText(sharedPreferences.getString("pn5_11as", ""));
+        u6_pn.setText(sharedPreferences.getString("pn6_11as", ""));
+        u7_pn.setText(sharedPreferences.getString("pn7_11as", ""));
+        u8_pn.setText(sharedPreferences.getString("pn8_11as", ""));
 
-        u1_vt.setText(R.string.vt_one_11as);
-        u2_vt.setText(R.string.vt_two_11as);
-        u3_vt.setText(R.string.vt_three_11as);
-        u4_vt.setText(R.string.vt_four_11as);
-        u5_vt.setText(R.string.vt_five_11as);
-        u6_vt.setText(R.string.vt_six_11as);
-        u7_vt.setText(R.string.vt_seven_11as);
-        u8_vt.setText(R.string.vt_eight_11as);
+        u1_vt.setText(sharedPreferences.getString("vt1_11as", ""));
+        u2_vt.setText(sharedPreferences.getString("vt2_11as", ""));
+        u3_vt.setText(sharedPreferences.getString("vt3_11as", ""));
+        u4_vt.setText(sharedPreferences.getString("vt4_11as", ""));
+        u5_vt.setText(sharedPreferences.getString("vt5_11as", ""));
+        u6_vt.setText(sharedPreferences.getString("vt6_11as", ""));
+        u7_vt.setText(sharedPreferences.getString("vt7_11as", ""));
+        u8_vt.setText(sharedPreferences.getString("vt8_11as", ""));
 
-        u1_sr.setText(R.string.sr_one_11as);
-        u2_sr.setText(R.string.sr_two_11as);
-        u3_sr.setText(R.string.sr_three_11as);
-        u4_sr.setText(R.string.sr_four_11as);
-        u5_sr.setText(R.string.sr_five_11as);
-        u6_sr.setText(R.string.sr_six_11as);
-        u7_sr.setText(R.string.sr_seven_11as);
-        u8_sr.setText(R.string.sr_eight_11as);
+        u1_sr.setText(sharedPreferences.getString("sr1_11as", ""));
+        u2_sr.setText(sharedPreferences.getString("sr2_11as", ""));
+        u3_sr.setText(sharedPreferences.getString("sr3_11as", ""));
+        u4_sr.setText(sharedPreferences.getString("sr4_11as", ""));
+        u5_sr.setText(sharedPreferences.getString("sr5_11as", ""));
+        u6_sr.setText(sharedPreferences.getString("sr6_11as", ""));
+        u7_sr.setText(sharedPreferences.getString("sr7_11as", ""));
+        u8_sr.setText(sharedPreferences.getString("sr8_11as", ""));
 
-        u1_ch.setText(R.string.ch_one_11as);
-        u2_ch.setText(R.string.ch_two_11as);
-        u3_ch.setText(R.string.ch_three_11as);
-        u4_ch.setText(R.string.ch_four_11as);
-        u5_ch.setText(R.string.ch_five_11as);
-        u6_ch.setText(R.string.ch_six_11as);
-        u7_ch.setText(R.string.ch_seven_11as);
-        u8_ch.setText(R.string.ch_eight_11as);
+        u1_ch.setText(sharedPreferences.getString("ch1_11as", ""));
+        u2_ch.setText(sharedPreferences.getString("ch2_11as", ""));
+        u3_ch.setText(sharedPreferences.getString("ch3_11as", ""));
+        u4_ch.setText(sharedPreferences.getString("ch4_11as", ""));
+        u5_ch.setText(sharedPreferences.getString("ch5_11as", ""));
+        u6_ch.setText(sharedPreferences.getString("ch6_11as", ""));
+        u7_ch.setText(sharedPreferences.getString("ch7_11as", ""));
+        u8_ch.setText(sharedPreferences.getString("ch8_11as", ""));
 
-        u1_pt.setText(R.string.pt_one_11as);
-        u2_pt.setText(R.string.pt_two_11as);
-        u3_pt.setText(R.string.pt_three_11as);
-        u4_pt.setText(R.string.pt_four_11as);
-        u5_pt.setText(R.string.pt_five_11as);
-        u6_pt.setText(R.string.pt_six_11as);
-        u7_pt.setText(R.string.pt_seven_11as);
-        u8_pt.setText(R.string.pt_eight_11as);
+        u1_pt.setText(sharedPreferences.getString("pt1_11as", ""));
+        u2_pt.setText(sharedPreferences.getString("pt2_11as", ""));
+        u3_pt.setText(sharedPreferences.getString("pt3_11as", ""));
+        u4_pt.setText(sharedPreferences.getString("pt4_11as", ""));
+        u5_pt.setText(sharedPreferences.getString("pt5_11as", ""));
+        u6_pt.setText(sharedPreferences.getString("pt6_11as", ""));
+        u7_pt.setText(sharedPreferences.getString("pt7_11as", ""));
+        u8_pt.setText(sharedPreferences.getString("pt8_11as", ""));
 
-        u1_sb.setText(R.string.sb_one_11as);
-        u2_sb.setText(R.string.sb_two_11as);
-        u3_sb.setText(R.string.sb_three_11as);
-        u4_sb.setText(R.string.sb_four_11as);
-        u5_sb.setText(R.string.sb_five_11as);
-        u6_sb.setText(R.string.sb_six_11as);
-        u7_sb.setText(R.string.sb_seven_11as);
-        u8_sb.setText(R.string.sb_eight_11as);
+        u1_sb.setText(sharedPreferences.getString("sb1_11as", ""));
+        u2_sb.setText(sharedPreferences.getString("sb2_11as", ""));
+        u3_sb.setText(sharedPreferences.getString("sb3_11as", ""));
+        u4_sb.setText(sharedPreferences.getString("sb4_11as", ""));
+        u5_sb.setText(sharedPreferences.getString("sb5_11as", ""));
+        u6_sb.setText(sharedPreferences.getString("sb6_11as", ""));
+        u7_sb.setText(sharedPreferences.getString("sb7_11as", ""));
+        u8_sb.setText(sharedPreferences.getString("sb8_11as", ""));
+    }
+
+    void rasp10t() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RaspActivity.this);
+        u1_pn.setText(sharedPreferences.getString("pn1_10t", ""));
+        u2_pn.setText(sharedPreferences.getString("pn2_10t", ""));
+        u3_pn.setText(sharedPreferences.getString("pn3_10t", ""));
+        u4_pn.setText(sharedPreferences.getString("pn4_10t", ""));
+        u5_pn.setText(sharedPreferences.getString("pn5_10t", ""));
+        u6_pn.setText(sharedPreferences.getString("pn6_10t", ""));
+        u7_pn.setText(sharedPreferences.getString("pn7_10t", ""));
+        u8_pn.setText(sharedPreferences.getString("pn8_10t", ""));
+
+        u1_vt.setText(sharedPreferences.getString("vt1_10t", ""));
+        u2_vt.setText(sharedPreferences.getString("vt2_10t", ""));
+        u3_vt.setText(sharedPreferences.getString("vt3_10t", ""));
+        u4_vt.setText(sharedPreferences.getString("vt4_10t", ""));
+        u5_vt.setText(sharedPreferences.getString("vt5_10t", ""));
+        u6_vt.setText(sharedPreferences.getString("vt6_10t", ""));
+        u7_vt.setText(sharedPreferences.getString("vt7_10t", ""));
+        u8_vt.setText(sharedPreferences.getString("vt8_10t", ""));
+
+        u1_sr.setText(sharedPreferences.getString("sr1_10t", ""));
+        u2_sr.setText(sharedPreferences.getString("sr2_10t", ""));
+        u3_sr.setText(sharedPreferences.getString("sr3_10t", ""));
+        u4_sr.setText(sharedPreferences.getString("sr4_10t", ""));
+        u5_sr.setText(sharedPreferences.getString("sr5_10t", ""));
+        u6_sr.setText(sharedPreferences.getString("sr6_10t", ""));
+        u7_sr.setText(sharedPreferences.getString("sr7_10t", ""));
+        u8_sr.setText(sharedPreferences.getString("sr8_10t", ""));
+
+        u1_ch.setText(sharedPreferences.getString("ch1_10t", ""));
+        u2_ch.setText(sharedPreferences.getString("ch2_10t", ""));
+        u3_ch.setText(sharedPreferences.getString("ch3_10t", ""));
+        u4_ch.setText(sharedPreferences.getString("ch4_10t", ""));
+        u5_ch.setText(sharedPreferences.getString("ch5_10t", ""));
+        u6_ch.setText(sharedPreferences.getString("ch6_10t", ""));
+        u7_ch.setText(sharedPreferences.getString("ch7_10t", ""));
+        u8_ch.setText(sharedPreferences.getString("ch8_10t", ""));
+
+        u1_pt.setText(sharedPreferences.getString("pt1_10t", ""));
+        u2_pt.setText(sharedPreferences.getString("pt2_10t", ""));
+        u3_pt.setText(sharedPreferences.getString("pt3_10t", ""));
+        u4_pt.setText(sharedPreferences.getString("pt4_10t", ""));
+        u5_pt.setText(sharedPreferences.getString("pt5_10t", ""));
+        u6_pt.setText(sharedPreferences.getString("pt6_10t", ""));
+        u7_pt.setText(sharedPreferences.getString("pt7_10t", ""));
+        u8_pt.setText(sharedPreferences.getString("pt8_10t", ""));
+
+        u1_sb.setText(sharedPreferences.getString("sb1_10t", ""));
+        u2_sb.setText(sharedPreferences.getString("sb2_10t", ""));
+        u3_sb.setText(sharedPreferences.getString("sb3_10t", ""));
+        u4_sb.setText(sharedPreferences.getString("sb4_10t", ""));
+        u5_sb.setText(sharedPreferences.getString("sb5_10t", ""));
+        u6_sb.setText(sharedPreferences.getString("sb6_10t", ""));
+        u7_sb.setText(sharedPreferences.getString("sb7_10t", ""));
+        u8_sb.setText(sharedPreferences.getString("sb8_10t", ""));
+    }
+
+    void rasp10s() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RaspActivity.this);
+        u1_pn.setText(sharedPreferences.getString("pn1_10s", ""));
+        u2_pn.setText(sharedPreferences.getString("pn2_10s", ""));
+        u3_pn.setText(sharedPreferences.getString("pn3_10s", ""));
+        u4_pn.setText(sharedPreferences.getString("pn4_10s", ""));
+        u5_pn.setText(sharedPreferences.getString("pn5_10s", ""));
+        u6_pn.setText(sharedPreferences.getString("pn6_10s", ""));
+        u7_pn.setText(sharedPreferences.getString("pn7_10s", ""));
+        u8_pn.setText(sharedPreferences.getString("pn8_10s", ""));
+
+        u1_vt.setText(sharedPreferences.getString("vt1_10s", ""));
+        u2_vt.setText(sharedPreferences.getString("vt2_10s", ""));
+        u3_vt.setText(sharedPreferences.getString("vt3_10s", ""));
+        u4_vt.setText(sharedPreferences.getString("vt4_10s", ""));
+        u5_vt.setText(sharedPreferences.getString("vt5_10s", ""));
+        u6_vt.setText(sharedPreferences.getString("vt6_10s", ""));
+        u7_vt.setText(sharedPreferences.getString("vt7_10s", ""));
+        u8_vt.setText(sharedPreferences.getString("vt8_10s", ""));
+
+        u1_sr.setText(sharedPreferences.getString("sr1_10s", ""));
+        u2_sr.setText(sharedPreferences.getString("sr2_10s", ""));
+        u3_sr.setText(sharedPreferences.getString("sr3_10s", ""));
+        u4_sr.setText(sharedPreferences.getString("sr4_10s", ""));
+        u5_sr.setText(sharedPreferences.getString("sr5_10s", ""));
+        u6_sr.setText(sharedPreferences.getString("sr6_10s", ""));
+        u7_sr.setText(sharedPreferences.getString("sr7_10s", ""));
+        u8_sr.setText(sharedPreferences.getString("sr8_10s", ""));
+
+        u1_ch.setText(sharedPreferences.getString("ch1_10s", ""));
+        u2_ch.setText(sharedPreferences.getString("ch2_10s", ""));
+        u3_ch.setText(sharedPreferences.getString("ch3_10s", ""));
+        u4_ch.setText(sharedPreferences.getString("ch4_10s", ""));
+        u5_ch.setText(sharedPreferences.getString("ch5_10s", ""));
+        u6_ch.setText(sharedPreferences.getString("ch6_10s", ""));
+        u7_ch.setText(sharedPreferences.getString("ch7_10s", ""));
+        u8_ch.setText(sharedPreferences.getString("ch8_10s", ""));
+
+        u1_pt.setText(sharedPreferences.getString("pt1_10s", ""));
+        u2_pt.setText(sharedPreferences.getString("pt2_10s", ""));
+        u3_pt.setText(sharedPreferences.getString("pt3_10s", ""));
+        u4_pt.setText(sharedPreferences.getString("pt4_10s", ""));
+        u5_pt.setText(sharedPreferences.getString("pt5_10s", ""));
+        u6_pt.setText(sharedPreferences.getString("pt6_10s", ""));
+        u7_pt.setText(sharedPreferences.getString("pt7_10s", ""));
+        u8_pt.setText(sharedPreferences.getString("pt8_10s", ""));
+
+        u1_sb.setText(sharedPreferences.getString("sb1_10s", ""));
+        u2_sb.setText(sharedPreferences.getString("sb2_10s", ""));
+        u3_sb.setText(sharedPreferences.getString("sb3_10s", ""));
+        u4_sb.setText(sharedPreferences.getString("sb4_10s", ""));
+        u5_sb.setText(sharedPreferences.getString("sb5_10s", ""));
+        u6_sb.setText(sharedPreferences.getString("sb6_10s", ""));
+        u7_sb.setText(sharedPreferences.getString("sb7_10s", ""));
+        u8_sb.setText(sharedPreferences.getString("sb8_10s", ""));
     }
 }

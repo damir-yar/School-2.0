@@ -1,12 +1,12 @@
 package com.example.school20;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.GestureDetector;
@@ -19,7 +19,15 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView z6;
     private TextView z7;
     private TextView z8;
-
     private TextView u1;
     private TextView u2;
     private TextView u3;
@@ -49,16 +56,15 @@ public class MainActivity extends AppCompatActivity {
     private TextView u8;
 
     private Switch s;
-
     private Button back;
     private Button next;
 
     private String day_week;
-
     private String name_pol;
     private String class_pol;
     private String symbol_pol;
     private String prof_pol;
+    private String dd;
 
     private Button easter;
     private int east = 0;
@@ -74,9 +80,7 @@ public class MainActivity extends AppCompatActivity {
         person_name = findViewById(R.id.person_name);
         person_class = findViewById(R.id.person_class);
         person_symbol = findViewById(R.id.person_symbol);
-
         date = findViewById(R.id.date);
-
         z1 = findViewById(R.id.time_one);
         z2 = findViewById(R.id.time_two);
         z3 = findViewById(R.id.time_three);
@@ -93,13 +97,10 @@ public class MainActivity extends AppCompatActivity {
         u6 = findViewById(R.id.les_six);
         u7 = findViewById(R.id.les_seven);
         u8 = findViewById(R.id.les_eight);
-
         s = findViewById(R.id.switch_s);
         back = findViewById(R.id.back);
         next = findViewById(R.id.next);
-
         easter = findViewById(R.id.easter);
-
         layout = findViewById(R.id.a);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
@@ -108,6 +109,15 @@ public class MainActivity extends AppCompatActivity {
         class_pol = sharedPreferences.getString("class", "unknown");
         symbol_pol = sharedPreferences.getString("symbol", "unknown");
         prof_pol = sharedPreferences.getString("prof", "unknown");
+        dd = sharedPreferences.getString("ddd", "unknown");
+        if (dd.equals("1")){
+            String urlT = "https://api.jsonbin.io/v3/b/6341bce12b3499323bd7c899";
+            new getUrlData().execute(urlT);
+            clend();
+            rasp();
+            editor.putString("ddd", "0");
+            editor.commit();
+        }
 
         if (name_pol.equals("unknown") || class_pol.equals("unknown") || symbol_pol.equals("unknown")
         || name_pol.equals("") || class_pol.equals("") || symbol_pol.equals("")){
@@ -118,8 +128,6 @@ public class MainActivity extends AppCompatActivity {
         person_name.setText(name_pol);
         person_class.setText(class_pol);
         person_symbol.setText(symbol_pol);
-
-
 
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         switch (currentNightMode) {
@@ -194,35 +202,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_WEEK);
-
-        switch (day){
-            case Calendar.SUNDAY:
-                day_week = "Воскресенье";
-                break;
-            case Calendar.MONDAY:
-                day_week = "Понедельник";
-                break;
-            case Calendar.TUESDAY:
-                day_week = "Вторник";
-                break;
-            case Calendar.WEDNESDAY:
-                day_week = "Среда";
-                break;
-            case Calendar.THURSDAY:
-                day_week = "Четверг";
-                break;
-            case Calendar.FRIDAY:
-                day_week = "Пятница";
-                break;
-            case Calendar.SATURDAY:
-                day_week = "Суббота";
-                break;
-        }
-
+        clend();
         date.setText(day_week);
-
         rasp();
 
         layout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
@@ -361,7 +342,6 @@ public class MainActivity extends AppCompatActivity {
                 sOnClick();
             }
         });
-
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -427,6 +407,330 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private  class getUrlData extends AsyncTask<String, String, String> {
+        protected void onPreExecute(){ }
+        @Override
+        protected String doInBackground(String... strings) {
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+
+            try {
+                URL url = new URL(strings[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                StringBuffer buffer = new StringBuffer();
+                String line = "";
+
+                while ((line = reader.readLine()) != null)
+                    buffer.append(line).append("\n");
+
+                return buffer.toString();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null)
+                    connection.disconnect();
+                try {
+                    if (reader != null)
+                        reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            if (class_pol.equals("11") && (symbol_pol.equals("а") || symbol_pol.equals("А")) && prof_pol.equals("tech")) {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    editor.putString("pn1_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pn1"));
+                    editor.putString("pn2_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pn2"));
+                    editor.putString("pn3_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pn3"));
+                    editor.putString("pn4_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pn4"));
+                    editor.putString("pn5_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pn5"));
+                    editor.putString("pn6_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pn6"));
+                    editor.putString("pn7_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pn7"));
+                    editor.putString("pn8_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pn8"));
+
+                    editor.putString("vt1_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("vt1"));
+                    editor.putString("vt2_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("vt2"));
+                    editor.putString("vt3_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("vt3"));
+                    editor.putString("vt4_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("vt4"));
+                    editor.putString("vt5_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("vt5"));
+                    editor.putString("vt6_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("vt6"));
+                    editor.putString("vt7_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("vt7"));
+                    editor.putString("vt8_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("vt8"));
+
+                    editor.putString("sr1_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sr1"));
+                    editor.putString("sr2_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sr2"));
+                    editor.putString("sr3_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sr3"));
+                    editor.putString("sr4_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sr4"));
+                    editor.putString("sr5_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sr5"));
+                    editor.putString("sr6_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sr6"));
+                    editor.putString("sr7_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sr7"));
+                    editor.putString("sr8_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sr8"));
+
+                    editor.putString("ch1_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("ch1"));
+                    editor.putString("ch2_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("ch2"));
+                    editor.putString("ch3_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("ch3"));
+                    editor.putString("ch4_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("ch4"));
+                    editor.putString("ch5_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("ch5"));
+                    editor.putString("ch6_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("ch6"));
+                    editor.putString("ch7_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("ch7"));
+                    editor.putString("ch8_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("ch8"));
+
+                    editor.putString("pt1_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pt1"));
+                    editor.putString("pt2_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pt2"));
+                    editor.putString("pt3_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pt3"));
+                    editor.putString("pt4_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pt4"));
+                    editor.putString("pt5_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pt5"));
+                    editor.putString("pt6_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pt6"));
+                    editor.putString("pt7_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pt7"));
+                    editor.putString("pt8_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("pt8"));
+
+                    editor.putString("sb1_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sb1"));
+                    editor.putString("sb2_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sb2"));
+                    editor.putString("sb3_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sb3"));
+                    editor.putString("sb4_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sb4"));
+                    editor.putString("sb5_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sb5"));
+                    editor.putString("sb6_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sb6"));
+                    editor.putString("sb7_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sb7"));
+                    editor.putString("sb8_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sb8"));
+                    editor.commit();
+                } catch (JSONException jsonException) {
+                    date.setText("Error333");
+                    jsonException.printStackTrace();
+                }
+            }
+            else if (class_pol.equals("11") && (symbol_pol.equals("а") || symbol_pol.equals("А")) && prof_pol.equals("social")){
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    editor.putString("pn1_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pn1"));
+                    editor.putString("pn2_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pn2"));
+                    editor.putString("pn3_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pn3"));
+                    editor.putString("pn4_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pn4"));
+                    editor.putString("pn5_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pn5"));
+                    editor.putString("pn6_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pn6"));
+                    editor.putString("pn7_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pn7"));
+                    editor.putString("pn8_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pn8"));
+
+                    editor.putString("vt1_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("vt1"));
+                    editor.putString("vt2_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("vt2"));
+                    editor.putString("vt3_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("vt3"));
+                    editor.putString("vt4_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("vt4"));
+                    editor.putString("vt5_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("vt5"));
+                    editor.putString("vt6_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("vt6"));
+                    editor.putString("vt7_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("vt7"));
+                    editor.putString("vt8_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("vt8"));
+
+                    editor.putString("sr1_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sr1"));
+                    editor.putString("sr2_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sr2"));
+                    editor.putString("sr3_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sr3"));
+                    editor.putString("sr4_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sr4"));
+                    editor.putString("sr5_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sr5"));
+                    editor.putString("sr6_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sr6"));
+                    editor.putString("sr7_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sr7"));
+                    editor.putString("sr8_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sr8"));
+
+                    editor.putString("ch1_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("ch1"));
+                    editor.putString("ch2_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("ch2"));
+                    editor.putString("ch3_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("ch3"));
+                    editor.putString("ch4_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("ch4"));
+                    editor.putString("ch5_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("ch5"));
+                    editor.putString("ch6_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("ch6"));
+                    editor.putString("ch7_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("ch7"));
+                    editor.putString("ch8_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("ch8"));
+
+                    editor.putString("pt1_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pt1"));
+                    editor.putString("pt2_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pt2"));
+                    editor.putString("pt3_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pt3"));
+                    editor.putString("pt4_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pt4"));
+                    editor.putString("pt5_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pt5"));
+                    editor.putString("pt6_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pt6"));
+                    editor.putString("pt7_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pt7"));
+                    editor.putString("pt8_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("pt8"));
+
+                    editor.putString("sb1_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sb1"));
+                    editor.putString("sb2_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sb2"));
+                    editor.putString("sb3_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sb3"));
+                    editor.putString("sb4_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sb4"));
+                    editor.putString("sb5_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sb5"));
+                    editor.putString("sb6_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sb6"));
+                    editor.putString("sb7_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sb7"));
+                    editor.putString("sb8_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sb8"));
+                    editor.commit();
+                } catch (JSONException jsonException) {
+                    date.setText("Error333");
+                    jsonException.printStackTrace();
+                }
+            }
+            else if(class_pol.equals("10") && (symbol_pol.equals("т") || symbol_pol.equals("Т"))) {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    editor.putString("pn1_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pn1"));
+                    editor.putString("pn2_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pn2"));
+                    editor.putString("pn3_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pn3"));
+                    editor.putString("pn4_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pn4"));
+                    editor.putString("pn5_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pn5"));
+                    editor.putString("pn6_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pn6"));
+                    editor.putString("pn7_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pn7"));
+                    editor.putString("pn8_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pn8"));
+
+                    editor.putString("vt1_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("vt1"));
+                    editor.putString("vt2_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("vt2"));
+                    editor.putString("vt3_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("vt3"));
+                    editor.putString("vt4_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("vt4"));
+                    editor.putString("vt5_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("vt5"));
+                    editor.putString("vt6_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("vt6"));
+                    editor.putString("vt7_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("vt7"));
+                    editor.putString("vt8_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("vt8"));
+
+                    editor.putString("sr1_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sr1"));
+                    editor.putString("sr2_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sr2"));
+                    editor.putString("sr3_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sr3"));
+                    editor.putString("sr4_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sr4"));
+                    editor.putString("sr5_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sr5"));
+                    editor.putString("sr6_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sr6"));
+                    editor.putString("sr7_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sr7"));
+                    editor.putString("sr8_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sr8"));
+
+                    editor.putString("ch1_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("ch1"));
+                    editor.putString("ch2_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("ch2"));
+                    editor.putString("ch3_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("ch3"));
+                    editor.putString("ch4_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("ch4"));
+                    editor.putString("ch5_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("ch5"));
+                    editor.putString("ch6_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("ch6"));
+                    editor.putString("ch7_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("ch7"));
+                    editor.putString("ch8_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("ch8"));
+
+                    editor.putString("pt1_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pt1"));
+                    editor.putString("pt2_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pt2"));
+                    editor.putString("pt3_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pt3"));
+                    editor.putString("pt4_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pt4"));
+                    editor.putString("pt5_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pt5"));
+                    editor.putString("pt6_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pt6"));
+                    editor.putString("pt7_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pt7"));
+                    editor.putString("pt8_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("pt8"));
+
+                    editor.putString("sb1_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sb1"));
+                    editor.putString("sb2_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sb2"));
+                    editor.putString("sb3_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sb3"));
+                    editor.putString("sb4_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sb4"));
+                    editor.putString("sb5_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sb5"));
+                    editor.putString("sb6_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sb6"));
+                    editor.putString("sb7_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sb7"));
+                    editor.putString("sb8_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sb8"));
+                    editor.commit();
+                } catch (JSONException jsonException) {
+                    date.setText("Error333");
+                    jsonException.printStackTrace();
+                }
+            }
+            else if(class_pol.equals("10") && (symbol_pol.equals("с") || symbol_pol.equals("С"))) {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    editor.putString("pn1_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pn1"));
+                    editor.putString("pn2_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pn2"));
+                    editor.putString("pn3_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pn3"));
+                    editor.putString("pn4_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pn4"));
+                    editor.putString("pn5_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pn5"));
+                    editor.putString("pn6_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pn6"));
+                    editor.putString("pn7_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pn7"));
+                    editor.putString("pn8_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pn8"));
+
+                    editor.putString("vt1_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("vt1"));
+                    editor.putString("vt2_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("vt2"));
+                    editor.putString("vt3_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("vt3"));
+                    editor.putString("vt4_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("vt4"));
+                    editor.putString("vt5_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("vt5"));
+                    editor.putString("vt6_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("vt6"));
+                    editor.putString("vt7_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("vt7"));
+                    editor.putString("vt8_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("vt8"));
+
+                    editor.putString("sr1_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sr1"));
+                    editor.putString("sr2_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sr2"));
+                    editor.putString("sr3_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sr3"));
+                    editor.putString("sr4_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sr4"));
+                    editor.putString("sr5_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sr5"));
+                    editor.putString("sr6_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sr6"));
+                    editor.putString("sr7_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sr7"));
+                    editor.putString("sr8_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sr8"));
+
+                    editor.putString("ch1_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("ch1"));
+                    editor.putString("ch2_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("ch2"));
+                    editor.putString("ch3_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("ch3"));
+                    editor.putString("ch4_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("ch4"));
+                    editor.putString("ch5_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("ch5"));
+                    editor.putString("ch6_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("ch6"));
+                    editor.putString("ch7_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("ch7"));
+                    editor.putString("ch8_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("ch8"));
+
+                    editor.putString("pt1_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pt1"));
+                    editor.putString("pt2_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pt2"));
+                    editor.putString("pt3_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pt3"));
+                    editor.putString("pt4_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pt4"));
+                    editor.putString("pt5_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pt5"));
+                    editor.putString("pt6_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pt6"));
+                    editor.putString("pt7_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pt7"));
+                    editor.putString("pt8_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("pt8"));
+
+                    editor.putString("sb1_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sb1"));
+                    editor.putString("sb2_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sb2"));
+                    editor.putString("sb3_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sb3"));
+                    editor.putString("sb4_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sb4"));
+                    editor.putString("sb5_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sb5"));
+                    editor.putString("sb6_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sb6"));
+                    editor.putString("sb7_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sb7"));
+                    editor.putString("sb8_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sb8"));
+                    editor.commit();
+                } catch (JSONException jsonException) {
+                    date.setText("Error333");
+                    jsonException.printStackTrace();
+                }
+            }
+            JSONObject jsonObject = null;
+        }
+    }
+
+    void clend() {
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        switch (day){
+            case Calendar.SUNDAY:
+                day_week = "Воскресенье";
+                break;
+            case Calendar.MONDAY:
+                day_week = "Понедельник";
+                break;
+            case Calendar.TUESDAY:
+                day_week = "Вторник";
+                break;
+            case Calendar.WEDNESDAY:
+                day_week = "Среда";
+                break;
+            case Calendar.THURSDAY:
+                day_week = "Четверг";
+                break;
+            case Calendar.FRIDAY:
+                day_week = "Пятница";
+                break;
+            case Calendar.SATURDAY:
+                day_week = "Суббота";
+                break;
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -448,6 +752,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_rasp:
                 Intent intent2 = new Intent(MainActivity.this, RaspActivity.class);
                 startActivity(intent2);
+                return true;
+            case R.id.action_update:
+                String urlT = "https://api.jsonbin.io/v3/b/6341bce12b3499323bd7c899";
+                new getUrlData().execute(urlT);
+                clend();
+                rasp();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -570,6 +880,10 @@ public class MainActivity extends AppCompatActivity {
             rasp11at();
         else if (class_pol.equals("11") && (symbol_pol.equals("а") || symbol_pol.equals("А")) && prof_pol.equals("social"))
             rasp11as();
+        else if (class_pol.equals("10") && (symbol_pol.equals("т") || symbol_pol.equals("Т")))
+            rasp10t();
+        else if (class_pol.equals("10") && (symbol_pol.equals("с") || symbol_pol.equals("С")))
+            rasp10s();
         else {
             u1.setText("Класс не найден");
             u2.setText("Напиши");
@@ -583,6 +897,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void rasp11at() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         switch (day_week) {
             case "Воскресенье":
                 u1.setText("☺☺☺");
@@ -595,69 +910,70 @@ public class MainActivity extends AppCompatActivity {
                 u8.setText("");
                 break;
             case "Понедельник":
-                u1.setText(R.string.pn_one_11at);
-                u2.setText(R.string.pn_two_11at);
-                u3.setText(R.string.pn_three_11at);
-                u4.setText(R.string.pn_four_11at);
-                u5.setText(R.string.pn_five_11at);
-                u6.setText(R.string.pn_six_11at);
-                u7.setText(R.string.pn_seven_11at);
-                u8.setText(R.string.pn_eight_11at);
+                u1.setText(sharedPreferences.getString("pn1_11at", ""));
+                u2.setText(sharedPreferences.getString("pn2_11at", ""));
+                u3.setText(sharedPreferences.getString("pn3_11at", ""));
+                u4.setText(sharedPreferences.getString("pn4_11at", ""));
+                u5.setText(sharedPreferences.getString("pn5_11at", ""));
+                u6.setText(sharedPreferences.getString("pn6_11at", ""));
+                u7.setText(sharedPreferences.getString("pn7_11at", ""));
+                u8.setText(sharedPreferences.getString("pn8_11at", ""));
                 break;
             case "Вторник":
-                u1.setText(R.string.vt_one_11at);
-                u2.setText(R.string.vt_two_11at);
-                u3.setText(R.string.vt_three_11at);
-                u4.setText(R.string.vt_four_11at);
-                u5.setText(R.string.vt_five_11at);
-                u6.setText(R.string.vt_six_11at);
-                u7.setText(R.string.vt_seven_11at);
-                u8.setText(R.string.vt_eight_11at);
+                u1.setText(sharedPreferences.getString("vt1_11at", ""));
+                u2.setText(sharedPreferences.getString("vt2_11at", ""));
+                u3.setText(sharedPreferences.getString("vt3_11at", ""));
+                u4.setText(sharedPreferences.getString("vt4_11at", ""));
+                u5.setText(sharedPreferences.getString("vt5_11at", ""));
+                u6.setText(sharedPreferences.getString("vt6_11at", ""));
+                u7.setText(sharedPreferences.getString("vt7_11at", ""));
+                u8.setText(sharedPreferences.getString("vt8_11at", ""));
                 break;
             case "Среда":
-                u1.setText(R.string.sr_one_11at);
-                u2.setText(R.string.sr_two_11at);
-                u3.setText(R.string.sr_three_11at);
-                u4.setText(R.string.sr_four_11at);
-                u5.setText(R.string.sr_five_11at);
-                u6.setText(R.string.sr_six_11at);
-                u7.setText(R.string.sr_seven_11at);
-                u8.setText(R.string.sr_eight_11at);
+                u1.setText(sharedPreferences.getString("sr1_11at", ""));
+                u2.setText(sharedPreferences.getString("sr2_11at", ""));
+                u3.setText(sharedPreferences.getString("sr3_11at", ""));
+                u4.setText(sharedPreferences.getString("sr4_11at", ""));
+                u5.setText(sharedPreferences.getString("sr5_11at", ""));
+                u6.setText(sharedPreferences.getString("sr6_11at", ""));
+                u7.setText(sharedPreferences.getString("sr7_11at", ""));
+                u8.setText(sharedPreferences.getString("sr8_11at", ""));
                 break;
             case "Четверг":
-                u1.setText(R.string.ch_one_11at);
-                u2.setText(R.string.ch_two_11at);
-                u3.setText(R.string.ch_three_11at);
-                u4.setText(R.string.ch_four_11at);
-                u5.setText(R.string.ch_five_11at);
-                u6.setText(R.string.ch_six_11at);
-                u7.setText(R.string.ch_seven_11at);
-                u8.setText(R.string.ch_eight_11at);
+                u1.setText(sharedPreferences.getString("ch1_11at", ""));
+                u2.setText(sharedPreferences.getString("ch2_11at", ""));
+                u3.setText(sharedPreferences.getString("ch3_11at", ""));
+                u4.setText(sharedPreferences.getString("ch4_11at", ""));
+                u5.setText(sharedPreferences.getString("ch5_11at", ""));
+                u6.setText(sharedPreferences.getString("ch6_11at", ""));
+                u7.setText(sharedPreferences.getString("ch7_11at", ""));
+                u8.setText(sharedPreferences.getString("ch8_11at", ""));
                 break;
             case "Пятница":
-                u1.setText(R.string.pt_one_11at);
-                u2.setText(R.string.pt_two_11at);
-                u3.setText(R.string.pt_three_11at);
-                u4.setText(R.string.pt_four_11at);
-                u5.setText(R.string.pt_five_11at);
-                u6.setText(R.string.pt_six_11at);
-                u7.setText(R.string.pt_seven_11at);
-                u8.setText(R.string.pt_eight_11at);
+                u1.setText(sharedPreferences.getString("pt1_11at", ""));
+                u2.setText(sharedPreferences.getString("pt2_11at", ""));
+                u3.setText(sharedPreferences.getString("pt3_11at", ""));
+                u4.setText(sharedPreferences.getString("pt4_11at", ""));
+                u5.setText(sharedPreferences.getString("pt5_11at", ""));
+                u6.setText(sharedPreferences.getString("pt6_11at", ""));
+                u7.setText(sharedPreferences.getString("pt7_11at", ""));
+                u8.setText(sharedPreferences.getString("pt8_11at", ""));
                 break;
             case "Суббота":
-                u1.setText(R.string.sb_one_11at);
-                u2.setText(R.string.sb_two_11at);
-                u3.setText(R.string.sb_three_11at);
-                u4.setText(R.string.sb_four_11at);
-                u5.setText(R.string.sb_five_11at);
-                u6.setText(R.string.sb_six_11at);
-                u7.setText(R.string.sb_seven_11at);
-                u8.setText(R.string.sb_eight_11at);
+                u1.setText(sharedPreferences.getString("sb1_11at", ""));
+                u2.setText(sharedPreferences.getString("sb2_11at", ""));
+                u3.setText(sharedPreferences.getString("sb3_11at", ""));
+                u4.setText(sharedPreferences.getString("sb4_11at", ""));
+                u5.setText(sharedPreferences.getString("sb5_11at", ""));
+                u6.setText(sharedPreferences.getString("sb6_11at", ""));
+                u7.setText(sharedPreferences.getString("sb7_11at", ""));
+                u8.setText(sharedPreferences.getString("sb8_11at", ""));
                 break;
         }
     }
 
-    void rasp11as(){
+    void rasp11as() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         switch (day_week) {
             case "Воскресенье":
                 u1.setText("☺☺☺");
@@ -670,64 +986,216 @@ public class MainActivity extends AppCompatActivity {
                 u8.setText("");
                 break;
             case "Понедельник":
-                u1.setText(R.string.pn_one_11as);
-                u2.setText(R.string.pn_two_11as);
-                u3.setText(R.string.pn_three_11as);
-                u4.setText(R.string.pn_four_11as);
-                u5.setText(R.string.pn_five_11as);
-                u6.setText(R.string.pn_six_11as);
-                u7.setText(R.string.pn_seven_11as);
-                u8.setText(R.string.pn_eight_11as);
+                u1.setText(sharedPreferences.getString("pn1_11as", ""));
+                u2.setText(sharedPreferences.getString("pn2_11as", ""));
+                u3.setText(sharedPreferences.getString("pn3_11as", ""));
+                u4.setText(sharedPreferences.getString("pn4_11as", ""));
+                u5.setText(sharedPreferences.getString("pn5_11as", ""));
+                u6.setText(sharedPreferences.getString("pn6_11as", ""));
+                u7.setText(sharedPreferences.getString("pn7_11as", ""));
+                u8.setText(sharedPreferences.getString("pn8_11as", ""));
                 break;
             case "Вторник":
-                u1.setText(R.string.vt_one_11as);
-                u2.setText(R.string.vt_two_11as);
-                u3.setText(R.string.vt_three_11as);
-                u4.setText(R.string.vt_four_11as);
-                u5.setText(R.string.vt_five_11as);
-                u6.setText(R.string.vt_six_11as);
-                u7.setText(R.string.vt_seven_11as);
-                u8.setText(R.string.vt_eight_11as);
+                u1.setText(sharedPreferences.getString("vt1_11as", ""));
+                u2.setText(sharedPreferences.getString("vt2_11as", ""));
+                u3.setText(sharedPreferences.getString("vt3_11as", ""));
+                u4.setText(sharedPreferences.getString("vt4_11as", ""));
+                u5.setText(sharedPreferences.getString("vt5_11as", ""));
+                u6.setText(sharedPreferences.getString("vt6_11as", ""));
+                u7.setText(sharedPreferences.getString("vt7_11as", ""));
+                u8.setText(sharedPreferences.getString("vt8_11as", ""));
                 break;
             case "Среда":
-                u1.setText(R.string.sr_one_11as);
-                u2.setText(R.string.sr_two_11as);
-                u3.setText(R.string.sr_three_11as);
-                u4.setText(R.string.sr_four_11as);
-                u5.setText(R.string.sr_five_11as);
-                u6.setText(R.string.sr_six_11as);
-                u7.setText(R.string.sr_seven_11as);
-                u8.setText(R.string.sr_eight_11as);
+                u1.setText(sharedPreferences.getString("sr1_11as", ""));
+                u2.setText(sharedPreferences.getString("sr2_11as", ""));
+                u3.setText(sharedPreferences.getString("sr3_11as", ""));
+                u4.setText(sharedPreferences.getString("sr4_11as", ""));
+                u5.setText(sharedPreferences.getString("sr5_11as", ""));
+                u6.setText(sharedPreferences.getString("sr6_11as", ""));
+                u7.setText(sharedPreferences.getString("sr7_11as", ""));
+                u8.setText(sharedPreferences.getString("sr8_11as", ""));
                 break;
             case "Четверг":
-                u1.setText(R.string.ch_one_11as);
-                u2.setText(R.string.ch_two_11as);
-                u3.setText(R.string.ch_three_11as);
-                u4.setText(R.string.ch_four_11as);
-                u5.setText(R.string.ch_five_11as);
-                u6.setText(R.string.ch_six_11as);
-                u7.setText(R.string.ch_seven_11as);
-                u8.setText(R.string.ch_eight_11as);
+                u1.setText(sharedPreferences.getString("ch1_11as", ""));
+                u2.setText(sharedPreferences.getString("ch2_11as", ""));
+                u3.setText(sharedPreferences.getString("ch3_11as", ""));
+                u4.setText(sharedPreferences.getString("ch4_11as", ""));
+                u5.setText(sharedPreferences.getString("ch5_11as", ""));
+                u6.setText(sharedPreferences.getString("ch6_11as", ""));
+                u7.setText(sharedPreferences.getString("ch7_11as", ""));
+                u8.setText(sharedPreferences.getString("ch8_11as", ""));
                 break;
             case "Пятница":
-                u1.setText(R.string.pt_one_11as);
-                u2.setText(R.string.pt_two_11as);
-                u3.setText(R.string.pt_three_11as);
-                u4.setText(R.string.pt_four_11as);
-                u5.setText(R.string.pt_five_11as);
-                u6.setText(R.string.pt_six_11as);
-                u7.setText(R.string.pt_seven_11as);
-                u8.setText(R.string.pt_eight_11as);
+                u1.setText(sharedPreferences.getString("pt1_11as", ""));
+                u2.setText(sharedPreferences.getString("pt2_11as", ""));
+                u3.setText(sharedPreferences.getString("pt3_11as", ""));
+                u4.setText(sharedPreferences.getString("pt4_11as", ""));
+                u5.setText(sharedPreferences.getString("pt5_11as", ""));
+                u6.setText(sharedPreferences.getString("pt6_11as", ""));
+                u7.setText(sharedPreferences.getString("pt7_11as", ""));
+                u8.setText(sharedPreferences.getString("pt8_11as", ""));
                 break;
             case "Суббота":
-                u1.setText(R.string.sb_one_11as);
-                u2.setText(R.string.sb_two_11as);
-                u3.setText(R.string.sb_three_11as);
-                u4.setText(R.string.sb_four_11as);
-                u5.setText(R.string.sb_five_11as);
-                u6.setText(R.string.sb_six_11as);
-                u7.setText(R.string.sb_seven_11as);
-                u8.setText(R.string.sb_eight_11as);
+                u1.setText(sharedPreferences.getString("sb1_11as", ""));
+                u2.setText(sharedPreferences.getString("sb2_11as", ""));
+                u3.setText(sharedPreferences.getString("sb3_11as", ""));
+                u4.setText(sharedPreferences.getString("sb4_11as", ""));
+                u5.setText(sharedPreferences.getString("sb5_11as", ""));
+                u6.setText(sharedPreferences.getString("sb6_11as", ""));
+                u7.setText(sharedPreferences.getString("sb7_11as", ""));
+                u8.setText(sharedPreferences.getString("sb8_11as", ""));
+                break;
+        }
+    }
+
+    void rasp10t() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        switch (day_week) {
+            case "Воскресенье":
+                u1.setText("☺☺☺");
+                u2.setText("");
+                u3.setText("");
+                u4.setText("");
+                u5.setText("");
+                u6.setText("");
+                u7.setText("");
+                u8.setText("");
+                break;
+            case "Понедельник":
+                u1.setText(sharedPreferences.getString("pn1_10t", ""));
+                u2.setText(sharedPreferences.getString("pn2_10t", ""));
+                u3.setText(sharedPreferences.getString("pn3_10t", ""));
+                u4.setText(sharedPreferences.getString("pn4_10t", ""));
+                u5.setText(sharedPreferences.getString("pn5_10t", ""));
+                u6.setText(sharedPreferences.getString("pn6_10t", ""));
+                u7.setText(sharedPreferences.getString("pn7_10t", ""));
+                u8.setText(sharedPreferences.getString("pn8_10t", ""));
+                break;
+            case "Вторник":
+                u1.setText(sharedPreferences.getString("vt1_10t", ""));
+                u2.setText(sharedPreferences.getString("vt2_10t", ""));
+                u3.setText(sharedPreferences.getString("vt3_10t", ""));
+                u4.setText(sharedPreferences.getString("vt4_10t", ""));
+                u5.setText(sharedPreferences.getString("vt5_10t", ""));
+                u6.setText(sharedPreferences.getString("vt6_10t", ""));
+                u7.setText(sharedPreferences.getString("vt7_10t", ""));
+                u8.setText(sharedPreferences.getString("vt8_10t", ""));
+                break;
+            case "Среда":
+                u1.setText(sharedPreferences.getString("sr1_10t", ""));
+                u2.setText(sharedPreferences.getString("sr2_10t", ""));
+                u3.setText(sharedPreferences.getString("sr3_10t", ""));
+                u4.setText(sharedPreferences.getString("sr4_10t", ""));
+                u5.setText(sharedPreferences.getString("sr5_10t", ""));
+                u6.setText(sharedPreferences.getString("sr6_10t", ""));
+                u7.setText(sharedPreferences.getString("sr7_10t", ""));
+                u8.setText(sharedPreferences.getString("sr8_10t", ""));
+                break;
+            case "Четверг":
+                u1.setText(sharedPreferences.getString("ch1_10t", ""));
+                u2.setText(sharedPreferences.getString("ch2_10t", ""));
+                u3.setText(sharedPreferences.getString("ch3_10t", ""));
+                u4.setText(sharedPreferences.getString("ch4_10t", ""));
+                u5.setText(sharedPreferences.getString("ch5_10t", ""));
+                u6.setText(sharedPreferences.getString("ch6_10t", ""));
+                u7.setText(sharedPreferences.getString("ch7_10t", ""));
+                u8.setText(sharedPreferences.getString("ch8_10t", ""));
+                break;
+            case "Пятница":
+                u1.setText(sharedPreferences.getString("pt1_10t", ""));
+                u2.setText(sharedPreferences.getString("pt2_10t", ""));
+                u3.setText(sharedPreferences.getString("pt3_10t", ""));
+                u4.setText(sharedPreferences.getString("pt4_10t", ""));
+                u5.setText(sharedPreferences.getString("pt5_10t", ""));
+                u6.setText(sharedPreferences.getString("pt6_10t", ""));
+                u7.setText(sharedPreferences.getString("pt7_10t", ""));
+                u8.setText(sharedPreferences.getString("pt8_10t", ""));
+                break;
+            case "Суббота":
+                u1.setText(sharedPreferences.getString("sb1_10t", ""));
+                u2.setText(sharedPreferences.getString("sb2_10t", ""));
+                u3.setText(sharedPreferences.getString("sb3_10t", ""));
+                u4.setText(sharedPreferences.getString("sb4_10t", ""));
+                u5.setText(sharedPreferences.getString("sb5_10t", ""));
+                u6.setText(sharedPreferences.getString("sb6_10t", ""));
+                u7.setText(sharedPreferences.getString("sb7_10t", ""));
+                u8.setText(sharedPreferences.getString("sb8_10t", ""));
+                break;
+        }
+    }
+
+    void rasp10s() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        switch (day_week) {
+            case "Воскресенье":
+                u1.setText("☺☺☺");
+                u2.setText("");
+                u3.setText("");
+                u4.setText("");
+                u5.setText("");
+                u6.setText("");
+                u7.setText("");
+                u8.setText("");
+                break;
+            case "Понедельник":
+                u1.setText(sharedPreferences.getString("pn1_10s", ""));
+                u2.setText(sharedPreferences.getString("pn2_10s", ""));
+                u3.setText(sharedPreferences.getString("pn3_10s", ""));
+                u4.setText(sharedPreferences.getString("pn4_10s", ""));
+                u5.setText(sharedPreferences.getString("pn5_10s", ""));
+                u6.setText(sharedPreferences.getString("pn6_10s", ""));
+                u7.setText(sharedPreferences.getString("pn7_10s", ""));
+                u8.setText(sharedPreferences.getString("pn8_10s", ""));
+                break;
+            case "Вторник":
+                u1.setText(sharedPreferences.getString("vt1_10s", ""));
+                u2.setText(sharedPreferences.getString("vt2_10s", ""));
+                u3.setText(sharedPreferences.getString("vt3_10s", ""));
+                u4.setText(sharedPreferences.getString("vt4_10s", ""));
+                u5.setText(sharedPreferences.getString("vt5_10s", ""));
+                u6.setText(sharedPreferences.getString("vt6_10s", ""));
+                u7.setText(sharedPreferences.getString("vt7_10s", ""));
+                u8.setText(sharedPreferences.getString("vt8_10s", ""));
+                break;
+            case "Среда":
+                u1.setText(sharedPreferences.getString("sr1_10s", ""));
+                u2.setText(sharedPreferences.getString("sr2_10s", ""));
+                u3.setText(sharedPreferences.getString("sr3_10s", ""));
+                u4.setText(sharedPreferences.getString("sr4_10s", ""));
+                u5.setText(sharedPreferences.getString("sr5_10s", ""));
+                u6.setText(sharedPreferences.getString("sr6_10s", ""));
+                u7.setText(sharedPreferences.getString("sr7_10s", ""));
+                u8.setText(sharedPreferences.getString("sr8_10s", ""));
+                break;
+            case "Четверг":
+                u1.setText(sharedPreferences.getString("ch1_10s", ""));
+                u2.setText(sharedPreferences.getString("ch2_10s", ""));
+                u3.setText(sharedPreferences.getString("ch3_10s", ""));
+                u4.setText(sharedPreferences.getString("ch4_10s", ""));
+                u5.setText(sharedPreferences.getString("ch5_10s", ""));
+                u6.setText(sharedPreferences.getString("ch6_10s", ""));
+                u7.setText(sharedPreferences.getString("ch7_10s", ""));
+                u8.setText(sharedPreferences.getString("ch8_10s", ""));
+                break;
+            case "Пятница":
+                u1.setText(sharedPreferences.getString("pt1_10s", ""));
+                u2.setText(sharedPreferences.getString("pt2_10s", ""));
+                u3.setText(sharedPreferences.getString("pt3_10s", ""));
+                u4.setText(sharedPreferences.getString("pt4_10s", ""));
+                u5.setText(sharedPreferences.getString("pt5_10s", ""));
+                u6.setText(sharedPreferences.getString("pt6_10s", ""));
+                u7.setText(sharedPreferences.getString("pt7_10s", ""));
+                u8.setText(sharedPreferences.getString("pt8_10s", ""));
+                break;
+            case "Суббота":
+                u1.setText(sharedPreferences.getString("sb1_10s", ""));
+                u2.setText(sharedPreferences.getString("sb2_10s", ""));
+                u3.setText(sharedPreferences.getString("sb3_10s", ""));
+                u4.setText(sharedPreferences.getString("sb4_10s", ""));
+                u5.setText(sharedPreferences.getString("sb5_10s", ""));
+                u6.setText(sharedPreferences.getString("sb6_10s", ""));
+                u7.setText(sharedPreferences.getString("sb7_10s", ""));
+                u8.setText(sharedPreferences.getString("sb8_10s", ""));
                 break;
         }
     }
