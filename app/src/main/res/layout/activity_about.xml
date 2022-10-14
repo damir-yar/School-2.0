@@ -16,9 +16,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:text="Скачать обновление: \nhttps://vk.com/school_2_0"
+            android:text="Группа проекта ВК: \nhttps://vk.com/school_2_0"
             android:autoLink="all"
-            android:textSize="23dp"/>
+            android:textSize="20dp"/>
 
         <TextView
             android:layout_width="match_parent"

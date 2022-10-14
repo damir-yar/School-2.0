@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -64,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
     private String class_pol;
     private String symbol_pol;
     private String prof_pol;
-    private String dd;
 
     private Button easter;
     private int east = 0;
@@ -109,15 +110,6 @@ public class MainActivity extends AppCompatActivity {
         class_pol = sharedPreferences.getString("class", "unknown");
         symbol_pol = sharedPreferences.getString("symbol", "unknown");
         prof_pol = sharedPreferences.getString("prof", "unknown");
-        dd = sharedPreferences.getString("ddd", "unknown");
-        if (dd.equals("1")){
-            String urlT = "https://api.jsonbin.io/v3/b/6341bce12b3499323bd7c899";
-            new getUrlData().execute(urlT);
-            clend();
-            rasp();
-            editor.putString("ddd", "0");
-            editor.commit();
-        }
 
         if (name_pol.equals("unknown") || class_pol.equals("unknown") || symbol_pol.equals("unknown")
         || name_pol.equals("") || class_pol.equals("") || symbol_pol.equals("")){
@@ -387,6 +379,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         raspZ();
+        rasp();
 
         easter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -407,7 +400,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private  class getUrlData extends AsyncTask<String, String, String> {
+    private class getUrlData extends AsyncTask<String, String, String> {
         protected void onPreExecute(){ }
         @Override
         protected String doInBackground(String... strings) {
@@ -450,6 +443,20 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(result);
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
             SharedPreferences.Editor editor = sharedPreferences.edit();
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                if(!jsonObject.getJSONObject("record").getJSONObject("connect").getString("cn").equals("true")) {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Ошибка сервера", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+            } catch (JSONException jsonException) {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Ошибка JSON", Toast.LENGTH_SHORT);
+                toast.show();
+                jsonException.printStackTrace();
+            }
             if (class_pol.equals("11") && (symbol_pol.equals("а") || symbol_pol.equals("А")) && prof_pol.equals("tech")) {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -507,8 +514,13 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("sb7_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sb7"));
                     editor.putString("sb8_11at", jsonObject.getJSONObject("record").getJSONObject("rasp11at").getString("sb8"));
                     editor.commit();
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Расписание обновлено", Toast.LENGTH_SHORT);
+                    toast.show();
                 } catch (JSONException jsonException) {
-                    date.setText("Error333");
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Ошибка JSON", Toast.LENGTH_SHORT);
+                    toast.show();
                     jsonException.printStackTrace();
                 }
             }
@@ -569,8 +581,13 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("sb7_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sb7"));
                     editor.putString("sb8_11as", jsonObject.getJSONObject("record").getJSONObject("rasp11as").getString("sb8"));
                     editor.commit();
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Расписание обновлено", Toast.LENGTH_SHORT);
+                    toast.show();
                 } catch (JSONException jsonException) {
-                    date.setText("Error333");
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Ошибка JSON", Toast.LENGTH_SHORT);
+                    toast.show();
                     jsonException.printStackTrace();
                 }
             }
@@ -631,8 +648,13 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("sb7_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sb7"));
                     editor.putString("sb8_10t", jsonObject.getJSONObject("record").getJSONObject("rasp10t").getString("sb8"));
                     editor.commit();
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Расписание обновлено", Toast.LENGTH_SHORT);
+                    toast.show();
                 } catch (JSONException jsonException) {
-                    date.setText("Error333");
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Ошибка JSON", Toast.LENGTH_SHORT);
+                    toast.show();
                     jsonException.printStackTrace();
                 }
             }
@@ -693,13 +715,93 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("sb7_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sb7"));
                     editor.putString("sb8_10s", jsonObject.getJSONObject("record").getJSONObject("rasp10s").getString("sb8"));
                     editor.commit();
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Расписание обновлено", Toast.LENGTH_SHORT);
+                    toast.show();
                 } catch (JSONException jsonException) {
-                    date.setText("Error333");
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Ошибка JSON", Toast.LENGTH_SHORT);
+                    toast.show();
                     jsonException.printStackTrace();
                 }
             }
             JSONObject jsonObject = null;
         }
+    }
+
+    private class getUrlData1 extends AsyncTask<String, String, String> {
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+
+            try {
+                URL url = new URL(strings[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                StringBuffer buffer = new StringBuffer();
+                String line = "";
+
+                while ((line = reader.readLine()) != null)
+                    buffer.append(line).append("\n");
+
+                return buffer.toString();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null)
+                    connection.disconnect();
+                try {
+                    if (reader != null)
+                        reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                if (!jsonObject.getJSONObject("record").getJSONObject("connect").getString("cn").equals("true")) {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Ошибка сервера", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+            } catch (JSONException jsonException) {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Ошибка JSON", Toast.LENGTH_SHORT);
+                toast.show();
+                jsonException.printStackTrace();
+            }
+
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                String app = jsonObject.getJSONObject("record").getJSONObject("connect").getString("app");
+                Intent intent4 = new Intent(Intent.ACTION_VIEW, Uri.parse(app));
+                startActivity(intent4);
+            } catch (JSONException jsonException) {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Ошибка JSON", Toast.LENGTH_SHORT);
+                toast.show();
+                jsonException.printStackTrace();
+            }
+        }JSONObject jsonObject = null;
     }
 
     void clend() {
@@ -749,19 +851,34 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(MainActivity.this, AboutActivity.class);
                 startActivity(intent1);
                 return true;
-            case R.id.action_rasp:
-                Intent intent2 = new Intent(MainActivity.this, RaspActivity.class);
-                startActivity(intent2);
+            case R.id.action_update_app:
+                String urlT = "https://api.jsonbin.io/v3/b/6341bce12b3499323bd7c899";
+                new getUrlData1().execute(urlT);
+
                 return true;
             case R.id.action_update:
-                String urlT = "https://api.jsonbin.io/v3/b/6341bce12b3499323bd7c899";
-                new getUrlData().execute(urlT);
-                clend();
-                rasp();
+                boolean inet = isNetworkConnected();
+                if (inet == true) {
+                    String url1T = "https://api.jsonbin.io/v3/b/6341bce12b3499323bd7c899";
+                    new getUrlData().execute(url1T);
+                    clend();
+                    rasp();
+                }
+                else {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Нет подключения к интернету", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
     public class OnSwipeTouchListener implements View.OnTouchListener {
@@ -876,14 +993,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void rasp() {
-        if (class_pol.equals("11") && (symbol_pol.equals("а") || symbol_pol.equals("А")) && prof_pol.equals("tech"))
+        if (class_pol.equals("11") && (symbol_pol.equals("а") || symbol_pol.equals("А")) && prof_pol.equals("tech")) {
             rasp11at();
-        else if (class_pol.equals("11") && (symbol_pol.equals("а") || symbol_pol.equals("А")) && prof_pol.equals("social"))
+        }
+        else if (class_pol.equals("11") && (symbol_pol.equals("а") || symbol_pol.equals("А")) && prof_pol.equals("social")) {
             rasp11as();
-        else if (class_pol.equals("10") && (symbol_pol.equals("т") || symbol_pol.equals("Т")))
+        }
+        else if (class_pol.equals("10") && (symbol_pol.equals("т") || symbol_pol.equals("Т"))) {
             rasp10t();
-        else if (class_pol.equals("10") && (symbol_pol.equals("с") || symbol_pol.equals("С")))
+        }
+        else if (class_pol.equals("10") && (symbol_pol.equals("с") || symbol_pol.equals("С"))) {
             rasp10s();
+        }
         else {
             u1.setText("Класс не найден");
             u2.setText("Напиши");
