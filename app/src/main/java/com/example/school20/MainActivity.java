@@ -852,13 +852,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent1);
                 return true;
             case R.id.action_update_app:
-                String urlT = "https://api.jsonbin.io/v3/b/6341bce12b3499323bd7c899";
-                new getUrlData1().execute(urlT);
-
-                return true;
-            case R.id.action_update:
                 boolean inet = isNetworkConnected();
                 if (inet == true) {
+                    String urlT = "https://api.jsonbin.io/v3/b/6341bce12b3499323bd7c899";
+                    new getUrlData1().execute(urlT);
+                }
+                else {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Нет подключения к интернету", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                return true;
+            case R.id.action_update:
+                boolean inet1 = isNetworkConnected();
+                if (inet1 == true) {
                     String url1T = "https://api.jsonbin.io/v3/b/6341bce12b3499323bd7c899";
                     new getUrlData().execute(url1T);
                     clend();
