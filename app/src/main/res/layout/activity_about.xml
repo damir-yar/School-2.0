@@ -51,7 +51,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:text="Версия 2.0.4\nРазработчик - Ярославцев Дамир"
+            android:text="Версия 2.0.6\nРазработчик - Ярославцев Дамир"
             android:textSize="20dp"/>
 
         <ScrollView
