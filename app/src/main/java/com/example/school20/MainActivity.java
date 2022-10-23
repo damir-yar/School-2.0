@@ -35,9 +35,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -131,14 +128,14 @@ public class MainActivity extends AppCompatActivity {
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         switch (currentNightMode) {
             case Configuration.UI_MODE_NIGHT_NO:
-                z1.setTextColor(getResources().getColor(R.color.black));
-                z2.setTextColor(getResources().getColor(R.color.black));
-                z3.setTextColor(getResources().getColor(R.color.black));
-                z4.setTextColor(getResources().getColor(R.color.black));
-                z5.setTextColor(getResources().getColor(R.color.black));
-                z6.setTextColor(getResources().getColor(R.color.black));
-                z7.setTextColor(getResources().getColor(R.color.black));
-                z8.setTextColor(getResources().getColor(R.color.black));
+                z1.setTextColor(getResources().getColor(R.color.gray));
+                z2.setTextColor(getResources().getColor(R.color.gray));
+                z3.setTextColor(getResources().getColor(R.color.gray));
+                z4.setTextColor(getResources().getColor(R.color.gray));
+                z5.setTextColor(getResources().getColor(R.color.gray));
+                z6.setTextColor(getResources().getColor(R.color.gray));
+                z7.setTextColor(getResources().getColor(R.color.gray));
+                z8.setTextColor(getResources().getColor(R.color.gray));
 
                 u1.setTextColor(getResources().getColor(R.color.black));
                 u2.setTextColor(getResources().getColor(R.color.black));
@@ -165,14 +162,14 @@ public class MainActivity extends AppCompatActivity {
                 layout.setBackgroundResource(R.drawable.background_main);
                 break;
             case Configuration.UI_MODE_NIGHT_YES:
-                z1.setTextColor(getResources().getColor(R.color.black));
-                z2.setTextColor(getResources().getColor(R.color.black));
-                z3.setTextColor(getResources().getColor(R.color.black));
-                z4.setTextColor(getResources().getColor(R.color.black));
-                z5.setTextColor(getResources().getColor(R.color.black));
-                z6.setTextColor(getResources().getColor(R.color.black));
-                z7.setTextColor(getResources().getColor(R.color.black));
-                z8.setTextColor(getResources().getColor(R.color.black));
+                z1.setTextColor(getResources().getColor(R.color.gray));
+                z2.setTextColor(getResources().getColor(R.color.gray));
+                z3.setTextColor(getResources().getColor(R.color.gray));
+                z4.setTextColor(getResources().getColor(R.color.gray));
+                z5.setTextColor(getResources().getColor(R.color.gray));
+                z6.setTextColor(getResources().getColor(R.color.gray));
+                z7.setTextColor(getResources().getColor(R.color.gray));
+                z8.setTextColor(getResources().getColor(R.color.gray));
 
                 u1.setTextColor(getResources().getColor(R.color.black));
                 u2.setTextColor(getResources().getColor(R.color.black));
@@ -249,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                         date.setText(day_week);
                         break;
                 }
-                sOnClick();
+                raspZ();
                 return true;
             }
             public boolean onSwipeLeft() {
@@ -290,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
                         date.setText(day_week);
                         break;
                 }
-                sOnClick();
+                raspZ();
                 return true;
             }
             public boolean onSwipeBottom() {
@@ -338,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
                         date.setText(day_week);
                         break;
                 }
-                sOnClick();
+                raspZ();
             }
         });
         next.setOnClickListener(new View.OnClickListener() {
@@ -381,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
                         date.setText(day_week);
                         break;
                 }
-                sOnClick();
+                raspZ();
             }
         });
 
@@ -405,6 +402,47 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        s.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((Switch) v).isChecked();
+                if (checked) {
+                    z1.setText(sharedPreferences.getString("rasp_bell_abb1", ""));
+                    z2.setText(sharedPreferences.getString("rasp_bell_abb2", ""));
+                    z3.setText(sharedPreferences.getString("rasp_bell_abb3", ""));
+                    z4.setText(sharedPreferences.getString("rasp_bell_abb4", ""));
+                    z5.setText(sharedPreferences.getString("rasp_bell_abb5", ""));
+                    z6.setText(sharedPreferences.getString("rasp_bell_abb6", ""));
+                    z7.setText(sharedPreferences.getString("rasp_bell_abb7", ""));
+                    z8.setText(sharedPreferences.getString("rasp_bell_abb8", ""));
+                }
+                else {
+                    switch (day_week) {
+                        case "Суббота":
+                            z1.setText(sharedPreferences.getString("rasp_bell_sat1", ""));
+                            z2.setText(sharedPreferences.getString("rasp_bell_sat2", ""));
+                            z3.setText(sharedPreferences.getString("rasp_bell_sat3", ""));
+                            z4.setText(sharedPreferences.getString("rasp_bell_sat4", ""));
+                            z5.setText(sharedPreferences.getString("rasp_bell_sat5", ""));
+                            z6.setText(sharedPreferences.getString("rasp_bell_sat6", ""));
+                            z7.setText(sharedPreferences.getString("rasp_bell_sat7", ""));
+                            z8.setText(sharedPreferences.getString("rasp_bell_sat8", ""));
+                            break;
+                        default:
+                            z1.setText(sharedPreferences.getString("rasp_bell_def1", ""));
+                            z2.setText(sharedPreferences.getString("rasp_bell_def2", ""));
+                            z3.setText(sharedPreferences.getString("rasp_bell_def3", ""));
+                            z4.setText(sharedPreferences.getString("rasp_bell_def4", ""));
+                            z5.setText(sharedPreferences.getString("rasp_bell_def5", ""));
+                            z6.setText(sharedPreferences.getString("rasp_bell_def6", ""));
+                            z7.setText(sharedPreferences.getString("rasp_bell_def7", ""));
+                            z8.setText(sharedPreferences.getString("rasp_bell_def8", ""));
+                            break;
+                    }
+                }
+            }});
+
         boolean inet = isNetworkConnected();
         if (inet == true) {
             String urlT = "https://api.npoint.io/86de4c9a1714afd58caa";
@@ -419,7 +457,6 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             HttpURLConnection connection = null;
             BufferedReader reader = null;
-
             try {
                 URL url = new URL(strings[0]);
                 connection = (HttpURLConnection) url.openConnection();
@@ -482,7 +519,6 @@ public class MainActivity extends AppCompatActivity {
                 pr = "t";
             else
                 pr = "s";
-
             try {
                 String str_obj = "";
                 String les = "";
@@ -492,7 +528,8 @@ public class MainActivity extends AppCompatActivity {
                     str_obj = "rasp" + class_pol + symbol;
                 }
                 JSONObject jsonObject = new JSONObject(result);
-                if (sharedPreferences.getString("verson", "").equals(jsonObject.getJSONObject(str_obj).getString("ver"))) {
+                if (sharedPreferences.getString("verson", "").equals(jsonObject.getJSONObject(str_obj).getString("ver"))
+                && sharedPreferences.getString("verson_bells", "").equals(jsonObject.getJSONObject("rasp_bells").getString("ver"))) {
                     return;
                 }
             } catch (JSONException jsonException) {
@@ -667,12 +704,51 @@ public class MainActivity extends AppCompatActivity {
                     jsonException.printStackTrace();
                 }
             }
+            i = 0;
+            while(i<8) {
+                i++;
+                String str_z = "rasp_bell_def" + i;
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    editor.putString(str_z, jsonObject.getJSONObject("rasp_bells").getJSONObject("default").getString(Integer.toString(i)));
+                    editor.commit();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            i = 0;
+            while(i<8) {
+                i++;
+                String str_z = "rasp_bell_sat" + i;
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    editor.putString(str_z, jsonObject.getJSONObject("rasp_bells").getJSONObject("saturday").getString(Integer.toString(i)));
+                    editor.commit();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            i = 0;
+            while(i<8) {
+                i++;
+                String str_z = "rasp_bell_abb" + i;
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    editor.putString(str_z, jsonObject.getJSONObject("rasp_bells").getJSONObject("abbreviated").getString(Integer.toString(i)));
+                    editor.putString("verson_bells", jsonObject.getJSONObject("rasp_bells").getString("ver"));
+                    editor.commit();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(3);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             rasp();
+            raspZ();
             Toast toast = Toast.makeText(getApplicationContext(),
                     "Расписание обновлено", Toast.LENGTH_SHORT);
             toast.show();
@@ -763,6 +839,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                 }
+
             } catch (JSONException jsonException) {
                 Toast toast = Toast.makeText(getApplicationContext(),
                         "Ошибка JSON", Toast.LENGTH_SHORT);
@@ -1010,43 +1087,55 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void raspZ() {
-        z1.setText(R.string.rasp_z1_default);
-        z2.setText(R.string.rasp_z2_default);
-        z3.setText(R.string.rasp_z3_default);
-        z4.setText(R.string.rasp_z4_default);
-        z5.setText(R.string.rasp_z5_default);
-        z6.setText(R.string.rasp_z6_default);
-        z7.setText(R.string.rasp_z7_default);
-        z8.setText(R.string.rasp_z8_default);
-        sOnClick();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        if (s.isChecked() == true) {
+            z1.setText(sharedPreferences.getString("rasp_bell_abb1", ""));
+            z2.setText(sharedPreferences.getString("rasp_bell_abb2", ""));
+            z3.setText(sharedPreferences.getString("rasp_bell_abb3", ""));
+            z4.setText(sharedPreferences.getString("rasp_bell_abb4", ""));
+            z5.setText(sharedPreferences.getString("rasp_bell_abb5", ""));
+            z6.setText(sharedPreferences.getString("rasp_bell_abb6", ""));
+            z7.setText(sharedPreferences.getString("rasp_bell_abb7", ""));
+            z8.setText(sharedPreferences.getString("rasp_bell_abb8", ""));
+            return;
+        }
+        switch (day_week) {
+            case "Суббота":
+                z1.setText(sharedPreferences.getString("rasp_bell_sat1", ""));
+                z2.setText(sharedPreferences.getString("rasp_bell_sat2", ""));
+                z3.setText(sharedPreferences.getString("rasp_bell_sat3", ""));
+                z4.setText(sharedPreferences.getString("rasp_bell_sat4", ""));
+                z5.setText(sharedPreferences.getString("rasp_bell_sat5", ""));
+                z6.setText(sharedPreferences.getString("rasp_bell_sat6", ""));
+                z7.setText(sharedPreferences.getString("rasp_bell_sat7", ""));
+                z8.setText(sharedPreferences.getString("rasp_bell_sat8", ""));
+                break;
+            default:
+                z1.setText(sharedPreferences.getString("rasp_bell_def1", ""));
+                z2.setText(sharedPreferences.getString("rasp_bell_def2", ""));
+                z3.setText(sharedPreferences.getString("rasp_bell_def3", ""));
+                z4.setText(sharedPreferences.getString("rasp_bell_def4", ""));
+                z5.setText(sharedPreferences.getString("rasp_bell_def5", ""));
+                z6.setText(sharedPreferences.getString("rasp_bell_def6", ""));
+                z7.setText(sharedPreferences.getString("rasp_bell_def7", ""));
+                z8.setText(sharedPreferences.getString("rasp_bell_def8", ""));
+                break;
+        }
+
+//        z1.setText(R.string.rasp_z1_default);
+//        z2.setText(R.string.rasp_z2_default);
+//        z3.setText(R.string.rasp_z3_default);
+//        z4.setText(R.string.rasp_z4_default);
+//        z5.setText(R.string.rasp_z5_default);
+//        z6.setText(R.string.rasp_z6_default);
+//        z7.setText(R.string.rasp_z7_default);
+//        z8.setText(R.string.rasp_z8_default);
+//        sOnClick();
         }
 
     void sOnClick() {
-        s.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean checked = ((Switch) v).isChecked();
-                if (checked) {
-                    z1.setText(R.string.rasp_z1_s);
-                    z2.setText(R.string.rasp_z2_s);
-                    z3.setText(R.string.rasp_z3_s);
-                    z4.setText(R.string.rasp_z4_s);
-                    z5.setText(R.string.rasp_z5_s);
-                    z6.setText(R.string.rasp_z6_s);
-                    z7.setText(R.string.rasp_z7_s);
-                    z8.setText(R.string.rasp_z8_s);
-                }
-                else {
-                    z1.setText(R.string.rasp_z1_default);
-                    z2.setText(R.string.rasp_z2_default);
-                    z3.setText(R.string.rasp_z3_default);
-                    z4.setText(R.string.rasp_z4_default);
-                    z5.setText(R.string.rasp_z5_default);
-                    z6.setText(R.string.rasp_z6_default);
-                    z7.setText(R.string.rasp_z7_default);
-                    z8.setText(R.string.rasp_z8_default);
-                }
-            }});
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+
     }
 
     void rasp() {

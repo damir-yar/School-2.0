@@ -17,10 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,14 +66,17 @@ public class RegistrActivity extends AppCompatActivity {
             case Configuration.UI_MODE_NIGHT_NO:
                 break;
             case Configuration.UI_MODE_NIGHT_YES:
-                reg_name.setTextColor(WHITE);
-                reg_class.setTextColor(WHITE);
-                reg_symbol.setTextColor(WHITE);
-                prof_social.setTextColor(WHITE);
-                prof_tech.setTextColor(WHITE);
-                prof_not.setTextColor(WHITE);
-                but.setBackgroundColor(WHITE);
-                but.setTextColor(BLACK);
+                reg_name.setTextColor(getResources().getColor(R.color.white));
+                reg_name.setHintTextColor(getResources().getColor(R.color.white));
+                reg_class.setTextColor(getResources().getColor(R.color.white));
+                reg_class.setHintTextColor(getResources().getColor(R.color.white));
+                reg_symbol.setTextColor(getResources().getColor(R.color.white));
+                reg_symbol.setHintTextColor(getResources().getColor(R.color.white));
+                prof_social.setTextColor(getResources().getColor(R.color.white));
+                prof_tech.setTextColor(getResources().getColor(R.color.white));
+                prof_not.setTextColor(getResources().getColor(R.color.white));
+                but.setBackgroundColor(getResources().getColor(R.color.white));
+                but.setTextColor(getResources().getColor(R.color.black));
                 break;
         }
 

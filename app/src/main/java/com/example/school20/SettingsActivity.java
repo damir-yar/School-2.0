@@ -31,7 +31,6 @@ public class SettingsActivity extends AppCompatActivity {
             case Configuration.UI_MODE_NIGHT_NO:
                 break;
             case Configuration.UI_MODE_NIGHT_YES:
-                rename.setBackgroundColor(BLACK);
                 rename.setTextColor(WHITE);
                 break;
         }

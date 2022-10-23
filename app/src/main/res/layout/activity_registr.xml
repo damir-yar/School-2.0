@@ -11,12 +11,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="150dp"
+            android:layout_gravity="center_horizontal">
+
         <EditText
             android:id="@+id/reg_name"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="150dp"
+            android:layout_marginBottom="-10dp"
             android:inputType="textPersonName"
             android:hint="Имя"
             android:textColorHint="@color/black"
@@ -25,6 +32,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:layout_marginBottom="-10dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp">
 
@@ -80,6 +88,8 @@
 
         </RadioGroup>
 
+        </LinearLayout>
+
         <Button
             android:id="@+id/button"
             android:layout_width="200dp"
@@ -87,8 +97,9 @@
             android:layout_gravity="center_horizontal"
             android:text="Войти"
             android:textSize="25dp"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/black"/>
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:background="?android:attr/selectableItemBackground"/>
 
     </LinearLayout>
 

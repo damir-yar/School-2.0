@@ -8,6 +8,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
@@ -37,7 +45,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="110dp"
-            android:text="Связь с разработчиком: \nВК: https://vk.com/damir_ya\nGmail: yar.damir23@gmail.com\nGitHub: https://github.com/damir-yar"
+            android:text="Связь с разработчиком: \n  ВК: https://vk.com/damir_ya\n  Gmail: yar.damir23@gmail.com\n  GitHub: https://github.com/damir-yar"
             android:autoLink="all"
             android:textSize="20dp"/>
 
@@ -51,12 +59,16 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:text="Версия 2.0.6\nРазработчик - Ярославцев Дамир"
+            android:text="Условия использования и Политика конфиденциальности: \nhttps://github.com/damir-yar/School-2.0/blob/master/privacy%20policy.md"
+            android:autoLink="all"
             android:textSize="20dp"/>
 
-        <ScrollView
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="30dp"
+            android:layout_marginTop="150dp"
+            android:text="Версия 2.0.7"
+            android:textSize="20dp"/>
 
             <TextView
                 android:id="@+id/about"
@@ -64,8 +76,9 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"/>
 
-        </ScrollView>
+    </LinearLayout>
 
+    </ScrollView>
 
     </LinearLayout>
 
