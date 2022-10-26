@@ -8,11 +8,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -20,13 +25,19 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -76,6 +87,10 @@ public class MainActivity extends AppCompatActivity {
 
     private LinearLayout layout;
 
+    private ImageView im1;
+
+    static final int GALLERY_REQUEST = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +122,24 @@ public class MainActivity extends AppCompatActivity {
         next = findViewById(R.id.next);
         easter = findViewById(R.id.easter);
         layout = findViewById(R.id.a);
+        im1 = findViewById(R.id.im_one);
+
+
+
+//        Bitmap bmp = null;
+//        try {
+//            bmp = BitmapFactory.decodeFile(String.valueOf(new URL("https://ferret-pet.ru/wp-content/uploads/d/8/a/d8ac634518fc5dbcee4f495e8561f095.jpeg").openStream()));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        im1.setImageBitmap(bmp);
+
+//        Uri uri_im1 =  "https://sun9-80.userapi.com/impg/0KYNbAX4lwZRtN121XMl4msbLGsb-Xxcul5V1g/FhqMiOinzCg.jpg?size=1024x1024&quality=95&sign=c2504d533bfd1f726bf7400effa13fcf&type=album";
+//        try {
+//            im1.setImageBitmap(BitmapFactory.decodeStream(new URL("https://ferret-pet.ru/wp-content/uploads/d/8/a/d8ac634518fc5dbcee4f495e8561f095.jpeg").openConnection().getInputStream()));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -379,11 +412,13 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
                 raspZ();
+
             }
         });
 
         raspZ();
         rasp();
+
 
         easter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -448,6 +483,16 @@ public class MainActivity extends AppCompatActivity {
             String urlT = "https://api.npoint.io/86de4c9a1714afd58caa";
             new getUrlData1().execute(urlT);
             new getUrlData().execute(urlT);
+            //new getUrlDataImage().execute(urlT);
+        }
+        String previouslyEncodedImage = sharedPreferences.getString("im_data", "");
+        String imageData = sharedPreferences.getString("im_url_data", "");
+        if( !previouslyEncodedImage.equals("") ){
+            byte[] b = Base64.decode(previouslyEncodedImage, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+            im1.setImageBitmap(bitmap);
+        } else if (!imageData.equals("")) {
+            Glide.with(MainActivity.this).load(imageData).into(im1);
         }
     }
 
@@ -1121,22 +1166,7 @@ public class MainActivity extends AppCompatActivity {
                 z8.setText(sharedPreferences.getString("rasp_bell_def8", ""));
                 break;
         }
-
-//        z1.setText(R.string.rasp_z1_default);
-//        z2.setText(R.string.rasp_z2_default);
-//        z3.setText(R.string.rasp_z3_default);
-//        z4.setText(R.string.rasp_z4_default);
-//        z5.setText(R.string.rasp_z5_default);
-//        z6.setText(R.string.rasp_z6_default);
-//        z7.setText(R.string.rasp_z7_default);
-//        z8.setText(R.string.rasp_z8_default);
-//        sOnClick();
         }
-
-    void sOnClick() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-
-    }
 
     void rasp() {
         String pr = "";
