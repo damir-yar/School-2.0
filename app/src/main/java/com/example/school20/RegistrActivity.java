@@ -1,13 +1,12 @@
 package com.example.school20;
 
-import static android.graphics.Color.BLACK;
-import static android.graphics.Color.WHITE;
-
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -15,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Toast;
 import org.json.JSONException;
@@ -46,6 +46,8 @@ public class RegistrActivity extends AppCompatActivity {
 
     private String prof = "unknow";
 
+    private LinearLayout lay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,23 +63,23 @@ public class RegistrActivity extends AppCompatActivity {
 
         but = findViewById(R.id.button);
 
+        lay = findViewById(R.id.lay);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RegistrActivity.this);
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         switch (currentNightMode) {
             case Configuration.UI_MODE_NIGHT_NO:
+                day_mode();
                 break;
             case Configuration.UI_MODE_NIGHT_YES:
-                reg_name.setTextColor(getResources().getColor(R.color.white));
-                reg_name.setHintTextColor(getResources().getColor(R.color.white));
-                reg_class.setTextColor(getResources().getColor(R.color.white));
-                reg_class.setHintTextColor(getResources().getColor(R.color.white));
-                reg_symbol.setTextColor(getResources().getColor(R.color.white));
-                reg_symbol.setHintTextColor(getResources().getColor(R.color.white));
-                prof_social.setTextColor(getResources().getColor(R.color.white));
-                prof_tech.setTextColor(getResources().getColor(R.color.white));
-                prof_not.setTextColor(getResources().getColor(R.color.white));
-                but.setBackgroundColor(getResources().getColor(R.color.white));
-                but.setTextColor(getResources().getColor(R.color.black));
+                nigth_mode();
                 break;
+        }
+        if (sharedPreferences.getBoolean("night_mode", false) == true) {
+            nigth_mode();
+        }
+        else {
+            day_mode();
         }
 
         prof_not.setOnClickListener(new View.OnClickListener() {
@@ -119,8 +121,18 @@ public class RegistrActivity extends AppCompatActivity {
                     class_pol = sharedPreferences.getString("class", "unknown");
                     symbol_pol = sharedPreferences.getString("symbol", "unknown");
                     prof_pol = sharedPreferences.getString("prof", "unknown");
-                    String urlT = "https://api.npoint.io/86de4c9a1714afd58caa";
-                    new getUrlData().execute(urlT);
+
+                    boolean inet = isNetworkConnected();
+                    if (inet == true) {
+                        String urlT = "https://api.npoint.io/86de4c9a1714afd58caa";
+                        new getUrlData().execute(urlT);
+                    }
+                    else {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Нет подключения к интернету", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
                 }
             }
         });
@@ -193,8 +205,10 @@ public class RegistrActivity extends AppCompatActivity {
                 symbol = "s";
             if (prof_pol.equals("tech"))
                 pr = "t";
-            else
+            else if (prof_pol.equals("social"))
                 pr = "s";
+            else if (prof_pol.equals("not"))
+                pr = "n";
 
             try {
                 String str_obj = "";
@@ -340,22 +354,80 @@ public class RegistrActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     editor.putString(str_put, jsonObject.getJSONObject(str_obj).getString(les));
+                    editor.putString("verson", jsonObject.getJSONObject(str_obj).getString("ver"));
                     editor.commit();
                 } catch (JSONException jsonException) {
                     jsonException.printStackTrace();
                 }
             }
+            i = 0;
+            while(i<8) {
+                i++;
+                String str_z = "rasp_bell_def" + i;
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    editor.putString(str_z, jsonObject.getJSONObject("rasp_bells").getJSONObject("default").getString(Integer.toString(i)));
+                    editor.commit();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            i = 0;
+            while(i<8) {
+                i++;
+                String str_z = "rasp_bell_sat" + i;
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    editor.putString(str_z, jsonObject.getJSONObject("rasp_bells").getJSONObject("saturday").getString(Integer.toString(i)));
+                    editor.commit();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            i = 0;
+            while(i<8) {
+                i++;
+                String str_z = "rasp_bell_abb" + i;
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    editor.putString(str_z, jsonObject.getJSONObject("rasp_bells").getJSONObject("abbreviated").getString(Integer.toString(i)));
+                    editor.putString("verson_bells", jsonObject.getJSONObject("rasp_bells").getString("ver"));
+                    editor.commit();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
             Toast toast = Toast.makeText(getApplicationContext(),
                             "Загрузка...", Toast.LENGTH_SHORT);
                     toast.show();
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
             Intent intent = new Intent(RegistrActivity.this, MainActivity.class);
                     startActivity(intent);
             JSONObject jsonObject = null;
         }
+    }
+
+    private void nigth_mode() {
+        reg_name.setTextColor(getResources().getColor(R.color.white));
+        reg_name.setHintTextColor(getResources().getColor(R.color.white));
+        reg_class.setTextColor(getResources().getColor(R.color.white));
+        reg_class.setHintTextColor(getResources().getColor(R.color.white));
+        reg_symbol.setTextColor(getResources().getColor(R.color.white));
+        reg_symbol.setHintTextColor(getResources().getColor(R.color.white));
+        prof_social.setTextColor(getResources().getColor(R.color.white));
+        prof_tech.setTextColor(getResources().getColor(R.color.white));
+        prof_not.setTextColor(getResources().getColor(R.color.white));
+        but.setTextColor(getResources().getColor(R.color.white));
+        lay.setBackgroundColor(getResources().getColor(R.color.nigth_mode));
+    }
+
+    private void day_mode() {
+
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 }

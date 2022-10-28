@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class EasterActivity extends AppCompatActivity {
@@ -37,6 +38,8 @@ public class EasterActivity extends AppCompatActivity {
     private Boolean eightB = false;
     private Boolean nineB = false;
 
+    private LinearLayout lay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,57 +57,24 @@ public class EasterActivity extends AppCompatActivity {
 
         reset = findViewById(R.id.reset);
 
+        lay = findViewById(R.id.lay);
 
-
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(EasterActivity.this);
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         switch (currentNightMode) {
             case Configuration.UI_MODE_NIGHT_NO:
-                one.setTextColor(getResources().getColor(R.color.white));
-                one.setBackgroundColor(getResources().getColor(R.color.black));
-                two.setTextColor(getResources().getColor(R.color.white));
-                two.setBackgroundColor(getResources().getColor(R.color.black));
-                three.setTextColor(getResources().getColor(R.color.white));
-                three.setBackgroundColor(getResources().getColor(R.color.black));
-                four.setTextColor(getResources().getColor(R.color.white));
-                four.setBackgroundColor(getResources().getColor(R.color.black));
-                five.setTextColor(getResources().getColor(R.color.white));
-                five.setBackgroundColor(getResources().getColor(R.color.black));
-                six.setTextColor(getResources().getColor(R.color.white));
-                six.setBackgroundColor(getResources().getColor(R.color.black));
-                seven.setTextColor(getResources().getColor(R.color.white));
-                seven.setBackgroundColor(getResources().getColor(R.color.black));
-                eight.setTextColor(getResources().getColor(R.color.white));
-                eight.setBackgroundColor(getResources().getColor(R.color.black));
-                nine.setTextColor(getResources().getColor(R.color.white));
-                nine.setBackgroundColor(getResources().getColor(R.color.black));
-                reset.setTextColor(getResources().getColor(R.color.white));
-                reset.setBackgroundColor(getResources().getColor(R.color.black));
+                day_mode();
                 break;
             case Configuration.UI_MODE_NIGHT_YES:
-                one.setTextColor(getResources().getColor(R.color.black));
-                one.setBackgroundColor(getResources().getColor(R.color.white));
-                two.setTextColor(getResources().getColor(R.color.black));
-                two.setBackgroundColor(getResources().getColor(R.color.white));
-                three.setTextColor(getResources().getColor(R.color.black));
-                three.setBackgroundColor(getResources().getColor(R.color.white));
-                four.setTextColor(getResources().getColor(R.color.black));
-                four.setBackgroundColor(getResources().getColor(R.color.white));
-                five.setTextColor(getResources().getColor(R.color.black));
-                five.setBackgroundColor(getResources().getColor(R.color.white));
-                six.setTextColor(getResources().getColor(R.color.black));
-                six.setBackgroundColor(getResources().getColor(R.color.white));
-                seven.setTextColor(getResources().getColor(R.color.black));
-                seven.setBackgroundColor(getResources().getColor(R.color.white));
-                eight.setTextColor(getResources().getColor(R.color.black));
-                eight.setBackgroundColor(getResources().getColor(R.color.white));
-                nine.setTextColor(getResources().getColor(R.color.black));
-                nine.setBackgroundColor(getResources().getColor(R.color.white));
-                reset.setTextColor(getResources().getColor(R.color.black));
-                reset.setBackgroundColor(getResources().getColor(R.color.white));
+                nigth_mode();
                 break;
         }
-
-
+        if (sharedPreferences.getBoolean("night_mode", false) == true) {
+            nigth_mode();
+        }
+        else {
+            day_mode();
+        }
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -317,5 +287,53 @@ public class EasterActivity extends AppCompatActivity {
             toast.show();
             reset();
         }
+    }
+
+    private void nigth_mode() {
+        one.setTextColor(getResources().getColor(R.color.black));
+        one.setBackgroundColor(getResources().getColor(R.color.white));
+        two.setTextColor(getResources().getColor(R.color.black));
+        two.setBackgroundColor(getResources().getColor(R.color.white));
+        three.setTextColor(getResources().getColor(R.color.black));
+        three.setBackgroundColor(getResources().getColor(R.color.white));
+        four.setTextColor(getResources().getColor(R.color.black));
+        four.setBackgroundColor(getResources().getColor(R.color.white));
+        five.setTextColor(getResources().getColor(R.color.black));
+        five.setBackgroundColor(getResources().getColor(R.color.white));
+        six.setTextColor(getResources().getColor(R.color.black));
+        six.setBackgroundColor(getResources().getColor(R.color.white));
+        seven.setTextColor(getResources().getColor(R.color.black));
+        seven.setBackgroundColor(getResources().getColor(R.color.white));
+        eight.setTextColor(getResources().getColor(R.color.black));
+        eight.setBackgroundColor(getResources().getColor(R.color.white));
+        nine.setTextColor(getResources().getColor(R.color.black));
+        nine.setBackgroundColor(getResources().getColor(R.color.white));
+        reset.setTextColor(getResources().getColor(R.color.black));
+        reset.setBackgroundColor(getResources().getColor(R.color.white));
+        lay.setBackgroundColor(getResources().getColor(R.color.nigth_mode));
+    }
+
+    private void day_mode() {
+        one.setTextColor(getResources().getColor(R.color.white));
+        one.setBackgroundColor(getResources().getColor(R.color.black));
+        two.setTextColor(getResources().getColor(R.color.white));
+        two.setBackgroundColor(getResources().getColor(R.color.black));
+        three.setTextColor(getResources().getColor(R.color.white));
+        three.setBackgroundColor(getResources().getColor(R.color.black));
+        four.setTextColor(getResources().getColor(R.color.white));
+        four.setBackgroundColor(getResources().getColor(R.color.black));
+        five.setTextColor(getResources().getColor(R.color.white));
+        five.setBackgroundColor(getResources().getColor(R.color.black));
+        six.setTextColor(getResources().getColor(R.color.white));
+        six.setBackgroundColor(getResources().getColor(R.color.black));
+        seven.setTextColor(getResources().getColor(R.color.white));
+        seven.setBackgroundColor(getResources().getColor(R.color.black));
+        eight.setTextColor(getResources().getColor(R.color.white));
+        eight.setBackgroundColor(getResources().getColor(R.color.black));
+        nine.setTextColor(getResources().getColor(R.color.white));
+        nine.setBackgroundColor(getResources().getColor(R.color.black));
+        reset.setTextColor(getResources().getColor(R.color.white));
+        reset.setBackgroundColor(getResources().getColor(R.color.black));
+        lay.setBackgroundColor(getResources().getColor(R.color.white));
     }
 }

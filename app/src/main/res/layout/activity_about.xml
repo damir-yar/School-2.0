@@ -7,6 +7,7 @@
     tools:context=".AboutActivity">
 
     <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -22,13 +23,15 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/txt_one"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:text="Группа проекта ВК: \nhttps://vk.com/school_2_0"
             android:autoLink="all"
-            android:textSize="20dp"/>
+            android:text="Группа проекта ВК: \nhttps://vk.com/school_2_0"
+            android:textSize="20dp" />
 
         <TextView
+            android:id="@+id/txt_two"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:text="Донаты: \nhttps://vk.com/donut/school_2_0"
@@ -36,6 +39,7 @@
             android:textSize="20dp"/>
 
         <TextView
+            android:id="@+id/txt_three"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:text="Техподдержка: \nhttps://vk.com/school_2_0"
@@ -43,6 +47,7 @@
             android:textSize="20dp"/>
 
         <TextView
+            android:id="@+id/txt_four"
             android:layout_width="match_parent"
             android:layout_height="110dp"
             android:text="Связь с разработчиком: \n  ВК: https://vk.com/damir_ya\n  Gmail: yar.damir23@gmail.com\n  GitHub: https://github.com/damir-yar"
@@ -50,6 +55,7 @@
             android:textSize="20dp"/>
 
         <TextView
+            android:id="@+id/txt_five"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:autoLink="all"
@@ -57,6 +63,7 @@
             android:text="Страница проекта на GitHub:\nhttps://github.com/damir-yar/School-2.0"/>
 
         <TextView
+            android:id="@+id/txt_six"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:text="Условия использования и Политика конфиденциальности: \nhttps://github.com/damir-yar/School-2.0/blob/master/privacy%20policy.md"
@@ -64,10 +71,11 @@
             android:textSize="20dp"/>
 
         <TextView
+            android:id="@+id/txt_seven"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="150dp"
-            android:text="Версия beta 2.0.8"
+            android:text="Версия 2.0.8"
             android:textSize="20dp"/>
 
             <TextView

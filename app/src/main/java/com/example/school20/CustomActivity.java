@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -22,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -64,12 +66,17 @@ public class CustomActivity extends AppCompatActivity {
     private Button but_ch_im10;
 
     private HorizontalScrollView scr;
-    private LinearLayout ln;
 
     private Button gl;
     private Button clear;
 
-    private Button sv;
+    private Button bg;
+
+    private TextView txt;
+
+    private LinearLayout lay;
+
+    private int a = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,44 +106,70 @@ public class CustomActivity extends AppCompatActivity {
         but_ch_im9 = findViewById(R.id.but_im9);
         but_ch_im10 = findViewById(R.id.but_im10);
 
-        scr = findViewById(R.id.scroll);
-        ln = findViewById(R.id.two_but);
+        txt = findViewById(R.id.text3);
 
-        sv = findViewById(R.id.save);
+        scr = findViewById(R.id.scroll);
+        bg = findViewById(R.id.bg);
 
         gl = findViewById(R.id.gal);
         clear = findViewById(R.id.clr);
 
+        lay = findViewById(R.id.lay);
+
         scr.setVisibility(View.INVISIBLE);
-        sv.setVisibility(View.INVISIBLE);
-        ln.setVisibility(View.INVISIBLE);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(CustomActivity.this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (currentNightMode) {
+            case Configuration.UI_MODE_NIGHT_NO:
+                day_mode();
+                break;
+            case Configuration.UI_MODE_NIGHT_YES:
+                nigth_mode();
+                break;
+        }
+
+        if (sharedPreferences.getBoolean("night_mode", false) == true) {
+            nigth_mode();
+        }
+        else {
+            day_mode();
+        }
 
 
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(CustomActivity.this);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("url_im1_theme_5", "");
-                editor.commit();
-                ln.setVisibility(View.VISIBLE);
-                gl.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        sv.setVisibility(View.VISIBLE);
-                        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                        photoPickerIntent.setType("image/*");
-                        startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
-                    }
-                });
-                boolean inet = isNetworkConnected();
-                if (inet == true) {
-                    String urlT = "https://api.npoint.io/86de4c9a1714afd58caa";
-                    new getUrlDataImage().execute(urlT);
-                    Toast toast1 = Toast.makeText(getApplicationContext(),
-                            "Загрузка гифок...", Toast.LENGTH_SHORT);
-                    toast1.show(); }
-                else {
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            "Нет подключения к интернету", Toast.LENGTH_SHORT);
-                    toast.show(); }
+        editor.putString("url_im1_theme_5", "");
+        editor.commit();
+        gl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                a = 1;
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
+            }
+        });
+        bg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                a = 2;
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
+            }
+        });
+        boolean inet = isNetworkConnected();
+        if (inet == true) {
+            String urlT = "https://api.npoint.io/86de4c9a1714afd58caa";
+            new getUrlDataImage().execute(urlT);
+            Toast toast1 = Toast.makeText(getApplicationContext(),
+                    "Загрузка гифок...", Toast.LENGTH_SHORT);
+            toast1.show(); }
+        else {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Нет подключения к интернету", Toast.LENGTH_SHORT);
+            toast.show(); }
 
 
 
@@ -147,21 +180,13 @@ public class CustomActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("im_url_data", "");
                 editor.putString("im_data", "");
+                editor.putString("bg_im_data", "");
                 editor.commit();
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Очищено", Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
-
-        sv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CustomActivity.this, MainActivity.class);
-                    startActivity(intent);
-            }
-        });
-
-//        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-//        photoPickerIntent.setType("image/*");
-//        startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
 
     }
     @Override
@@ -185,14 +210,19 @@ public class CustomActivity extends AppCompatActivity {
                     String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(CustomActivity.this);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("im_data",encodedImage);
-                    editor.putString("im_url_data", "");
-                    editor.commit();
-//                    Intent intent = new Intent(CustomActivity.this, MainActivity.class);
-//                    startActivity(intent);
+                    if (a == 1) {
+                        editor.putString("im_data", encodedImage);
+                        editor.putString("im_url_data", "");
+                        editor.commit();
+                    }
+                    if (a == 2) {
+                        editor.putString("bg_im_data", encodedImage);
+                        editor.commit();
+                    }
                 }
         }
     }
+
 
     private class getUrlDataImage extends AsyncTask<String, String, String> {
         protected void onPreExecute() {
@@ -281,7 +311,6 @@ public class CustomActivity extends AppCompatActivity {
                 String imageData9 = sharedPreferences.getString("url_im1_theme_9", "");
                 String imageData10 = sharedPreferences.getString("url_im1_theme_10", "");
                 scr.setVisibility(View.VISIBLE);
-                sv.setVisibility(View.VISIBLE);
                 Glide.with(CustomActivity.this).load(imageData1).into(ch_im1);
                 Glide.with(CustomActivity.this).load(imageData2).into(ch_im2);
                 Glide.with(CustomActivity.this).load(imageData3).into(ch_im3);
@@ -298,6 +327,9 @@ public class CustomActivity extends AppCompatActivity {
                         editor.putString("im_url_data", imageData1);
                         editor.putString("im_data", "");
                         editor.commit();
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Изображение выбрано", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
                 but_ch_im2.setOnClickListener(new View.OnClickListener() {
@@ -306,6 +338,9 @@ public class CustomActivity extends AppCompatActivity {
                         editor.putString("im_url_data", imageData2);
                         editor.putString("im_data", "");
                         editor.commit();
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Изображение выбрано", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
                 but_ch_im3.setOnClickListener(new View.OnClickListener() {
@@ -314,6 +349,9 @@ public class CustomActivity extends AppCompatActivity {
                         editor.putString("im_url_data", imageData3);
                         editor.putString("im_data", "");
                         editor.commit();
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Изображение выбрано", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
                 but_ch_im4.setOnClickListener(new View.OnClickListener() {
@@ -322,6 +360,9 @@ public class CustomActivity extends AppCompatActivity {
                         editor.putString("im_url_data", imageData4);
                         editor.putString("im_data", "");
                         editor.commit();
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Изображение выбрано", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
                 but_ch_im5.setOnClickListener(new View.OnClickListener() {
@@ -330,6 +371,9 @@ public class CustomActivity extends AppCompatActivity {
                         editor.putString("im_url_data", imageData5);
                         editor.putString("im_data", "");
                         editor.commit();
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Изображение выбрано", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
                 but_ch_im6.setOnClickListener(new View.OnClickListener() {
@@ -338,6 +382,9 @@ public class CustomActivity extends AppCompatActivity {
                         editor.putString("im_url_data", imageData6);
                         editor.putString("im_data", "");
                         editor.commit();
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Изображение выбрано", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
                 but_ch_im7.setOnClickListener(new View.OnClickListener() {
@@ -346,6 +393,9 @@ public class CustomActivity extends AppCompatActivity {
                         editor.putString("im_url_data", imageData7);
                         editor.putString("im_data", "");
                         editor.commit();
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Изображение выбрано", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
                 but_ch_im8.setOnClickListener(new View.OnClickListener() {
@@ -354,6 +404,9 @@ public class CustomActivity extends AppCompatActivity {
                         editor.putString("im_url_data", imageData8);
                         editor.putString("im_data", "");
                         editor.commit();
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Изображение выбрано", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
                 but_ch_im9.setOnClickListener(new View.OnClickListener() {
@@ -362,6 +415,9 @@ public class CustomActivity extends AppCompatActivity {
                         editor.putString("im_url_data", imageData9);
                         editor.putString("im_data", "");
                         editor.commit();
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Изображение выбрано", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
                 but_ch_im10.setOnClickListener(new View.OnClickListener() {
@@ -370,6 +426,9 @@ public class CustomActivity extends AppCompatActivity {
                         editor.putString("im_url_data", imageData10);
                         editor.putString("im_data", "");
                         editor.commit();
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Изображение выбрано", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
             } catch (JSONException jsonException) {
@@ -384,5 +443,44 @@ public class CustomActivity extends AppCompatActivity {
             ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
             return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+        }
+
+        private void nigth_mode() {
+            but_ch_im1.setBackgroundColor(getResources().getColor(R.color.white));
+            but_ch_im1.setTextColor(getResources().getColor(R.color.black));
+            but_ch_im2.setBackgroundColor(getResources().getColor(R.color.white));
+            but_ch_im2.setTextColor(getResources().getColor(R.color.black));
+            but_ch_im3.setBackgroundColor(getResources().getColor(R.color.white));
+            but_ch_im3.setTextColor(getResources().getColor(R.color.black));
+            but_ch_im4.setBackgroundColor(getResources().getColor(R.color.white));
+            but_ch_im4.setTextColor(getResources().getColor(R.color.black));
+            but_ch_im5.setBackgroundColor(getResources().getColor(R.color.white));
+            but_ch_im5.setTextColor(getResources().getColor(R.color.black));
+            but_ch_im6.setBackgroundColor(getResources().getColor(R.color.white));
+            but_ch_im6.setTextColor(getResources().getColor(R.color.black));
+            but_ch_im7.setBackgroundColor(getResources().getColor(R.color.white));
+            but_ch_im7.setTextColor(getResources().getColor(R.color.black));
+            but_ch_im8.setBackgroundColor(getResources().getColor(R.color.white));
+            but_ch_im8.setTextColor(getResources().getColor(R.color.black));
+            but_ch_im9.setBackgroundColor(getResources().getColor(R.color.white));
+            but_ch_im9.setTextColor(getResources().getColor(R.color.black));
+            but_ch_im10.setBackgroundColor(getResources().getColor(R.color.white));
+            but_ch_im10.setTextColor(getResources().getColor(R.color.black));
+
+            gl.setBackgroundColor(getResources().getColor(R.color.white));
+            gl.setTextColor(getResources().getColor(R.color.black));
+
+            clear.setBackgroundColor(getResources().getColor(R.color.white));
+            clear.setTextColor(getResources().getColor(R.color.black));
+            bg.setBackgroundColor(getResources().getColor(R.color.white));
+            bg.setTextColor(getResources().getColor(R.color.black));
+
+            txt.setTextColor(getResources().getColor(R.color.white));
+
+            lay.setBackgroundColor(getResources().getColor(R.color.nigth_mode));
+        }
+
+        private void day_mode() {
+
         }
 }

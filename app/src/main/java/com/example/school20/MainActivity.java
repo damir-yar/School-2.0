@@ -2,6 +2,7 @@ package com.example.school20;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +12,7 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -52,9 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView person_name;
     private TextView person_class;
     private TextView person_symbol;
-
     private TextView date;
-
     private TextView z1;
     private TextView z2;
     private TextView z3;
@@ -71,24 +71,19 @@ public class MainActivity extends AppCompatActivity {
     private TextView u6;
     private TextView u7;
     private TextView u8;
-
     private Switch s;
-    private Button back;
-    private Button next;
-
     private String day_week;
     private String name_pol;
     private String class_pol;
     private String symbol_pol;
     private String prof_pol;
-
     private Button easter;
     private int east = 0;
-
     private LinearLayout layout;
-
+    private LinearLayout lay2;
+    private LinearLayout lay3;
+    private LinearLayout lay_sw;
     private ImageView im1;
-
     static final int GALLERY_REQUEST = 1;
 
     @Override
@@ -96,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("School 2.0");
-
         person_name = findViewById(R.id.person_name);
         person_class = findViewById(R.id.person_class);
         person_symbol = findViewById(R.id.person_symbol);
@@ -118,28 +112,12 @@ public class MainActivity extends AppCompatActivity {
         u7 = findViewById(R.id.les_seven);
         u8 = findViewById(R.id.les_eight);
         s = findViewById(R.id.switch_s);
-        back = findViewById(R.id.back);
-        next = findViewById(R.id.next);
         easter = findViewById(R.id.easter);
         layout = findViewById(R.id.a);
+        lay2 = findViewById(R.id.lay_main_rasp);
+        lay3 = findViewById(R.id.lay_main_inf);
+        lay_sw = findViewById(R.id.lay_main_sw);
         im1 = findViewById(R.id.im_one);
-
-
-
-//        Bitmap bmp = null;
-//        try {
-//            bmp = BitmapFactory.decodeFile(String.valueOf(new URL("https://ferret-pet.ru/wp-content/uploads/d/8/a/d8ac634518fc5dbcee4f495e8561f095.jpeg").openStream()));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        im1.setImageBitmap(bmp);
-
-//        Uri uri_im1 =  "https://sun9-80.userapi.com/impg/0KYNbAX4lwZRtN121XMl4msbLGsb-Xxcul5V1g/FhqMiOinzCg.jpg?size=1024x1024&quality=95&sign=c2504d533bfd1f726bf7400effa13fcf&type=album";
-//        try {
-//            im1.setImageBitmap(BitmapFactory.decodeStream(new URL("https://ferret-pet.ru/wp-content/uploads/d/8/a/d8ac634518fc5dbcee4f495e8561f095.jpeg").openConnection().getInputStream()));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -147,13 +125,11 @@ public class MainActivity extends AppCompatActivity {
         class_pol = sharedPreferences.getString("class", "unknown");
         symbol_pol = sharedPreferences.getString("symbol", "unknown");
         prof_pol = sharedPreferences.getString("prof", "unknown");
-
         if (name_pol.equals("unknown") || class_pol.equals("unknown") || symbol_pol.equals("unknown")
         || name_pol.equals("") || class_pol.equals("") || symbol_pol.equals("")){
             Intent intent = new Intent(MainActivity.this, RegistrActivity.class);
             startActivity(intent);
         }
-
         person_name.setText(name_pol);
         person_class.setText(class_pol);
         person_symbol.setText(symbol_pol);
@@ -161,74 +137,18 @@ public class MainActivity extends AppCompatActivity {
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         switch (currentNightMode) {
             case Configuration.UI_MODE_NIGHT_NO:
-                z1.setTextColor(getResources().getColor(R.color.gray));
-                z2.setTextColor(getResources().getColor(R.color.gray));
-                z3.setTextColor(getResources().getColor(R.color.gray));
-                z4.setTextColor(getResources().getColor(R.color.gray));
-                z5.setTextColor(getResources().getColor(R.color.gray));
-                z6.setTextColor(getResources().getColor(R.color.gray));
-                z7.setTextColor(getResources().getColor(R.color.gray));
-                z8.setTextColor(getResources().getColor(R.color.gray));
-
-                u1.setTextColor(getResources().getColor(R.color.black));
-                u2.setTextColor(getResources().getColor(R.color.black));
-                u3.setTextColor(getResources().getColor(R.color.black));
-                u4.setTextColor(getResources().getColor(R.color.black));
-                u5.setTextColor(getResources().getColor(R.color.black));
-                u6.setTextColor(getResources().getColor(R.color.black));
-                u7.setTextColor(getResources().getColor(R.color.black));
-                u8.setTextColor(getResources().getColor(R.color.black));
-
-                person_name.setTextColor(getResources().getColor(R.color.black));
-                person_class.setTextColor(getResources().getColor(R.color.black));
-                person_symbol.setTextColor(getResources().getColor(R.color.black));
-
-                date.setTextColor(getResources().getColor(R.color.black));
-
-                next.setTextColor(getResources().getColor(R.color.black));
-                back.setTextColor(getResources().getColor(R.color.black));
-                back.setBackgroundColor(getResources().getColor(R.color.white));
-                next.setBackgroundColor(getResources().getColor(R.color.white));
-
-                s.setTextColor(getResources().getColor(R.color.black));
-
-                layout.setBackgroundResource(R.drawable.background_main);
+                day_mode();
                 break;
             case Configuration.UI_MODE_NIGHT_YES:
-                z1.setTextColor(getResources().getColor(R.color.gray));
-                z2.setTextColor(getResources().getColor(R.color.gray));
-                z3.setTextColor(getResources().getColor(R.color.gray));
-                z4.setTextColor(getResources().getColor(R.color.gray));
-                z5.setTextColor(getResources().getColor(R.color.gray));
-                z6.setTextColor(getResources().getColor(R.color.gray));
-                z7.setTextColor(getResources().getColor(R.color.gray));
-                z8.setTextColor(getResources().getColor(R.color.gray));
-
-                u1.setTextColor(getResources().getColor(R.color.black));
-                u2.setTextColor(getResources().getColor(R.color.black));
-                u3.setTextColor(getResources().getColor(R.color.black));
-                u4.setTextColor(getResources().getColor(R.color.black));
-                u5.setTextColor(getResources().getColor(R.color.black));
-                u6.setTextColor(getResources().getColor(R.color.black));
-                u7.setTextColor(getResources().getColor(R.color.black));
-                u8.setTextColor(getResources().getColor(R.color.black));
-
-                person_name.setTextColor(getResources().getColor(R.color.black));
-                person_class.setTextColor(getResources().getColor(R.color.black));
-                person_symbol.setTextColor(getResources().getColor(R.color.black));
-
-                date.setTextColor(getResources().getColor(R.color.white));
-
-                next.setTextColor(getResources().getColor(R.color.white));
-                next.setBackgroundColor(getResources().getColor(R.color.black));
-                back.setTextColor(getResources().getColor(R.color.white));
-                back.setBackgroundColor(getResources().getColor(R.color.black));
-
-                s.setTextColor(getResources().getColor(R.color.white));
-
-                layout.setBackgroundColor(getResources().getColor(R.color.black));
-
+                nigth_mode();
                 break;
+        }
+
+        if (sharedPreferences.getBoolean("night_mode", false) == true) {
+            nigth_mode();
+        }
+        else {
+            day_mode();
         }
 
         clend();
@@ -328,97 +248,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (day_week) {
-                    case "Понедельник":
-                        day_week = "Воскресенье";
-                        rasp();
-                        date.setText(day_week);
-                        break;
-                    case "Вторник":
-                        day_week = "Понедельник";
-                        rasp();
-                        date.setText(day_week);
-                        break;
-                    case "Среда":
-                        day_week = "Вторник";
-                        rasp();
-                        date.setText(day_week);
-                        break;
-                    case "Четверг":
-                        day_week = "Среда";
-                        rasp();
-                        date.setText(day_week);
-                        break;
-                    case "Пятница":
-                        day_week = "Четверг";
-                        rasp();
-                        date.setText(day_week);
-                        break;
-                    case "Суббота":
-                        day_week = "Пятница";
-                        rasp();
-                        date.setText(day_week);
-                        break;
-                    case "Воскресенье":
-                        day_week = "Суббота";
-                        rasp();
-                        date.setText(day_week);
-                        break;
-                }
-                raspZ();
-            }
-        });
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (day_week) {
-                    case "Понедельник":
-                        day_week = "Вторник";
-                        rasp();
-                        date.setText(day_week);
-                        break;
-                    case "Вторник":
-                        day_week = "Среда";
-                        rasp();
-                        date.setText(day_week);
-                        break;
-                    case "Среда":
-                        day_week = "Четверг";
-                        rasp();
-                        date.setText(day_week);
-                        break;
-                    case "Четверг":
-                        day_week = "Пятница";
-                        rasp();
-                        date.setText(day_week);
-                        break;
-                    case "Пятница":
-                        day_week = "Суббота";
-                        rasp();
-                        date.setText(day_week);
-                        break;
-                    case "Суббота":
-                        day_week = "Воскресенье";
-                        rasp();
-                        date.setText(day_week);
-                        break;
-                    case "Воскресенье":
-                        day_week = "Понедельник";
-                        rasp();
-                        date.setText(day_week);
-                        break;
-                }
-                raspZ();
-
-            }
-        });
-
         raspZ();
         rasp();
-
 
         easter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -486,7 +317,13 @@ public class MainActivity extends AppCompatActivity {
             //new getUrlDataImage().execute(urlT);
         }
         String previouslyEncodedImage = sharedPreferences.getString("im_data", "");
+        String previouslyEncodedImageBg = sharedPreferences.getString("bg_im_data", "");
         String imageData = sharedPreferences.getString("im_url_data", "");
+        if( !previouslyEncodedImageBg.equals("") ){
+            byte[] b = Base64.decode(previouslyEncodedImageBg, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+            layout.setBackgroundDrawable(new BitmapDrawable(bitmap));
+        }
         if( !previouslyEncodedImage.equals("") ){
             byte[] b = Base64.decode(previouslyEncodedImage, Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
@@ -560,10 +397,22 @@ public class MainActivity extends AppCompatActivity {
                 symbol = "t";
             else if (symbol_pol.equals("с") || symbol_pol.equals("С"))
                 symbol = "s";
+            else if (symbol_pol.equals("б") || symbol_pol.equals("Б"))
+                symbol = "b";
+            else if (symbol_pol.equals("в") || symbol_pol.equals("В"))
+                symbol = "v";
+            else if (symbol_pol.equals("г") || symbol_pol.equals("Г"))
+                symbol = "g";
+            else if (symbol_pol.equals("д") || symbol_pol.equals("Д"))
+                symbol = "d";
+            else if (symbol_pol.equals("е") || symbol_pol.equals("Е"))
+                symbol = "e";
             if (prof_pol.equals("tech"))
                 pr = "t";
-            else
+            else if (prof_pol.equals("social"))
                 pr = "s";
+            else if (prof_pol.equals("not"))
+                pr = "n";
             try {
                 String str_obj = "";
                 String les = "";
@@ -1044,6 +893,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
+                finish();
                 return true;
             case R.id.action_about:
                 Intent intent1 = new Intent(MainActivity.this, AboutActivity.class);
@@ -1262,5 +1112,73 @@ public class MainActivity extends AppCompatActivity {
                 u8.setText(sharedPreferences.getString("sb8_" + str, ""));
                 break;
         }
+    }
+
+    private void nigth_mode() {
+        z1.setTextColor(getResources().getColor(R.color.gray));
+        z2.setTextColor(getResources().getColor(R.color.gray));
+        z3.setTextColor(getResources().getColor(R.color.gray));
+        z4.setTextColor(getResources().getColor(R.color.gray));
+        z5.setTextColor(getResources().getColor(R.color.gray));
+        z6.setTextColor(getResources().getColor(R.color.gray));
+        z7.setTextColor(getResources().getColor(R.color.gray));
+        z8.setTextColor(getResources().getColor(R.color.gray));
+
+        u1.setTextColor(getResources().getColor(R.color.white));
+        u2.setTextColor(getResources().getColor(R.color.white));
+        u3.setTextColor(getResources().getColor(R.color.white));
+        u4.setTextColor(getResources().getColor(R.color.white));
+        u5.setTextColor(getResources().getColor(R.color.white));
+        u6.setTextColor(getResources().getColor(R.color.white));
+        u7.setTextColor(getResources().getColor(R.color.white));
+        u8.setTextColor(getResources().getColor(R.color.white));
+
+        person_name.setTextColor(getResources().getColor(R.color.white));
+        person_class.setTextColor(getResources().getColor(R.color.white));
+        person_symbol.setTextColor(getResources().getColor(R.color.white));
+
+        date.setTextColor(getResources().getColor(R.color.white));
+        date.setBackgroundDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.nigth_three));
+        lay2.setBackgroundDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.nigth_one));
+        lay3.setBackgroundDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.nigth_two));
+
+        s.setTextColor(getResources().getColor(R.color.white));
+        lay_sw.setBackgroundDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.nigth_three));
+        layout.setBackgroundColor(getResources().getColor(R.color.nigth_mode));
+    }
+
+    private void day_mode() {
+        z1.setTextColor(getResources().getColor(R.color.gray));
+        z2.setTextColor(getResources().getColor(R.color.gray));
+        z3.setTextColor(getResources().getColor(R.color.gray));
+        z4.setTextColor(getResources().getColor(R.color.gray));
+        z5.setTextColor(getResources().getColor(R.color.gray));
+        z6.setTextColor(getResources().getColor(R.color.gray));
+        z7.setTextColor(getResources().getColor(R.color.gray));
+        z8.setTextColor(getResources().getColor(R.color.gray));
+
+        u1.setTextColor(getResources().getColor(R.color.black));
+        u2.setTextColor(getResources().getColor(R.color.black));
+        u3.setTextColor(getResources().getColor(R.color.black));
+        u4.setTextColor(getResources().getColor(R.color.black));
+        u5.setTextColor(getResources().getColor(R.color.black));
+        u6.setTextColor(getResources().getColor(R.color.black));
+        u7.setTextColor(getResources().getColor(R.color.black));
+        u8.setTextColor(getResources().getColor(R.color.black));
+
+        person_name.setTextColor(getResources().getColor(R.color.black));
+        person_class.setTextColor(getResources().getColor(R.color.black));
+        person_symbol.setTextColor(getResources().getColor(R.color.black));
+
+        date.setTextColor(getResources().getColor(R.color.black));
+
+        date.setBackgroundDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.shape_rect_three));
+        lay2.setBackgroundDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.shape_rect));
+        lay3.setBackgroundDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.shape_rect_two));
+
+        s.setTextColor(getResources().getColor(R.color.black));
+
+        layout.setBackgroundResource(R.drawable.background_main);
+        lay_sw.setBackgroundDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.shape_rect_three));
     }
 }

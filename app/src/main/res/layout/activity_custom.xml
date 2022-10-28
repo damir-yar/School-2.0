@@ -7,18 +7,20 @@
     tools:context=".SettingsActivity">
 
     <LinearLayout
+        android:id="@+id/lay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="15dp"
         android:orientation="vertical">
 
         <ImageView
+            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_im_one"
             android:layout_gravity="center"/>
 
         <TextView
+            android:id="@+id/text3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -247,12 +249,7 @@
 
         </HorizontalScrollView>
 
-        <LinearLayout
-            android:id="@+id/two_but"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+
 
         <Button
             android:id="@+id/gal"
@@ -264,25 +261,31 @@
             android:layout_gravity="center"
             android:text="Выбрать из галереи"/>
 
-            <Button
-                android:id="@+id/clr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:text="Очистить"/>
-
-        </LinearLayout>
-
         <Button
-            android:id="@+id/save"
+            android:id="@+id/bg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="Сохранить"/>
+            android:text="Выбрать задний фон"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/clr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:text="Очистить"/>
+
+
+    </LinearLayout>
 
     </LinearLayout>
 

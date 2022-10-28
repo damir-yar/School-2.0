@@ -1,13 +1,10 @@
 package com.example.school20;
 
-import static android.graphics.Color.WHITE;
-
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.LinearLayout;
@@ -69,8 +66,6 @@ public class RaspActivity extends AppCompatActivity {
     private TextView u7_sb;
     private TextView u8_sb;
 
-
-    private String name_pol;
     private String class_pol;
     private String symbol_pol;
     private String prof_pol;
@@ -169,7 +164,6 @@ public class RaspActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RaspActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        name_pol = sharedPreferences.getString("name", "unknown");
         class_pol = sharedPreferences.getString("class", "unknown");
         symbol_pol = sharedPreferences.getString("symbol", "unknown");
         prof_pol = sharedPreferences.getString("prof", "unknown");
@@ -177,372 +171,228 @@ public class RaspActivity extends AppCompatActivity {
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         switch (currentNightMode) {
             case Configuration.UI_MODE_NIGHT_NO:
-                u1_pn.setTextColor(getResources().getColor(R.color.black));
-                u2_pn.setTextColor(getResources().getColor(R.color.black));
-                u3_pn.setTextColor(getResources().getColor(R.color.black));
-                u4_pn.setTextColor(getResources().getColor(R.color.black));
-                u5_pn.setTextColor(getResources().getColor(R.color.black));
-                u6_pn.setTextColor(getResources().getColor(R.color.black));
-                u7_pn.setTextColor(getResources().getColor(R.color.black));
-                u8_pn.setTextColor(getResources().getColor(R.color.black));
-
-                u1_vt.setTextColor(getResources().getColor(R.color.black));
-                u2_vt.setTextColor(getResources().getColor(R.color.black));
-                u3_vt.setTextColor(getResources().getColor(R.color.black));
-                u4_vt.setTextColor(getResources().getColor(R.color.black));
-                u5_vt.setTextColor(getResources().getColor(R.color.black));
-                u6_vt.setTextColor(getResources().getColor(R.color.black));
-                u7_vt.setTextColor(getResources().getColor(R.color.black));
-                u8_vt.setTextColor(getResources().getColor(R.color.black));
-
-                u1_sr.setTextColor(getResources().getColor(R.color.black));
-                u2_sr.setTextColor(getResources().getColor(R.color.black));
-                u3_sr.setTextColor(getResources().getColor(R.color.black));
-                u4_sr.setTextColor(getResources().getColor(R.color.black));
-                u5_sr.setTextColor(getResources().getColor(R.color.black));
-                u6_sr.setTextColor(getResources().getColor(R.color.black));
-                u7_sr.setTextColor(getResources().getColor(R.color.black));
-                u8_sr.setTextColor(getResources().getColor(R.color.black));
-
-                u1_ch.setTextColor(getResources().getColor(R.color.black));
-                u2_ch.setTextColor(getResources().getColor(R.color.black));
-                u3_ch.setTextColor(getResources().getColor(R.color.black));
-                u4_ch.setTextColor(getResources().getColor(R.color.black));
-                u5_ch.setTextColor(getResources().getColor(R.color.black));
-                u6_ch.setTextColor(getResources().getColor(R.color.black));
-                u7_ch.setTextColor(getResources().getColor(R.color.black));
-                u8_ch.setTextColor(getResources().getColor(R.color.black));
-
-                u1_pt.setTextColor(getResources().getColor(R.color.black));
-                u2_pt.setTextColor(getResources().getColor(R.color.black));
-                u3_pt.setTextColor(getResources().getColor(R.color.black));
-                u4_pt.setTextColor(getResources().getColor(R.color.black));
-                u5_pt.setTextColor(getResources().getColor(R.color.black));
-                u6_pt.setTextColor(getResources().getColor(R.color.black));
-                u7_pt.setTextColor(getResources().getColor(R.color.black));
-                u8_pt.setTextColor(getResources().getColor(R.color.black));
-
-                u1_sb.setTextColor(getResources().getColor(R.color.black));
-                u2_sb.setTextColor(getResources().getColor(R.color.black));
-                u3_sb.setTextColor(getResources().getColor(R.color.black));
-                u4_sb.setTextColor(getResources().getColor(R.color.black));
-                u5_sb.setTextColor(getResources().getColor(R.color.black));
-                u6_sb.setTextColor(getResources().getColor(R.color.black));
-                u7_sb.setTextColor(getResources().getColor(R.color.black));
-                u8_sb.setTextColor(getResources().getColor(R.color.black));
-
-                pn.setTextColor(getResources().getColor(R.color.black));
-                vt.setTextColor(getResources().getColor(R.color.black));
-                sr.setTextColor(getResources().getColor(R.color.black));
-                ch.setTextColor(getResources().getColor(R.color.black));
-                pt.setTextColor(getResources().getColor(R.color.black));
-                sb.setTextColor(getResources().getColor(R.color.black));
-
-                r.setBackgroundColor(getResources().getColor(R.color.white));
+                day_mode();
                 break;
             case Configuration.UI_MODE_NIGHT_YES:
-                u1_pn.setTextColor(getResources().getColor(R.color.black));
-                u2_pn.setTextColor(getResources().getColor(R.color.black));
-                u3_pn.setTextColor(getResources().getColor(R.color.black));
-                u4_pn.setTextColor(getResources().getColor(R.color.black));
-                u5_pn.setTextColor(getResources().getColor(R.color.black));
-                u6_pn.setTextColor(getResources().getColor(R.color.black));
-                u7_pn.setTextColor(getResources().getColor(R.color.black));
-                u8_pn.setTextColor(getResources().getColor(R.color.black));
-
-                u1_vt.setTextColor(getResources().getColor(R.color.black));
-                u2_vt.setTextColor(getResources().getColor(R.color.black));
-                u3_vt.setTextColor(getResources().getColor(R.color.black));
-                u4_vt.setTextColor(getResources().getColor(R.color.black));
-                u5_vt.setTextColor(getResources().getColor(R.color.black));
-                u6_vt.setTextColor(getResources().getColor(R.color.black));
-                u7_vt.setTextColor(getResources().getColor(R.color.black));
-                u8_vt.setTextColor(getResources().getColor(R.color.black));
-
-                u1_sr.setTextColor(getResources().getColor(R.color.black));
-                u2_sr.setTextColor(getResources().getColor(R.color.black));
-                u3_sr.setTextColor(getResources().getColor(R.color.black));
-                u4_sr.setTextColor(getResources().getColor(R.color.black));
-                u5_sr.setTextColor(getResources().getColor(R.color.black));
-                u6_sr.setTextColor(getResources().getColor(R.color.black));
-                u7_sr.setTextColor(getResources().getColor(R.color.black));
-                u8_sr.setTextColor(getResources().getColor(R.color.black));
-
-                u1_ch.setTextColor(getResources().getColor(R.color.black));
-                u2_ch.setTextColor(getResources().getColor(R.color.black));
-                u3_ch.setTextColor(getResources().getColor(R.color.black));
-                u4_ch.setTextColor(getResources().getColor(R.color.black));
-                u5_ch.setTextColor(getResources().getColor(R.color.black));
-                u6_ch.setTextColor(getResources().getColor(R.color.black));
-                u7_ch.setTextColor(getResources().getColor(R.color.black));
-                u8_ch.setTextColor(getResources().getColor(R.color.black));
-
-                u1_pt.setTextColor(getResources().getColor(R.color.black));
-                u2_pt.setTextColor(getResources().getColor(R.color.black));
-                u3_pt.setTextColor(getResources().getColor(R.color.black));
-                u4_pt.setTextColor(getResources().getColor(R.color.black));
-                u5_pt.setTextColor(getResources().getColor(R.color.black));
-                u6_pt.setTextColor(getResources().getColor(R.color.black));
-                u7_pt.setTextColor(getResources().getColor(R.color.black));
-                u8_pt.setTextColor(getResources().getColor(R.color.black));
-
-                u1_sb.setTextColor(getResources().getColor(R.color.black));
-                u2_sb.setTextColor(getResources().getColor(R.color.black));
-                u3_sb.setTextColor(getResources().getColor(R.color.black));
-                u4_sb.setTextColor(getResources().getColor(R.color.black));
-                u5_sb.setTextColor(getResources().getColor(R.color.black));
-                u6_sb.setTextColor(getResources().getColor(R.color.black));
-                u7_sb.setTextColor(getResources().getColor(R.color.black));
-                u8_sb.setTextColor(getResources().getColor(R.color.black));
-
-
-                pn.setTextColor(getResources().getColor(R.color.white));
-                vt.setTextColor(getResources().getColor(R.color.white));
-                sr.setTextColor(getResources().getColor(R.color.white));
-                ch.setTextColor(getResources().getColor(R.color.white));
-                pt.setTextColor(getResources().getColor(R.color.white));
-                sb.setTextColor(getResources().getColor(R.color.white));
-
-                r.setBackgroundColor(getResources().getColor(R.color.black));
+                nigth_mode();
                 break;
         }
 
-        if (class_pol.equals("11") && (symbol_pol.equals("а") || symbol_pol.equals("А")) && prof_pol.equals("tech"))
-            rasp11at();
-        else if (class_pol.equals("11") && (symbol_pol.equals("а") || symbol_pol.equals("А")) && prof_pol.equals("social"))
-            rasp11as();
-        else if (class_pol.equals("10") && (symbol_pol.equals("т") || symbol_pol.equals("Т")))
-            rasp10t();
-        else if (class_pol.equals("10") && (symbol_pol.equals("с") || symbol_pol.equals("С")))
-            rasp10s();
+        if (sharedPreferences.getBoolean("night_mode", false) == true) {
+            nigth_mode();
+        }
+        else {
+            day_mode();
+        }
 
+        String pr = "";
+        String symbol = "";
+        if (symbol_pol.equals("а") || symbol_pol.equals("А"))
+            symbol = "a";
+        else if (symbol_pol.equals("т") || symbol_pol.equals("Т"))
+            symbol = "t";
+        else if (symbol_pol.equals("с") || symbol_pol.equals("С"))
+            symbol = "s";
+        if (prof_pol.equals("tech"))
+            pr = "t";
+        else
+            pr = "s";
+        String str = "";
+        String les = "";
+
+        if (class_pol.equals("11")) {
+            str = class_pol + symbol + pr;
+        } else {
+            str = class_pol + symbol;
+        }
+
+        u1_pn.setText(sharedPreferences.getString("pn1_" + str, ""));
+        u2_pn.setText(sharedPreferences.getString("pn2_" + str, ""));
+        u3_pn.setText(sharedPreferences.getString("pn3_" + str, ""));
+        u4_pn.setText(sharedPreferences.getString("pn4_" + str, ""));
+        u5_pn.setText(sharedPreferences.getString("pn5_" + str, ""));
+        u6_pn.setText(sharedPreferences.getString("pn6_" + str, ""));
+        u7_pn.setText(sharedPreferences.getString("pn7_" + str, ""));
+        u8_pn.setText(sharedPreferences.getString("pn8_" + str, ""));
+        u1_vt.setText(sharedPreferences.getString("vt1_" + str, ""));
+        u2_vt.setText(sharedPreferences.getString("vt2_" + str, ""));
+        u3_vt.setText(sharedPreferences.getString("vt3_" + str, ""));
+        u4_vt.setText(sharedPreferences.getString("vt4_" + str, ""));
+        u5_vt.setText(sharedPreferences.getString("vt5_" + str, ""));
+        u6_vt.setText(sharedPreferences.getString("vt6_" + str, ""));
+        u7_vt.setText(sharedPreferences.getString("vt7_" + str, ""));
+        u8_vt.setText(sharedPreferences.getString("vt8_" + str, ""));
+        u1_sr.setText(sharedPreferences.getString("sr1_" + str, ""));
+        u2_sr.setText(sharedPreferences.getString("sr2_" + str, ""));
+        u3_sr.setText(sharedPreferences.getString("sr3_" + str, ""));
+        u4_sr.setText(sharedPreferences.getString("sr4_" + str, ""));
+        u5_sr.setText(sharedPreferences.getString("sr5_" + str, ""));
+        u6_sr.setText(sharedPreferences.getString("sr6_" + str, ""));
+        u7_sr.setText(sharedPreferences.getString("sr7_" + str, ""));
+        u8_sr.setText(sharedPreferences.getString("sr8_" + str, ""));
+        u1_ch.setText(sharedPreferences.getString("ch1_" + str, ""));
+        u2_ch.setText(sharedPreferences.getString("ch2_" + str, ""));
+        u3_ch.setText(sharedPreferences.getString("ch3_" + str, ""));
+        u4_ch.setText(sharedPreferences.getString("ch4_" + str, ""));
+        u5_ch.setText(sharedPreferences.getString("ch5_" + str, ""));
+        u6_ch.setText(sharedPreferences.getString("ch6_" + str, ""));
+        u7_ch.setText(sharedPreferences.getString("ch7_" + str, ""));
+        u8_ch.setText(sharedPreferences.getString("ch8_" + str, ""));
+        u1_pt.setText(sharedPreferences.getString("pt1_" + str, ""));
+        u2_pt.setText(sharedPreferences.getString("pt2_" + str, ""));
+        u3_pt.setText(sharedPreferences.getString("pt3_" + str, ""));
+        u4_pt.setText(sharedPreferences.getString("pt4_" + str, ""));
+        u5_pt.setText(sharedPreferences.getString("pt5_" + str, ""));
+        u6_pt.setText(sharedPreferences.getString("pt6_" + str, ""));
+        u7_pt.setText(sharedPreferences.getString("pt7_" + str, ""));
+        u8_pt.setText(sharedPreferences.getString("pt8_" + str, ""));
+        u1_sb.setText(sharedPreferences.getString("sb1_" + str, ""));
+        u2_sb.setText(sharedPreferences.getString("sb2_" + str, ""));
+        u3_sb.setText(sharedPreferences.getString("sb3_" + str, ""));
+        u4_sb.setText(sharedPreferences.getString("sb4_" + str, ""));
+        u5_sb.setText(sharedPreferences.getString("sb5_" + str, ""));
+        u6_sb.setText(sharedPreferences.getString("sb6_" + str, ""));
+        u7_sb.setText(sharedPreferences.getString("sb7_" + str, ""));
+        u8_sb.setText(sharedPreferences.getString("sb8_" + str, ""));
     }
 
-    void rasp11at() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RaspActivity.this);
-        u1_pn.setText(sharedPreferences.getString("pn1_11at", ""));
-        u2_pn.setText(sharedPreferences.getString("pn2_11at", ""));
-        u3_pn.setText(sharedPreferences.getString("pn3_11at", ""));
-        u4_pn.setText(sharedPreferences.getString("pn4_11at", ""));
-        u5_pn.setText(sharedPreferences.getString("pn5_11at", ""));
-        u6_pn.setText(sharedPreferences.getString("pn6_11at", ""));
-        u7_pn.setText(sharedPreferences.getString("pn7_11at", ""));
-        u8_pn.setText(sharedPreferences.getString("pn8_11at", ""));
+    private void day_mode() {
+        u1_pn.setTextColor(getResources().getColor(R.color.black));
+        u2_pn.setTextColor(getResources().getColor(R.color.black));
+        u3_pn.setTextColor(getResources().getColor(R.color.black));
+        u4_pn.setTextColor(getResources().getColor(R.color.black));
+        u5_pn.setTextColor(getResources().getColor(R.color.black));
+        u6_pn.setTextColor(getResources().getColor(R.color.black));
+        u7_pn.setTextColor(getResources().getColor(R.color.black));
+        u8_pn.setTextColor(getResources().getColor(R.color.black));
 
-        u1_vt.setText(sharedPreferences.getString("vt1_11at", ""));
-        u2_vt.setText(sharedPreferences.getString("vt2_11at", ""));
-        u3_vt.setText(sharedPreferences.getString("vt3_11at", ""));
-        u4_vt.setText(sharedPreferences.getString("vt4_11at", ""));
-        u5_vt.setText(sharedPreferences.getString("vt5_11at", ""));
-        u6_vt.setText(sharedPreferences.getString("vt6_11at", ""));
-        u7_vt.setText(sharedPreferences.getString("vt7_11at", ""));
-        u8_vt.setText(sharedPreferences.getString("vt8_11at", ""));
+        u1_vt.setTextColor(getResources().getColor(R.color.black));
+        u2_vt.setTextColor(getResources().getColor(R.color.black));
+        u3_vt.setTextColor(getResources().getColor(R.color.black));
+        u4_vt.setTextColor(getResources().getColor(R.color.black));
+        u5_vt.setTextColor(getResources().getColor(R.color.black));
+        u6_vt.setTextColor(getResources().getColor(R.color.black));
+        u7_vt.setTextColor(getResources().getColor(R.color.black));
+        u8_vt.setTextColor(getResources().getColor(R.color.black));
 
-        u1_sr.setText(sharedPreferences.getString("sr1_11at", ""));
-        u2_sr.setText(sharedPreferences.getString("sr2_11at", ""));
-        u3_sr.setText(sharedPreferences.getString("sr3_11at", ""));
-        u4_sr.setText(sharedPreferences.getString("sr4_11at", ""));
-        u5_sr.setText(sharedPreferences.getString("sr5_11at", ""));
-        u6_sr.setText(sharedPreferences.getString("sr6_11at", ""));
-        u7_sr.setText(sharedPreferences.getString("sr7_11at", ""));
-        u8_sr.setText(sharedPreferences.getString("sr8_11at", ""));
+        u1_sr.setTextColor(getResources().getColor(R.color.black));
+        u2_sr.setTextColor(getResources().getColor(R.color.black));
+        u3_sr.setTextColor(getResources().getColor(R.color.black));
+        u4_sr.setTextColor(getResources().getColor(R.color.black));
+        u5_sr.setTextColor(getResources().getColor(R.color.black));
+        u6_sr.setTextColor(getResources().getColor(R.color.black));
+        u7_sr.setTextColor(getResources().getColor(R.color.black));
+        u8_sr.setTextColor(getResources().getColor(R.color.black));
 
-        u1_ch.setText(sharedPreferences.getString("ch1_11at", ""));
-        u2_ch.setText(sharedPreferences.getString("ch2_11at", ""));
-        u3_ch.setText(sharedPreferences.getString("ch3_11at", ""));
-        u4_ch.setText(sharedPreferences.getString("ch4_11at", ""));
-        u5_ch.setText(sharedPreferences.getString("ch5_11at", ""));
-        u6_ch.setText(sharedPreferences.getString("ch6_11at", ""));
-        u7_ch.setText(sharedPreferences.getString("ch7_11at", ""));
-        u8_ch.setText(sharedPreferences.getString("ch8_11at", ""));
+        u1_ch.setTextColor(getResources().getColor(R.color.black));
+        u2_ch.setTextColor(getResources().getColor(R.color.black));
+        u3_ch.setTextColor(getResources().getColor(R.color.black));
+        u4_ch.setTextColor(getResources().getColor(R.color.black));
+        u5_ch.setTextColor(getResources().getColor(R.color.black));
+        u6_ch.setTextColor(getResources().getColor(R.color.black));
+        u7_ch.setTextColor(getResources().getColor(R.color.black));
+        u8_ch.setTextColor(getResources().getColor(R.color.black));
 
-        u1_pt.setText(sharedPreferences.getString("pt1_11at", ""));
-        u2_pt.setText(sharedPreferences.getString("pt2_11at", ""));
-        u3_pt.setText(sharedPreferences.getString("pt3_11at", ""));
-        u4_pt.setText(sharedPreferences.getString("pt4_11at", ""));
-        u5_pt.setText(sharedPreferences.getString("pt5_11at", ""));
-        u6_pt.setText(sharedPreferences.getString("pt6_11at", ""));
-        u7_pt.setText(sharedPreferences.getString("pt7_11at", ""));
-        u8_pt.setText(sharedPreferences.getString("pt8_11at", ""));
+        u1_pt.setTextColor(getResources().getColor(R.color.black));
+        u2_pt.setTextColor(getResources().getColor(R.color.black));
+        u3_pt.setTextColor(getResources().getColor(R.color.black));
+        u4_pt.setTextColor(getResources().getColor(R.color.black));
+        u5_pt.setTextColor(getResources().getColor(R.color.black));
+        u6_pt.setTextColor(getResources().getColor(R.color.black));
+        u7_pt.setTextColor(getResources().getColor(R.color.black));
+        u8_pt.setTextColor(getResources().getColor(R.color.black));
 
-        u1_sb.setText(sharedPreferences.getString("sb1_11at", ""));
-        u2_sb.setText(sharedPreferences.getString("sb2_11at", ""));
-        u3_sb.setText(sharedPreferences.getString("sb3_11at", ""));
-        u4_sb.setText(sharedPreferences.getString("sb4_11at", ""));
-        u5_sb.setText(sharedPreferences.getString("sb5_11at", ""));
-        u6_sb.setText(sharedPreferences.getString("sb6_11at", ""));
-        u7_sb.setText(sharedPreferences.getString("sb7_11at", ""));
-        u8_sb.setText(sharedPreferences.getString("sb8_11at", ""));
+        u1_sb.setTextColor(getResources().getColor(R.color.black));
+        u2_sb.setTextColor(getResources().getColor(R.color.black));
+        u3_sb.setTextColor(getResources().getColor(R.color.black));
+        u4_sb.setTextColor(getResources().getColor(R.color.black));
+        u5_sb.setTextColor(getResources().getColor(R.color.black));
+        u6_sb.setTextColor(getResources().getColor(R.color.black));
+        u7_sb.setTextColor(getResources().getColor(R.color.black));
+        u8_sb.setTextColor(getResources().getColor(R.color.black));
+
+        pn.setTextColor(getResources().getColor(R.color.black));
+        vt.setTextColor(getResources().getColor(R.color.black));
+        sr.setTextColor(getResources().getColor(R.color.black));
+        ch.setTextColor(getResources().getColor(R.color.black));
+        pt.setTextColor(getResources().getColor(R.color.black));
+        sb.setTextColor(getResources().getColor(R.color.black));
+
+
+
+        r.setBackgroundColor(getResources().getColor(R.color.white));
     }
 
-    void rasp11as() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RaspActivity.this);
-        u1_pn.setText(sharedPreferences.getString("pn1_11as", ""));
-        u2_pn.setText(sharedPreferences.getString("pn2_11as", ""));
-        u3_pn.setText(sharedPreferences.getString("pn3_11as", ""));
-        u4_pn.setText(sharedPreferences.getString("pn4_11as", ""));
-        u5_pn.setText(sharedPreferences.getString("pn5_11as", ""));
-        u6_pn.setText(sharedPreferences.getString("pn6_11as", ""));
-        u7_pn.setText(sharedPreferences.getString("pn7_11as", ""));
-        u8_pn.setText(sharedPreferences.getString("pn8_11as", ""));
+    private void nigth_mode() {
+        u1_pn.setTextColor(getResources().getColor(R.color.white));
+        u2_pn.setTextColor(getResources().getColor(R.color.white));
+        u3_pn.setTextColor(getResources().getColor(R.color.white));
+        u4_pn.setTextColor(getResources().getColor(R.color.white));
+        u5_pn.setTextColor(getResources().getColor(R.color.white));
+        u6_pn.setTextColor(getResources().getColor(R.color.white));
+        u7_pn.setTextColor(getResources().getColor(R.color.white));
+        u8_pn.setTextColor(getResources().getColor(R.color.white));
 
-        u1_vt.setText(sharedPreferences.getString("vt1_11as", ""));
-        u2_vt.setText(sharedPreferences.getString("vt2_11as", ""));
-        u3_vt.setText(sharedPreferences.getString("vt3_11as", ""));
-        u4_vt.setText(sharedPreferences.getString("vt4_11as", ""));
-        u5_vt.setText(sharedPreferences.getString("vt5_11as", ""));
-        u6_vt.setText(sharedPreferences.getString("vt6_11as", ""));
-        u7_vt.setText(sharedPreferences.getString("vt7_11as", ""));
-        u8_vt.setText(sharedPreferences.getString("vt8_11as", ""));
+        u1_vt.setTextColor(getResources().getColor(R.color.white));
+        u2_vt.setTextColor(getResources().getColor(R.color.white));
+        u3_vt.setTextColor(getResources().getColor(R.color.white));
+        u4_vt.setTextColor(getResources().getColor(R.color.white));
+        u5_vt.setTextColor(getResources().getColor(R.color.white));
+        u6_vt.setTextColor(getResources().getColor(R.color.white));
+        u7_vt.setTextColor(getResources().getColor(R.color.white));
+        u8_vt.setTextColor(getResources().getColor(R.color.white));
 
-        u1_sr.setText(sharedPreferences.getString("sr1_11as", ""));
-        u2_sr.setText(sharedPreferences.getString("sr2_11as", ""));
-        u3_sr.setText(sharedPreferences.getString("sr3_11as", ""));
-        u4_sr.setText(sharedPreferences.getString("sr4_11as", ""));
-        u5_sr.setText(sharedPreferences.getString("sr5_11as", ""));
-        u6_sr.setText(sharedPreferences.getString("sr6_11as", ""));
-        u7_sr.setText(sharedPreferences.getString("sr7_11as", ""));
-        u8_sr.setText(sharedPreferences.getString("sr8_11as", ""));
+        u1_sr.setTextColor(getResources().getColor(R.color.white));
+        u2_sr.setTextColor(getResources().getColor(R.color.white));
+        u3_sr.setTextColor(getResources().getColor(R.color.white));
+        u4_sr.setTextColor(getResources().getColor(R.color.white));
+        u5_sr.setTextColor(getResources().getColor(R.color.white));
+        u6_sr.setTextColor(getResources().getColor(R.color.white));
+        u7_sr.setTextColor(getResources().getColor(R.color.white));
+        u8_sr.setTextColor(getResources().getColor(R.color.white));
 
-        u1_ch.setText(sharedPreferences.getString("ch1_11as", ""));
-        u2_ch.setText(sharedPreferences.getString("ch2_11as", ""));
-        u3_ch.setText(sharedPreferences.getString("ch3_11as", ""));
-        u4_ch.setText(sharedPreferences.getString("ch4_11as", ""));
-        u5_ch.setText(sharedPreferences.getString("ch5_11as", ""));
-        u6_ch.setText(sharedPreferences.getString("ch6_11as", ""));
-        u7_ch.setText(sharedPreferences.getString("ch7_11as", ""));
-        u8_ch.setText(sharedPreferences.getString("ch8_11as", ""));
+        u1_ch.setTextColor(getResources().getColor(R.color.white));
+        u2_ch.setTextColor(getResources().getColor(R.color.white));
+        u3_ch.setTextColor(getResources().getColor(R.color.white));
+        u4_ch.setTextColor(getResources().getColor(R.color.white));
+        u5_ch.setTextColor(getResources().getColor(R.color.white));
+        u6_ch.setTextColor(getResources().getColor(R.color.white));
+        u7_ch.setTextColor(getResources().getColor(R.color.white));
+        u8_ch.setTextColor(getResources().getColor(R.color.white));
 
-        u1_pt.setText(sharedPreferences.getString("pt1_11as", ""));
-        u2_pt.setText(sharedPreferences.getString("pt2_11as", ""));
-        u3_pt.setText(sharedPreferences.getString("pt3_11as", ""));
-        u4_pt.setText(sharedPreferences.getString("pt4_11as", ""));
-        u5_pt.setText(sharedPreferences.getString("pt5_11as", ""));
-        u6_pt.setText(sharedPreferences.getString("pt6_11as", ""));
-        u7_pt.setText(sharedPreferences.getString("pt7_11as", ""));
-        u8_pt.setText(sharedPreferences.getString("pt8_11as", ""));
+        u1_pt.setTextColor(getResources().getColor(R.color.white));
+        u2_pt.setTextColor(getResources().getColor(R.color.white));
+        u3_pt.setTextColor(getResources().getColor(R.color.white));
+        u4_pt.setTextColor(getResources().getColor(R.color.white));
+        u5_pt.setTextColor(getResources().getColor(R.color.white));
+        u6_pt.setTextColor(getResources().getColor(R.color.white));
+        u7_pt.setTextColor(getResources().getColor(R.color.white));
+        u8_pt.setTextColor(getResources().getColor(R.color.white));
 
-        u1_sb.setText(sharedPreferences.getString("sb1_11as", ""));
-        u2_sb.setText(sharedPreferences.getString("sb2_11as", ""));
-        u3_sb.setText(sharedPreferences.getString("sb3_11as", ""));
-        u4_sb.setText(sharedPreferences.getString("sb4_11as", ""));
-        u5_sb.setText(sharedPreferences.getString("sb5_11as", ""));
-        u6_sb.setText(sharedPreferences.getString("sb6_11as", ""));
-        u7_sb.setText(sharedPreferences.getString("sb7_11as", ""));
-        u8_sb.setText(sharedPreferences.getString("sb8_11as", ""));
-    }
+        u1_sb.setTextColor(getResources().getColor(R.color.white));
+        u2_sb.setTextColor(getResources().getColor(R.color.white));
+        u3_sb.setTextColor(getResources().getColor(R.color.white));
+        u4_sb.setTextColor(getResources().getColor(R.color.white));
+        u5_sb.setTextColor(getResources().getColor(R.color.white));
+        u6_sb.setTextColor(getResources().getColor(R.color.white));
+        u7_sb.setTextColor(getResources().getColor(R.color.white));
+        u8_sb.setTextColor(getResources().getColor(R.color.white));
 
-    void rasp10t() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RaspActivity.this);
-        u1_pn.setText(sharedPreferences.getString("pn1_10t", ""));
-        u2_pn.setText(sharedPreferences.getString("pn2_10t", ""));
-        u3_pn.setText(sharedPreferences.getString("pn3_10t", ""));
-        u4_pn.setText(sharedPreferences.getString("pn4_10t", ""));
-        u5_pn.setText(sharedPreferences.getString("pn5_10t", ""));
-        u6_pn.setText(sharedPreferences.getString("pn6_10t", ""));
-        u7_pn.setText(sharedPreferences.getString("pn7_10t", ""));
-        u8_pn.setText(sharedPreferences.getString("pn8_10t", ""));
+        l2.setBackgroundDrawable(ContextCompat.getDrawable(RaspActivity.this, R.drawable.nigth_one));
+        l3.setBackgroundDrawable(ContextCompat.getDrawable(RaspActivity.this, R.drawable.nigth_one));
+        l4.setBackgroundDrawable(ContextCompat.getDrawable(RaspActivity.this, R.drawable.nigth_one));
+        l5.setBackgroundDrawable(ContextCompat.getDrawable(RaspActivity.this, R.drawable.nigth_one));
+        l6.setBackgroundDrawable(ContextCompat.getDrawable(RaspActivity.this, R.drawable.nigth_one));
+        l7.setBackgroundDrawable(ContextCompat.getDrawable(RaspActivity.this, R.drawable.nigth_one));
 
-        u1_vt.setText(sharedPreferences.getString("vt1_10t", ""));
-        u2_vt.setText(sharedPreferences.getString("vt2_10t", ""));
-        u3_vt.setText(sharedPreferences.getString("vt3_10t", ""));
-        u4_vt.setText(sharedPreferences.getString("vt4_10t", ""));
-        u5_vt.setText(sharedPreferences.getString("vt5_10t", ""));
-        u6_vt.setText(sharedPreferences.getString("vt6_10t", ""));
-        u7_vt.setText(sharedPreferences.getString("vt7_10t", ""));
-        u8_vt.setText(sharedPreferences.getString("vt8_10t", ""));
 
-        u1_sr.setText(sharedPreferences.getString("sr1_10t", ""));
-        u2_sr.setText(sharedPreferences.getString("sr2_10t", ""));
-        u3_sr.setText(sharedPreferences.getString("sr3_10t", ""));
-        u4_sr.setText(sharedPreferences.getString("sr4_10t", ""));
-        u5_sr.setText(sharedPreferences.getString("sr5_10t", ""));
-        u6_sr.setText(sharedPreferences.getString("sr6_10t", ""));
-        u7_sr.setText(sharedPreferences.getString("sr7_10t", ""));
-        u8_sr.setText(sharedPreferences.getString("sr8_10t", ""));
+        pn.setTextColor(getResources().getColor(R.color.white));
+        vt.setTextColor(getResources().getColor(R.color.white));
+        sr.setTextColor(getResources().getColor(R.color.white));
+        ch.setTextColor(getResources().getColor(R.color.white));
+        pt.setTextColor(getResources().getColor(R.color.white));
+        sb.setTextColor(getResources().getColor(R.color.white));
 
-        u1_ch.setText(sharedPreferences.getString("ch1_10t", ""));
-        u2_ch.setText(sharedPreferences.getString("ch2_10t", ""));
-        u3_ch.setText(sharedPreferences.getString("ch3_10t", ""));
-        u4_ch.setText(sharedPreferences.getString("ch4_10t", ""));
-        u5_ch.setText(sharedPreferences.getString("ch5_10t", ""));
-        u6_ch.setText(sharedPreferences.getString("ch6_10t", ""));
-        u7_ch.setText(sharedPreferences.getString("ch7_10t", ""));
-        u8_ch.setText(sharedPreferences.getString("ch8_10t", ""));
-
-        u1_pt.setText(sharedPreferences.getString("pt1_10t", ""));
-        u2_pt.setText(sharedPreferences.getString("pt2_10t", ""));
-        u3_pt.setText(sharedPreferences.getString("pt3_10t", ""));
-        u4_pt.setText(sharedPreferences.getString("pt4_10t", ""));
-        u5_pt.setText(sharedPreferences.getString("pt5_10t", ""));
-        u6_pt.setText(sharedPreferences.getString("pt6_10t", ""));
-        u7_pt.setText(sharedPreferences.getString("pt7_10t", ""));
-        u8_pt.setText(sharedPreferences.getString("pt8_10t", ""));
-
-        u1_sb.setText(sharedPreferences.getString("sb1_10t", ""));
-        u2_sb.setText(sharedPreferences.getString("sb2_10t", ""));
-        u3_sb.setText(sharedPreferences.getString("sb3_10t", ""));
-        u4_sb.setText(sharedPreferences.getString("sb4_10t", ""));
-        u5_sb.setText(sharedPreferences.getString("sb5_10t", ""));
-        u6_sb.setText(sharedPreferences.getString("sb6_10t", ""));
-        u7_sb.setText(sharedPreferences.getString("sb7_10t", ""));
-        u8_sb.setText(sharedPreferences.getString("sb8_10t", ""));
-    }
-
-    void rasp10s() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RaspActivity.this);
-        u1_pn.setText(sharedPreferences.getString("pn1_10s", ""));
-        u2_pn.setText(sharedPreferences.getString("pn2_10s", ""));
-        u3_pn.setText(sharedPreferences.getString("pn3_10s", ""));
-        u4_pn.setText(sharedPreferences.getString("pn4_10s", ""));
-        u5_pn.setText(sharedPreferences.getString("pn5_10s", ""));
-        u6_pn.setText(sharedPreferences.getString("pn6_10s", ""));
-        u7_pn.setText(sharedPreferences.getString("pn7_10s", ""));
-        u8_pn.setText(sharedPreferences.getString("pn8_10s", ""));
-
-        u1_vt.setText(sharedPreferences.getString("vt1_10s", ""));
-        u2_vt.setText(sharedPreferences.getString("vt2_10s", ""));
-        u3_vt.setText(sharedPreferences.getString("vt3_10s", ""));
-        u4_vt.setText(sharedPreferences.getString("vt4_10s", ""));
-        u5_vt.setText(sharedPreferences.getString("vt5_10s", ""));
-        u6_vt.setText(sharedPreferences.getString("vt6_10s", ""));
-        u7_vt.setText(sharedPreferences.getString("vt7_10s", ""));
-        u8_vt.setText(sharedPreferences.getString("vt8_10s", ""));
-
-        u1_sr.setText(sharedPreferences.getString("sr1_10s", ""));
-        u2_sr.setText(sharedPreferences.getString("sr2_10s", ""));
-        u3_sr.setText(sharedPreferences.getString("sr3_10s", ""));
-        u4_sr.setText(sharedPreferences.getString("sr4_10s", ""));
-        u5_sr.setText(sharedPreferences.getString("sr5_10s", ""));
-        u6_sr.setText(sharedPreferences.getString("sr6_10s", ""));
-        u7_sr.setText(sharedPreferences.getString("sr7_10s", ""));
-        u8_sr.setText(sharedPreferences.getString("sr8_10s", ""));
-
-        u1_ch.setText(sharedPreferences.getString("ch1_10s", ""));
-        u2_ch.setText(sharedPreferences.getString("ch2_10s", ""));
-        u3_ch.setText(sharedPreferences.getString("ch3_10s", ""));
-        u4_ch.setText(sharedPreferences.getString("ch4_10s", ""));
-        u5_ch.setText(sharedPreferences.getString("ch5_10s", ""));
-        u6_ch.setText(sharedPreferences.getString("ch6_10s", ""));
-        u7_ch.setText(sharedPreferences.getString("ch7_10s", ""));
-        u8_ch.setText(sharedPreferences.getString("ch8_10s", ""));
-
-        u1_pt.setText(sharedPreferences.getString("pt1_10s", ""));
-        u2_pt.setText(sharedPreferences.getString("pt2_10s", ""));
-        u3_pt.setText(sharedPreferences.getString("pt3_10s", ""));
-        u4_pt.setText(sharedPreferences.getString("pt4_10s", ""));
-        u5_pt.setText(sharedPreferences.getString("pt5_10s", ""));
-        u6_pt.setText(sharedPreferences.getString("pt6_10s", ""));
-        u7_pt.setText(sharedPreferences.getString("pt7_10s", ""));
-        u8_pt.setText(sharedPreferences.getString("pt8_10s", ""));
-
-        u1_sb.setText(sharedPreferences.getString("sb1_10s", ""));
-        u2_sb.setText(sharedPreferences.getString("sb2_10s", ""));
-        u3_sb.setText(sharedPreferences.getString("sb3_10s", ""));
-        u4_sb.setText(sharedPreferences.getString("sb4_10s", ""));
-        u5_sb.setText(sharedPreferences.getString("sb5_10s", ""));
-        u6_sb.setText(sharedPreferences.getString("sb6_10s", ""));
-        u7_sb.setText(sharedPreferences.getString("sb7_10s", ""));
-        u8_sb.setText(sharedPreferences.getString("sb8_10s", ""));
+        r.setBackgroundColor(getResources().getColor(R.color.nigth_mode));
     }
 }
