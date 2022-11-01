@@ -314,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
             String urlT = "https://api.npoint.io/86de4c9a1714afd58caa";
             new getUrlData1().execute(urlT);
             new getUrlData().execute(urlT);
-            //new getUrlDataImage().execute(urlT);
+            new getUrlData3().execute(urlT);
         }
         String previouslyEncodedImage = sharedPreferences.getString("im_data", "");
         String previouslyEncodedImageBg = sharedPreferences.getString("bg_im_data", "");
@@ -711,6 +711,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 JSONObject jsonObject = new JSONObject(result);
+                if (!jsonObject.getJSONObject("connect").getString("down").equals("false")) {
                 String app = jsonObject.getJSONObject("connect").getString("app");
                 String ver = jsonObject.getJSONObject("connect").getString("ver");
                 String versionName = BuildConfig.VERSION_NAME;
@@ -732,7 +733,7 @@ public class MainActivity extends AppCompatActivity {
                     alert.show();
                 }
                 else {
-                }
+                }}
 
             } catch (JSONException jsonException) {
                 Toast toast = Toast.makeText(getApplicationContext(),
@@ -804,6 +805,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 JSONObject jsonObject = new JSONObject(result);
+                if (!jsonObject.getJSONObject("connect").getString("down").equals("false")) {
                 String app = jsonObject.getJSONObject("connect").getString("app");
                 String ver = jsonObject.getJSONObject("connect").getString("ver");
                 String versionName = BuildConfig.VERSION_NAME;
@@ -828,6 +830,115 @@ public class MainActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(),
                             "Установлена последняя версия", Toast.LENGTH_SHORT);
                     toast.show();
+                } }
+            } catch (JSONException jsonException) {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Ошибка JSON", Toast.LENGTH_SHORT);
+                toast.show();
+                jsonException.printStackTrace();
+            }
+        }JSONObject jsonObject = null;
+    }
+
+    private class getUrlData3 extends AsyncTask<String, String, String> {
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+
+            try {
+                URL url = new URL(strings[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                StringBuffer buffer = new StringBuffer();
+                String line = "";
+
+                while ((line = reader.readLine()) != null)
+                    buffer.append(line).append("\n");
+
+                return buffer.toString();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null)
+                    connection.disconnect();
+                try {
+                    if (reader != null)
+                        reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                if (!jsonObject.getJSONObject("connect").getString("cn").equals("true")) {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Ошибка сервера", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+            } catch (JSONException jsonException) {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Ошибка JSON", Toast.LENGTH_SHORT);
+                toast.show();
+                jsonException.printStackTrace();
+            }
+
+            try {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                JSONObject jsonObject = new JSONObject(result);
+                String num = jsonObject.getJSONObject("mes").getString("number");
+                String tytle = jsonObject.getJSONObject("mes").getString("tytle");
+                String text = jsonObject.getJSONObject("mes").getString("text");
+                String but_one = jsonObject.getJSONObject("mes").getString("but_1");
+                String but_one_url = jsonObject.getJSONObject("mes").getString("but_1_url");
+                String but_two = jsonObject.getJSONObject("mes").getString("but_2");
+                String but_two_url = jsonObject.getJSONObject("mes").getString("but_2_url");
+
+                if (!num.equals(sharedPreferences.getString("mes_num", ""))) {
+                    editor.putString("mes_num", jsonObject.getJSONObject("mes").getString("number"));
+                    editor.commit();
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle(tytle).setMessage(text).setCancelable(false);
+
+
+                        builder.setPositiveButton(but_one, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                if (!but_one_url.equals("")) {
+                                Intent intent4 = new Intent(Intent.ACTION_VIEW, Uri.parse(but_one_url));
+                                startActivity(intent4); }
+                            }
+                        });
+
+                        builder.setNegativeButton(but_two, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                if (!but_two_url.equals("")) {
+                                Intent intent4 = new Intent(Intent.ACTION_VIEW, Uri.parse(but_two_url));
+                                startActivity(intent4);}
+                            }
+                        });
+
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+                else {
                 }
             } catch (JSONException jsonException) {
                 Toast toast = Toast.makeText(getApplicationContext(),
@@ -877,19 +988,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.action_update:
-                boolean inet = isNetworkConnected();
-                if (inet == true) {
-                    String urlT = "https://api.npoint.io/86de4c9a1714afd58caa";
-                    new getUrlData2().execute(urlT);
-                    new getUrlData().execute(urlT);
-                }
-                else {
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            "Нет подключения к интернету", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-                return true;
             case R.id.action_settings:
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
