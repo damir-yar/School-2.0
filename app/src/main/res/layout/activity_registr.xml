@@ -102,6 +102,25 @@
             android:textColor="@color/black"
             android:background="?android:attr/selectableItemBackground"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/gray"
+            android:textSize="15dp"
+            android:text="Используя приложение вы соглашаетесь с "/>
+
+        <Button
+            android:id="@+id/usl"
+            android:layout_marginTop="-11dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:textSize="15dp"
+            android:textAllCaps="false"
+            android:textColor="@color/gray"
+            android:text="Условиями использования и Политикой конфиденциальности"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -444,7 +444,8 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (JSONException jsonException) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setMessage("Класс не найден!\nДля добавления расписания твоего класса напиши разработчику")
+                builder.setTitle("Класс не найден!")
+                        .setMessage("Для добавления расписания твоего класса напиши разработчику")
                         .setCancelable(false)
                         .setPositiveButton("Написать", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -717,7 +718,7 @@ public class MainActivity extends AppCompatActivity {
                 String versionName = BuildConfig.VERSION_NAME;
                 if (!ver.equals(versionName)) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setMessage("Доступно обновление!")
+                    builder.setTitle("Доступно обновление!")
                             .setCancelable(false)
                             .setPositiveButton("Скачать", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -811,7 +812,7 @@ public class MainActivity extends AppCompatActivity {
                 String versionName = BuildConfig.VERSION_NAME;
                 if (!ver.equals(versionName)) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setMessage("Доступно обновление!")
+                    builder.setTitle("Доступно обновление!")
                             .setCancelable(false)
                             .setPositiveButton("Скачать", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {

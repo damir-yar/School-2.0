@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -38,6 +39,8 @@ public class RegistrActivity extends AppCompatActivity {
     private RadioButton prof_social;
     private Button but;
 
+    private Button usl;
+
     private String day_week;
     private String name_pol;
     private String class_pol;
@@ -65,6 +68,8 @@ public class RegistrActivity extends AppCompatActivity {
 
         lay = findViewById(R.id.lay);
 
+        usl = findViewById(R.id.usl);
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RegistrActivity.this);
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         switch (currentNightMode) {
@@ -81,6 +86,14 @@ public class RegistrActivity extends AppCompatActivity {
         else {
             day_mode();
         }
+
+        usl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/damir-yar/School-2.0/blob/master/privacy%20policy.md"));
+                startActivity(intent4);
+            }
+        });
 
         prof_not.setOnClickListener(new View.OnClickListener() {
             @Override
