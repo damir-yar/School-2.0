@@ -19,6 +19,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -27,6 +28,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -86,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView im1;
     static final int GALLERY_REQUEST = 1;
 
+    private Button task;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         lay3 = findViewById(R.id.lay_main_inf);
         lay_sw = findViewById(R.id.lay_main_sw);
         im1 = findViewById(R.id.im_one);
+        task = findViewById(R.id.home_task);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -254,18 +259,130 @@ public class MainActivity extends AppCompatActivity {
         easter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (east < 5) {
+                if (east < 2) {
                     east += 1;
-                    int a = 5-east;
+                    int a = 2-east;
                     Toast toast = Toast.makeText(getApplicationContext(),
-                            "Осталось " + a + " шага", Toast.LENGTH_SHORT);
+                            "Остался " + a + " шаг", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-                if (east == 5) {
+                if (east == 2) {
                     Intent intent = new Intent(MainActivity.this, EasterActivity.class);
                     startActivity(intent);
                     east = 0;
                 }
+            }
+        });
+
+
+        task.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(day_week.equals("Воскресенье")){
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Выходной!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle(day_week);
+                    String tas = "";
+                    if(!u1.getText().toString().equals("")&& !u1.getText().toString().equals("----")) {
+                        tas = u1.getText().toString() + " - " +
+                                sharedPreferences.getString("home" + u1.getText().toString(), "") + "\n";
+                    }
+                    if (!u1.getText().toString().equals(u2.getText().toString()) && !u2.getText().toString().equals("----")
+                            &&!u2.getText().toString().equals("")) {
+                        tas = tas + u2.getText().toString() + " - " +
+                                sharedPreferences.getString("home" + u2.getText().toString(), "") + "\n";
+                    }
+                    if (!u2.getText().toString().equals(u3.getText().toString()) && !u3.getText().toString().equals("----")
+                            &&!u3.getText().toString().equals("")) {
+                        tas = tas + u3.getText().toString() + " - " +
+                                sharedPreferences.getString("home" + u3.getText().toString(), "") + "\n";
+                    }
+                    if (!u3.getText().toString().equals(u4.getText().toString()) && !u4.getText().toString().equals("----")
+                            &&!u4.getText().toString().equals("")) {
+                        tas = tas + u4.getText().toString() + " - " +
+                                sharedPreferences.getString("home" + u4.getText().toString(), "") + "\n";
+                    }
+                    if (!u4.getText().toString().equals(u5.getText().toString()) && !u5.getText().toString().equals("----")
+                            &&!u5.getText().toString().equals("")) {
+                        tas = tas + u5.getText().toString() + " - " +
+                                sharedPreferences.getString("home" + u5.getText().toString(), "") + "\n";
+                    }
+                    if (!u5.getText().toString().equals(u6.getText().toString()) && !u6.getText().toString().equals("----")
+                            &&!u6.getText().toString().equals("")) {
+                        tas = tas + u6.getText().toString() + " - " +
+                                sharedPreferences.getString("home" + u6.getText().toString(), "") + "\n";
+                    }
+                    if (!u6.getText().toString().equals(u7.getText().toString()) && !u7.getText().toString().equals("----")
+                            &&!u7.getText().toString().equals("")) {
+                        tas = tas + u7.getText().toString() + " - " +
+                                sharedPreferences.getString("home" + u7.getText().toString(), "") + "\n";
+                    }
+                    if (!u7.getText().toString().equals(u8.getText().toString()) && !u8.getText().toString().equals("----")
+                            &&!u8.getText().toString().equals("")) {
+                        tas = tas + u8.getText().toString() + " - " +
+                                sharedPreferences.getString("home" + u8.getText().toString(), "") + "\n";
+                    }
+                    builder.setMessage(tas);
+                    builder.setCancelable(false)
+                            .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+            }
+        });
+        u1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                home_d(u1.getText().toString());
+            }
+        });
+        u2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                home_d(u2.getText().toString());
+            }
+        });
+        u3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                home_d(u3.getText().toString());
+            }
+        });
+        u4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                home_d(u4.getText().toString());
+            }
+        });
+        u5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                home_d(u5.getText().toString());
+            }
+        });
+        u6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                home_d(u6.getText().toString());
+            }
+        });
+        u7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                home_d(u7.getText().toString());
+            }
+        });
+        u8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                home_d(u8.getText().toString());
             }
         });
 
@@ -1279,5 +1396,40 @@ public class MainActivity extends AppCompatActivity {
 
         layout.setBackgroundResource(R.drawable.background_main);
         lay_sw.setBackgroundDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.shape_rect_three));
+    }
+
+    void home_d(String num) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        if(num.equals("") || num.equals("----")){
+            return;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(num);
+
+        final EditText input = new EditText(MainActivity.this);
+
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_TEXT);
+        input.setText(sharedPreferences.getString("home"+num, ""));
+        input.setHint("Домашнее задание");
+        builder.setView(input);
+
+        builder.setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                editor.putString("home"+num, input.getText().toString());
+                editor.commit();
+            }
+        });
+        builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 }
