@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/a"
+        android:background="@drawable/background_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_gravity="center"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rect_three"
+                    android:gravity="center"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/home_task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="Что задано?"/>
+
+        <ImageView
+            android:id="@+id/im_one"
+            android:layout_width="140dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+
+                <Button
+                    android:id="@+id/but_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="\u003c\u003c"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/lay_main_rasp"
+            android:background="@drawable/shape_rect"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="170dp"
+                android:layout_height='wrap_content'
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/time_one"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="3dp"
+                    android:textSize="21dp" />
+
+                <TextView
+                    android:id="@+id/time_two"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="right"
+                    android:textSize="21dp" />
+
+                <TextView
+                    android:id="@+id/time_three"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="right"
+                    android:textSize="21dp" />
+
+                <TextView
+                    android:id="@+id/time_four"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="right"
+                    android:textSize="21dp" />
+
+                <TextView
+                    android:id="@+id/time_five"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="right"
+                    android:textSize="21dp" />
+
+                <TextView
+                    android:id="@+id/time_six"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="right"
+                    android:textSize="21dp" />
+
+                <TextView
+                    android:id="@+id/time_seven"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="right"
+                    android:textSize="21dp" />
+
+                <TextView
+                    android:id="@+id/time_eight"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="right"
+                    android:textSize="21dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/idid"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/les_one"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="left"
+                    android:textSize="23dp" />
+
+                <TextView
+                    android:id="@+id/les_two"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="left"
+                    android:textSize="23dp" />
+
+                <TextView
+                    android:id="@+id/les_three"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="left"
+                    android:textSize="23dp" />
+
+                <TextView
+                    android:id="@+id/les_four"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="left"
+                    android:textSize="23dp" />
+
+                <TextView
+                    android:id="@+id/les_five"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="left"
+                    android:textSize="23dp" />
+
+                <TextView
+                    android:id="@+id/les_six"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="left"
+                    android:textSize="23dp" />
+
+                <TextView
+                    android:id="@+id/les_seven"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="left"
+                    android:textSize="23dp" />
+
+                <TextView
+                    android:id="@+id/les_eight"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="left"
+                    android:textSize="23dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/easter"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right">
+
+                <LinearLayout
+                    android:id="@+id/lay_main_inf"
+                    android:background="@drawable/shape_rect_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/person_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="10dp"/>
+
+                    <TextView
+                        android:id="@+id/person_class"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="3dp"
+                        android:textSize="25dp"
+                        android:layout_gravity="right"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/person_symbol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+            android:id="@+id/lay_main_sw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+            android:background="@drawable/shape_rect_three">
+
+            <Switch
+                android:id="@+id/switch_s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Сокращённые уроки"/>
+
+        </LinearLayout>
+
+                <Button
+                    android:id="@+id/but_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="\u003e\u003e"/>
+
+        </LinearLayout>
+
+        </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:id="@+id/menu_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#FF151515"
+                android:orientation="horizontal"
+                android:layout_gravity="bottom">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/menu_home"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/menu_home" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/menu_timetable"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/menu_timetable" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/menu_settings"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/menu_settings" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/menu_profile"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/menu_profile" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

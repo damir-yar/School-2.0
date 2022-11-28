@@ -3,10 +3,13 @@ package com.example.school20;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -86,6 +89,12 @@ public class RaspActivity extends AppCompatActivity {
     private LinearLayout l6;
     private LinearLayout l7;
 
+    private LinearLayout menuBot;
+    private ImageButton mHome;
+    private ImageButton mTime;
+    private ImageButton mSet;
+    private ImageButton mProf;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,6 +170,33 @@ public class RaspActivity extends AppCompatActivity {
         l5 = findViewById(R.id.l5);
         l6 = findViewById(R.id.l6);
         l7 = findViewById(R.id.l7);
+
+        menuBot = findViewById(R.id.menu_bottom);
+        mHome = findViewById(R.id.menu_home);
+        mTime = findViewById(R.id.menu_timetable);
+        mSet = findViewById(R.id.menu_settings);
+        mProf = findViewById(R.id.menu_profile);
+        mHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RaspActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        mTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RaspActivity.this, RaspActivity.class);
+                startActivity(intent);
+            }
+        });
+        mSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RaspActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RaspActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -318,9 +354,13 @@ public class RaspActivity extends AppCompatActivity {
         pt.setTextColor(getResources().getColor(R.color.black));
         sb.setTextColor(getResources().getColor(R.color.black));
 
-
-
         r.setBackgroundColor(getResources().getColor(R.color.white));
+
+        menuBot.setBackgroundColor(getResources().getColor(R.color.menu_day));
+        mHome.setImageResource(R.drawable.menu_home_day);
+        mTime.setImageResource(R.drawable.menu_timetable_day);
+        mSet.setImageResource(R.drawable.menu_settings_day);
+        mProf.setImageResource(R.drawable.menu_profile_day);
     }
 
     private void nigth_mode() {
@@ -394,5 +434,11 @@ public class RaspActivity extends AppCompatActivity {
         sb.setTextColor(getResources().getColor(R.color.white));
 
         r.setBackgroundColor(getResources().getColor(R.color.nigth_mode));
+
+        menuBot.setBackgroundColor(getResources().getColor(R.color.menu_night));
+        mHome.setImageResource(R.drawable.menu_home);
+        mTime.setImageResource(R.drawable.menu_timetable);
+        mSet.setImageResource(R.drawable.menu_settings);
+        mProf.setImageResource(R.drawable.menu_profile);
     }
 }

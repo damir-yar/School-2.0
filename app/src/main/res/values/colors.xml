@@ -10,4 +10,8 @@
     <color name="gray">#FF777272</color>
     <color name="nigth_mode">#FF1B1B1B</color>
     <color name="nigth_mode_sec">#66000000</color>
+    <color name="chek">#FFFA0505</color>
+    <color name="pr">#00FFFFFF</color>
+    <color name="menu_night">#66000000</color>
+    <color name="menu_day">#B9FFFFFF</color>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.school20;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -13,9 +14,11 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -28,7 +31,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -37,6 +42,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenu;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     private String class_pol;
     private String symbol_pol;
     private String prof_pol;
-    private Button easter;
+    private LinearLayout easter;
     private int east = 0;
     private LinearLayout layout;
     private LinearLayout lay2;
@@ -89,6 +98,17 @@ public class MainActivity extends AppCompatActivity {
     static final int GALLERY_REQUEST = 1;
 
     private Button task;
+
+    private LinearLayout lin;
+
+    private Button next;
+    private Button back;
+
+    private LinearLayout menuBot;
+    private ImageButton mHome;
+    private ImageButton mTime;
+    private ImageButton mSet;
+    private ImageButton mProf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +143,39 @@ public class MainActivity extends AppCompatActivity {
         lay_sw = findViewById(R.id.lay_main_sw);
         im1 = findViewById(R.id.im_one);
         task = findViewById(R.id.home_task);
+        lin = findViewById(R.id.idid);
+        next = findViewById(R.id.but_next);
+        back = findViewById(R.id.but_back);
+
+
+        menuBot = findViewById(R.id.menu_bottom);
+        mHome = findViewById(R.id.menu_home);
+        mTime = findViewById(R.id.menu_timetable);
+        mSet = findViewById(R.id.menu_settings);
+        mProf = findViewById(R.id.menu_profile);
+        mHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        mTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RaspActivity.class);
+                startActivity(intent);
+            }
+        });
+        mSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -253,20 +306,107 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (day_week) {
+                    case "Понедельник":
+                        day_week = "Вторник";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Вторник":
+                        day_week = "Среда";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Среда":
+                        day_week = "Четверг";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Четверг":
+                        day_week = "Пятница";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Пятница":
+                        day_week = "Суббота";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Суббота":
+                        day_week = "Воскресенье";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Воскресенье":
+                        day_week = "Понедельник";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                }
+                raspZ();
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (day_week) {
+                    case "Понедельник":
+                        day_week = "Воскресенье";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Вторник":
+                        day_week = "Понедельник";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Среда":
+                        day_week = "Вторник";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Четверг":
+                        day_week = "Среда";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Пятница":
+                        day_week = "Четверг";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Суббота":
+                        day_week = "Пятница";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                    case "Воскресенье":
+                        day_week = "Суббота";
+                        rasp();
+                        date.setText(day_week);
+                        break;
+                }
+                raspZ();
+            }
+        });
+
         raspZ();
         rasp();
 
         easter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (east < 2) {
+                if (east < 5) {
                     east += 1;
-                    int a = 2-east;
+                    int a = 5-east;
                     Toast toast = Toast.makeText(getApplicationContext(),
                             "Остался " + a + " шаг", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-                if (east == 2) {
+                if (east == 5) {
                     Intent intent = new Intent(MainActivity.this, EasterActivity.class);
                     startActivity(intent);
                     east = 0;
@@ -287,44 +427,51 @@ public class MainActivity extends AppCompatActivity {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setTitle(day_week);
                     String tas = "";
-                    if(!u1.getText().toString().equals("")&& !u1.getText().toString().equals("----")) {
+                    if(!u1.getText().toString().equals("")&& !u1.getText().toString().equals("----")
+                    &&!sharedPreferences.getString("home" + u1.getText().toString(), "").equals("")) {
                         tas = u1.getText().toString() + " - " +
                                 sharedPreferences.getString("home" + u1.getText().toString(), "") + "\n";
                     }
                     if (!u1.getText().toString().equals(u2.getText().toString()) && !u2.getText().toString().equals("----")
-                            &&!u2.getText().toString().equals("")) {
+                            &&!u2.getText().toString().equals("")&&!sharedPreferences.getString("home" + u2.getText().toString(), "").equals("")) {
                         tas = tas + u2.getText().toString() + " - " +
                                 sharedPreferences.getString("home" + u2.getText().toString(), "") + "\n";
                     }
                     if (!u2.getText().toString().equals(u3.getText().toString()) && !u3.getText().toString().equals("----")
-                            &&!u3.getText().toString().equals("")) {
+                            &&!u3.getText().toString().equals("")&&!sharedPreferences.getString("home" + u3.getText().toString(), "").equals("")) {
                         tas = tas + u3.getText().toString() + " - " +
                                 sharedPreferences.getString("home" + u3.getText().toString(), "") + "\n";
                     }
                     if (!u3.getText().toString().equals(u4.getText().toString()) && !u4.getText().toString().equals("----")
-                            &&!u4.getText().toString().equals("")) {
+                            &&!u4.getText().toString().equals("")&&!sharedPreferences.getString("home" + u4.getText().toString(), "").equals("")) {
                         tas = tas + u4.getText().toString() + " - " +
                                 sharedPreferences.getString("home" + u4.getText().toString(), "") + "\n";
                     }
                     if (!u4.getText().toString().equals(u5.getText().toString()) && !u5.getText().toString().equals("----")
-                            &&!u5.getText().toString().equals("")) {
+                            &&!u5.getText().toString().equals("")&&!sharedPreferences.getString("home" + u5.getText().toString(), "").equals("")) {
                         tas = tas + u5.getText().toString() + " - " +
                                 sharedPreferences.getString("home" + u5.getText().toString(), "") + "\n";
                     }
                     if (!u5.getText().toString().equals(u6.getText().toString()) && !u6.getText().toString().equals("----")
-                            &&!u6.getText().toString().equals("")) {
+                            &&!u6.getText().toString().equals("")&&!sharedPreferences.getString("home" + u6.getText().toString(), "").equals("")) {
                         tas = tas + u6.getText().toString() + " - " +
                                 sharedPreferences.getString("home" + u6.getText().toString(), "") + "\n";
                     }
                     if (!u6.getText().toString().equals(u7.getText().toString()) && !u7.getText().toString().equals("----")
-                            &&!u7.getText().toString().equals("")) {
+                            &&!u7.getText().toString().equals("")&&!sharedPreferences.getString("home" + u7.getText().toString(), "").equals("")) {
                         tas = tas + u7.getText().toString() + " - " +
                                 sharedPreferences.getString("home" + u7.getText().toString(), "") + "\n";
                     }
                     if (!u7.getText().toString().equals(u8.getText().toString()) && !u8.getText().toString().equals("----")
-                            &&!u8.getText().toString().equals("")) {
+                            &&!u8.getText().toString().equals("")&&!sharedPreferences.getString("home" + u8.getText().toString(), "").equals("")) {
                         tas = tas + u8.getText().toString() + " - " +
                                 sharedPreferences.getString("home" + u8.getText().toString(), "") + "\n";
+                    }
+                    if (sharedPreferences.getString("home" + u1.getText().toString(), "").equals("")&&sharedPreferences.getString("home" + u2.getText().toString(), "").equals("")
+                    &&sharedPreferences.getString("home" + u3.getText().toString(), "").equals("")&&sharedPreferences.getString("home" + u4.getText().toString(), "").equals("")
+                    &&sharedPreferences.getString("home" + u5.getText().toString(), "").equals("")&&sharedPreferences.getString("home" + u6.getText().toString(), "").equals("")
+                    &&sharedPreferences.getString("home" + u7.getText().toString(), "").equals("")&&sharedPreferences.getString("home" + u8.getText().toString(), "").equals("")) {
+                        tas = "Ничего не задано ☺";
                     }
                     builder.setMessage(tas);
                     builder.setCancelable(false)
@@ -332,6 +479,22 @@ public class MainActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int id) {
                                 }
                             });
+                    builder.setNeutralButton("Как добавить дз", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setTitle("Добавление домашнего задания");
+                            builder.setMessage("Для добавления домашнего задания нажмите на название необходимого" +
+                                    " предмета. В открывшемся окне в строке \"Домашнее задание\" напишите задание, после чего нажмите кнопку \"Сохранить\"" +
+                                    ". \nПри необходимости, задание можно изменить, повторно нажав на предмет и написав новое, после чего так же нажать кнопку \"Сохранить\". " +
+                                    "Ограничение по длине - 2 147 483 647 символов");
+                            builder.setNegativeButton("Ок", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                }
+                            });
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        }
+                    });
                     AlertDialog alert = builder.create();
                     alert.show();
                 }
@@ -340,6 +503,7 @@ public class MainActivity extends AppCompatActivity {
         u1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 home_d(u1.getText().toString());
             }
         });
@@ -1028,6 +1192,8 @@ public class MainActivity extends AppCompatActivity {
                 String but_one_url = jsonObject.getJSONObject("mes").getString("but_1_url");
                 String but_two = jsonObject.getJSONObject("mes").getString("but_2");
                 String but_two_url = jsonObject.getJSONObject("mes").getString("but_2_url");
+                String but_three = jsonObject.getJSONObject("mes").getString("but_3");
+                String but_three_url = jsonObject.getJSONObject("mes").getString("but_3_url");
 
                 if (!num.equals(sharedPreferences.getString("mes_num", ""))) {
                     editor.putString("mes_num", jsonObject.getJSONObject("mes").getString("number"));
@@ -1035,8 +1201,6 @@ public class MainActivity extends AppCompatActivity {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setTitle(tytle).setMessage(text).setCancelable(false);
-
-
                         builder.setPositiveButton(but_one, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 if (!but_one_url.equals("")) {
@@ -1044,7 +1208,6 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(intent4); }
                             }
                         });
-
                         builder.setNegativeButton(but_two, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 if (!but_two_url.equals("")) {
@@ -1052,6 +1215,13 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(intent4);}
                             }
                         });
+                    builder.setNeutralButton(but_three, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            if (!but_two_url.equals("")) {
+                                Intent intent4 = new Intent(Intent.ACTION_VIEW, Uri.parse(but_three_url));
+                                startActivity(intent4);}
+                        }
+                    });
 
                     AlertDialog alert = builder.create();
                     alert.show();
@@ -1361,6 +1531,18 @@ public class MainActivity extends AppCompatActivity {
         s.setTextColor(getResources().getColor(R.color.white));
         lay_sw.setBackgroundDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.nigth_three));
         layout.setBackgroundColor(getResources().getColor(R.color.nigth_mode));
+
+        task.setTextColor(getResources().getColor(R.color.white));
+        next.setBackgroundDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.nigth_three));
+        back.setBackgroundDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.nigth_three));
+        next.setTextColor(getResources().getColor(R.color.white));
+        back.setTextColor(getResources().getColor(R.color.white));
+
+        menuBot.setBackgroundColor(getResources().getColor(R.color.menu_night));
+        mHome.setImageResource(R.drawable.menu_home);
+        mTime.setImageResource(R.drawable.menu_timetable);
+        mSet.setImageResource(R.drawable.menu_settings);
+        mProf.setImageResource(R.drawable.menu_profile);
     }
 
     private void day_mode() {
@@ -1396,13 +1578,25 @@ public class MainActivity extends AppCompatActivity {
 
         layout.setBackgroundResource(R.drawable.background_main);
         lay_sw.setBackgroundDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.shape_rect_three));
+
+        task.setTextColor(getResources().getColor(R.color.black));
+        next.setBackgroundColor(getResources().getColor(R.color.white));
+        back.setBackgroundColor(getResources().getColor(R.color.white));
+        next.setTextColor(getResources().getColor(R.color.black));
+        back.setTextColor(getResources().getColor(R.color.black));
+
+        menuBot.setBackgroundColor(getResources().getColor(R.color.menu_day));
+        mHome.setImageResource(R.drawable.menu_home_day);
+        mTime.setImageResource(R.drawable.menu_timetable_day);
+        mSet.setImageResource(R.drawable.menu_settings_day);
+        mProf.setImageResource(R.drawable.menu_profile_day);
     }
 
     void home_d(String num) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if(num.equals("") || num.equals("----")){
+        if(num.equals("") || num.equals("----") || num.equals("☺☺☺")){
             return;
         }
 
@@ -1417,6 +1611,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setView(input);
 
         builder.setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 editor.putString("home"+num, input.getText().toString());

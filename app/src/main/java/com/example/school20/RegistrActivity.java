@@ -13,10 +13,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -69,6 +71,7 @@ public class RegistrActivity extends AppCompatActivity {
         lay = findViewById(R.id.lay);
 
         usl = findViewById(R.id.usl);
+
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RegistrActivity.this);
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
