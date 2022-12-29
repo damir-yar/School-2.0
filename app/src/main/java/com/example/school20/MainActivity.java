@@ -660,7 +660,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(result);
                 if(!jsonObject.getJSONObject("connect").getString("cn").equals("true")) {
                     Toast toast = Toast.makeText(getApplicationContext(),
-                            "Ошибка сервера", Toast.LENGTH_SHORT);
+                            "Сервер временно недоступен", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
@@ -980,7 +980,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(result);
                 if (!jsonObject.getJSONObject("connect").getString("cn").equals("true")) {
                     Toast toast = Toast.makeText(getApplicationContext(),
-                            "Ошибка сервера", Toast.LENGTH_SHORT);
+                            "Сервер временно недоступен", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
@@ -1026,7 +1026,7 @@ public class MainActivity extends AppCompatActivity {
         }JSONObject jsonObject = null;
     }
 
-    private class getUrlData2 extends AsyncTask<String, String, String> {
+    private class getUrlData2 extends AsyncTask<String, String, String> { //ручная проврка обновлений
         protected void onPreExecute() {
         }
 
@@ -1074,7 +1074,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(result);
                 if (!jsonObject.getJSONObject("connect").getString("cn").equals("true")) {
                     Toast toast = Toast.makeText(getApplicationContext(),
-                            "Ошибка сервера", Toast.LENGTH_SHORT);
+                            "Сервер временно недоступен", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
@@ -1122,7 +1122,7 @@ public class MainActivity extends AppCompatActivity {
         }JSONObject jsonObject = null;
     }
 
-    private class getUrlData3 extends AsyncTask<String, String, String> {
+    private class getUrlData3 extends AsyncTask<String, String, String> { //показ сообщений
         protected void onPreExecute() {
         }
 
@@ -1170,7 +1170,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(result);
                 if (!jsonObject.getJSONObject("connect").getString("cn").equals("true")) {
                     Toast toast = Toast.makeText(getApplicationContext(),
-                            "Ошибка сервера", Toast.LENGTH_SHORT);
+                            "Сервер временно недоступен", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
@@ -1186,6 +1186,10 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 JSONObject jsonObject = new JSONObject(result);
                 String num = jsonObject.getJSONObject("mes").getString("number");
+                String class_n = jsonObject.getJSONObject("mes").getString("class_n");
+                String class_s = jsonObject.getJSONObject("mes").getString("class_s");
+                String all = jsonObject.getJSONObject("mes").getString("all");
+                String alltime = jsonObject.getJSONObject("mes").getString("alltime");
                 String tytle = jsonObject.getJSONObject("mes").getString("tytle");
                 String text = jsonObject.getJSONObject("mes").getString("text");
                 String but_one = jsonObject.getJSONObject("mes").getString("but_1");
@@ -1195,9 +1199,29 @@ public class MainActivity extends AppCompatActivity {
                 String but_three = jsonObject.getJSONObject("mes").getString("but_3");
                 String but_three_url = jsonObject.getJSONObject("mes").getString("but_3_url");
 
-                if (!num.equals(sharedPreferences.getString("mes_num", ""))) {
+                String symbol = "";
+                if (symbol_pol.equals("а") || symbol_pol.equals("А"))
+                    symbol = "a";
+                else if (symbol_pol.equals("т") || symbol_pol.equals("Т"))
+                    symbol = "t";
+                else if (symbol_pol.equals("с") || symbol_pol.equals("С"))
+                    symbol = "s";
+                else if (symbol_pol.equals("б") || symbol_pol.equals("Б"))
+                    symbol = "b";
+                else if (symbol_pol.equals("в") || symbol_pol.equals("В"))
+                    symbol = "v";
+                else if (symbol_pol.equals("г") || symbol_pol.equals("Г"))
+                    symbol = "g";
+                else if (symbol_pol.equals("д") || symbol_pol.equals("Д"))
+                    symbol = "d";
+                else if (symbol_pol.equals("е") || symbol_pol.equals("Е"))
+                    symbol = "e";
+
+                if (!num.equals(sharedPreferences.getString("mes_num", "")) || alltime.equals("true")) {
                     editor.putString("mes_num", jsonObject.getJSONObject("mes").getString("number"));
                     editor.commit();
+
+                    if ((class_n.equals(class_pol) && (class_s.equals(symbol) || class_s.equals("-"))) || all.equals("true")) {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setTitle(tytle).setMessage(text).setCancelable(false);
@@ -1225,7 +1249,7 @@ public class MainActivity extends AppCompatActivity {
 
                     AlertDialog alert = builder.create();
                     alert.show();
-                }
+                }}
                 else {
                 }
             } catch (JSONException jsonException) {

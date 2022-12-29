@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.School20">
         <activity
+            android:name=".ProfActivity"
+            android:exported="true" />
+        <activity
             android:name=".CustomActivity"
             android:exported="true" />
         <activity
